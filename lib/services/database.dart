@@ -7,46 +7,57 @@ class DatabaseService {
   //collection reference
   final CollectionReference filterCollection =
       Firestore.instance.collection('Purifiers');
-  //collection of service
-  final CollectionReference serviceCollection =
-      Firestore.instance.collection('Service');
 
-  Future updateUserData(String name, String number, String address) async {
+  Future updateUserData(
+    String name,
+    String number,
+    String address,
+    String model,
+    String price,
+    String date,
+    String paid,
+    String due,
+    String img,
+  ) async {
     return await filterCollection
         .document(uid)
-        .collection('purifierlist')
+        .collection('PurifierList')
         .document()
         .setData({
       'name': name,
       'number': number,
       'address': address,
+      'model': model,
+      'price': price,
+      'date': date,
+      'paid': paid,
+      'due': due,
+      'img': img,
     });
   }
 
   //bre list from snapshot
   List<Purifier> _purifierListFromSnapshot(QuerySnapshot snapshot) {
-    print('stream called');
-    print(snapshot.documents.map((doc) {
-      return Purifier(
-        name: doc.data['name'],
-        number: doc.data['number'],
-        address: doc.data['address'],
-      );
-    }).toList());
     return snapshot.documents.map((doc) {
       return Purifier(
         name: doc.data['name'],
         number: doc.data['number'],
         address: doc.data['address'],
+        model: doc.data['model'],
+        price: doc.data['price'],
+        date: doc.data['date'],
+        paid: doc.data['paid'],
+        due: doc.data['due'],
+        img: doc.data['img'],
       );
     }).toList();
   }
 
   //Stream for filters
-  Stream<List<Purifier>> get purifierlist {
+  Stream<List<Purifier>> get purifierList {
     return filterCollection
         .document(uid)
-        .collection('purifierlist')
+        .collection('PurifierList')
         .snapshots()
         .map(_purifierListFromSnapshot);
   }

@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/models/purifier.dart';
+import 'package:filter/models/user.dart';
 import 'package:filter/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/services/database.dart';
 import 'package:provider/provider.dart';
 import 'purifiers/purifier_list.dart';
+import 'package:filter/models/purifier.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,11 +15,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
-
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return StreamProvider<List<Purifier>>.value(
-      value: DatabaseService().purifierlist,
+      value: DatabaseService(uid: user.uid).purifierList,
       child: Scaffold(
         backgroundColor: Colors.blue[50],
         appBar: AppBar(
