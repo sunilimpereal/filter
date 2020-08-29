@@ -26,21 +26,24 @@ class DatabaseService {
   //bre list from snapshot
   List<Purifier> _purifierListFromSnapshot(QuerySnapshot snapshot) {
     print('stream called');
+    print(snapshot.documents.map((doc) {
+      return Purifier(
+        name: doc.data['name'],
+        number: doc.data['number'],
+        address: doc.data['address'],
+      );
+    }).toList());
     return snapshot.documents.map((doc) {
       return Purifier(
-          name: doc.data['name'],
-          number: doc.data['number'],
-          address: doc.data['address']);
+        name: doc.data['name'],
+        number: doc.data['number'],
+        address: doc.data['address'],
+      );
     }).toList();
   }
 
   //Stream for filters
   Stream<List<Purifier>> get purifierlist {
-    print(filterCollection
-        .document(uid)
-        .collection('purifierlist')
-        .snapshots()
-        .map(_purifierListFromSnapshot));
     return filterCollection
         .document(uid)
         .collection('purifierlist')

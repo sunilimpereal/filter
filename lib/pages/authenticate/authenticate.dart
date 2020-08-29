@@ -1,4 +1,3 @@
-import 'package:filter/pages/authenticate/register.dart';
 import 'package:filter/pages/authenticate/signin.dart';
 import 'package:flutter/material.dart';
 

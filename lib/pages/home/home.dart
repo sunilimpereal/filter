@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/services/database.dart';
 import 'package:provider/provider.dart';
 import 'purifiers/purifier_list.dart';
-import 'package:filter/models/purifier.dart';
 
 class Home extends StatefulWidget {
   @override
