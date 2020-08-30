@@ -1,0 +1,23 @@
+[33mcommit b05aa44fad0b5d780bf2ede5ad8d272a43682830[m[33m ([m[1;36mHEAD -> [m[1;32mpurifier[m[33m)[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sun Aug 30 12:06:41 2020 +0530
+
+    added choosing pallete
+
+[33mcommit 168f39ff23b443f8c986ac0bde310a0a78a89998[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sat Aug 29 19:45:10 2020 +0530
+
+    created purifier in firestore and stram for purifier
+
+[33mcommit 693fb1aaf44ce168390fa66742c0dfbe3f4812a3[m[33m ([m[1;32mmaster[m[33m)[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sat Aug 29 17:53:48 2020 +0530
+
+    normal
+
+[33mcommit 94abc03d95165408cfc1aa666e7174b02a07d861[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sat Aug 29 17:24:28 2020 +0530
+
+    first

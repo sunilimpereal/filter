@@ -1,3 +1,5 @@
+import 'package:filter/pages/home/purifiers/purifier_form.dart';
+import 'package:filter/widgets/progress_buton.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
@@ -27,15 +29,15 @@ class _PurifierHomeState extends State<PurifierHome> {
             IconButton(
               icon: Icon(Icons.add),
               iconSize: 30.0,
-              onPressed: () async {
-                await DatabaseService(uid: user.uid)
-                    .createPurifer('', '', '', '', '', '', '', '', '');
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PurifierForm()));
               },
             )
           ],
         ),
         body: Center(
-          child: PurifierList(),
+          child: Pbutton(),
         ),
       ),
     );
