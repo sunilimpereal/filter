@@ -8,7 +8,7 @@ class DatabaseService {
   final CollectionReference filterCollection =
       Firestore.instance.collection('Purifiers');
 
-  Future updateUserData(
+  Future createPurifer(
     String name,
     String number,
     String address,

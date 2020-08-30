@@ -53,7 +53,7 @@ class AuthService {
       FirebaseUser user = result.user;
       // create a new document
       await DatabaseService(uid: user.uid)
-          .updateUserData('', '', '', '', '', '', '', '', '');
+          .createPurifer('', '', '', '', '', '', '', '', '');
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

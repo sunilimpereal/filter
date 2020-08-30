@@ -12,8 +12,8 @@ class _PurifierListState extends State<PurifierList> {
   Widget build(BuildContext context) {
     final purifiers = Provider.of<List<Purifier>>(context);
     print(purifiers);
-    purifiers.forEach((Purifier) {
-      print(Purifier.name);
+    purifiers.forEach((purifier) {
+      print(purifier.name);
     });
     return Container();
   }
