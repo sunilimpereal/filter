@@ -33,6 +33,7 @@ dependencies:
   provider: ^3.1.0
   floating_search_bar: ^0.3.0
   progress_state_button: ^1.0.1
+  intl:
 
 
 dev_dependencies:

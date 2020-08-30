@@ -5,6 +5,7 @@ import 'package:filter/models/user.dart';
 import 'package:filter/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class PurifierForm extends StatefulWidget {
 class _PurifierFormState extends State<PurifierForm> {
   final _formKey = GlobalKey<FormState>();
   ButtonState stateTextWithIcon = ButtonState.idle;
-
+  DateTime _selectedDate = DateTime.now();
   //Form contents
   String name = '';
   String number = '';
@@ -315,8 +316,31 @@ class _PurifierFormState extends State<PurifierForm> {
                 ),
                 new ListTile(
                   leading: const Icon(Icons.today),
-                  title: const Text('Date'),
-                  subtitle: const Text('February 20, 1980'),
+                  title: FlatButton(
+                    padding: EdgeInsets.all(0.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          DateFormat.yMMMEd().format(_selectedDate),
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.black54,
+                        ),
+                      ],
+                    ),
+                    onPressed: () async {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      DateTime _pickerDate = await _selectDate(_selectedDate);
+                      setState(() {
+                        _selectedDate = _pickerDate;
+                        date = _selectedDate.toString();
+                      });
+                    },
+                  ),
                 ),
                 new ListTile(
                   leading: const Icon(Icons.image),
@@ -416,5 +440,29 @@ class _PurifierFormState extends State<PurifierForm> {
     setState(() {
       stateTextWithIcon = stateTextWithIcon;
     });
+  }
+
+  //Date Picker
+  Future<DateTime> _selectDate(DateTime selectedDate) async {
+    DateTime _initialDate = selectedDate;
+
+    final DateTime _pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _initialDate,
+      firstDate: DateTime.now().subtract(Duration(days: 365)),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+    );
+    if (_pickedDate != null) {
+      selectedDate = DateTime(
+          _pickedDate.year,
+          _pickedDate.month,
+          _pickedDate.day,
+          _initialDate.hour,
+          _initialDate.minute,
+          _initialDate.second,
+          _initialDate.millisecond,
+          _initialDate.microsecond);
+    }
+    return selectedDate;
   }
 }
