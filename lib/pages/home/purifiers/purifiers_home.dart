@@ -1,4 +1,5 @@
 import 'package:filter/pages/home/purifiers/purifier_form.dart';
+import 'package:filter/pages/home/purifiers/purifier_tile.dart';
 import 'package:filter/widgets/progress_buton.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/models/purifier.dart';
@@ -22,8 +23,10 @@ class _PurifierHomeState extends State<PurifierHome> {
     return StreamProvider<List<Purifier>>.value(
       value: DatabaseService(uid: user.uid).purifierList,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFFDFFFC),
         appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Color.fromARGB(255, 45, 129, 131),
           title: Text('Purifiers'),
           actions: [
             IconButton(
@@ -36,9 +39,7 @@ class _PurifierHomeState extends State<PurifierHome> {
             )
           ],
         ),
-        body: Center(
-          child: Pbutton(),
-        ),
+        body: PurifierList(),
       ),
     );
   }

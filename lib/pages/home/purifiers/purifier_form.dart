@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/services/database.dart';
@@ -29,18 +30,31 @@ class _PurifierFormState extends State<PurifierForm> {
   String paid = '';
   String due = '';
   String img = '';
+  String id = '';
 
   @override
   Widget build(BuildContext context) {
+    date = _selectedDate.toString();
     final user = Provider.of<User>(context);
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('New Installation'),
-          actions: <Widget>[
-            new IconButton(icon: const Icon(Icons.save), onPressed: () {})
-          ],
+      appBar: new AppBar(
+        title: Text('New Installation', style: TextStyle(color: Colors.white)),
+        elevation: 0.0,
+        bottom: PreferredSize(
+            child: Container(), preferredSize: Size.fromHeight(15.0)),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color.fromARGB(255, 45, 129, 131), Color(0xFFebebeb)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
         ),
-        body: Form(
+      ),
+      body: Container(
+        decoration: BoxDecoration(color: Color(0xFFebebeb)),
+        child: Form(
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
@@ -220,7 +234,7 @@ class _PurifierFormState extends State<PurifierForm> {
                   children: [
                     Container(
                       width: 180,
-                      height: 70,
+                      height: 60,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
                         decoration: BoxDecoration(
@@ -246,7 +260,7 @@ class _PurifierFormState extends State<PurifierForm> {
                             ),
                             title: new TextFormField(
                               validator: (value) =>
-                                  value.isEmpty ? 'Enter price' : null,
+                                  value.isEmpty ? 'Enter Total anount' : null,
                               onChanged: (value) {
                                 setState(() {
                                   price = value.toString();
@@ -258,7 +272,60 @@ class _PurifierFormState extends State<PurifierForm> {
                               ],
                               decoration: new InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "Price",
+                                hintText: "Total",
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Container(
+                      width: 180,
+                      height: 60,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0)),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 3),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(const Radius.circular(10.0)),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 10.0,
+                                )
+                              ]),
+                          child: new ListTile(
+                            leading: const Icon(
+                              Icons.attach_money,
+                              color: Colors.green,
+                            ),
+                            title: new TextFormField(
+                              validator: (value) =>
+                                  value.isEmpty ? 'Enter paid' : null,
+                              onChanged: (value) {
+                                setState(() {
+                                  paid = value.toString();
+                                });
+                              },
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                WhitelistingTextInputFormatter.digitsOnly
+                              ],
+                              decoration: new InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Paid",
                               ),
                             ),
                           ),
@@ -267,7 +334,7 @@ class _PurifierFormState extends State<PurifierForm> {
                     ),
                     Container(
                       width: 180,
-                      height: 70,
+                      height: 60,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
                         decoration: BoxDecoration(
@@ -338,6 +405,7 @@ class _PurifierFormState extends State<PurifierForm> {
                       setState(() {
                         _selectedDate = _pickerDate;
                         date = _selectedDate.toString();
+                        print(date);
                       });
                     },
                   ),
@@ -375,8 +443,9 @@ class _PurifierFormState extends State<PurifierForm> {
                           if (_formKey.currentState.validate()) {
                             dynamic result =
                                 await DatabaseService(uid: user.uid)
-                                    .createPurifer(name, number, address, model,
-                                        price, date, paid, due, img);
+                                    .createPurifer(id, name, number, address,
+                                        model, price, date, paid, due, img);
+                            print(result);
 
                             Future.delayed(Duration(seconds: 1), () {
                               setState(() {
@@ -396,7 +465,9 @@ class _PurifierFormState extends State<PurifierForm> {
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget progressBtn(User user) {
@@ -426,7 +497,8 @@ class _PurifierFormState extends State<PurifierForm> {
       stateTextWithIcon = ButtonState.loading;
       if (_formKey.currentState.validate()) {
         dynamic result = await DatabaseService(uid: user.uid).createPurifer(
-            name, number, address, model, price, date, paid, due, img);
+            name, number, address, model, price, date, paid, due, id, img);
+        print(result);
       }
       Future.delayed(Duration(seconds: 1), () {
         setState(() {

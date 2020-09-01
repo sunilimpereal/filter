@@ -34,6 +34,7 @@ dependencies:
   floating_search_bar: ^0.3.0
   progress_state_button: ^1.0.1
   intl:
+  loading: ^1.0.2
 
 
 dev_dependencies:
@@ -50,7 +51,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  assets:
+     - lib/assets/img/purifier.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
