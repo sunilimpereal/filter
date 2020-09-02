@@ -272,6 +272,7 @@ class DatabaseService {
     String number,
     String address,
     String date,
+    String model,
     String price,
     String paid,
     String due,
@@ -287,6 +288,7 @@ class DatabaseService {
       'number': number,
       'address': address,
       'date': date,
+      'model': model,
       'price': price,
       'paid': paid,
       'due': due,
@@ -302,6 +304,7 @@ class DatabaseService {
     String number,
     String address,
     String date,
+    String model,
     String price,
     String paid,
     String due,
@@ -317,6 +320,7 @@ class DatabaseService {
       'number': number,
       'address': address,
       'date': date,
+      'model': model,
       'price': price,
       'paid': paid,
       'due': due,
@@ -356,14 +360,14 @@ class DatabaseService {
   }
 
   Stream<List<Filter>> get filterList {
-    print(serviceCollection
+    print(filterCollection
         .document(uid)
-        .collection('FilterLIst')
+        .collection('FilterList')
         .snapshots()
         .map(_serviceListFromSnapshot));
-    return serviceCollection
+    return filterCollection
         .document(uid)
-        .collection('ServiceList')
+        .collection('FilterList')
         .snapshots()
         .map(_filterListFromSnapshot);
   }

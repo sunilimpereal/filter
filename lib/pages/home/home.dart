@@ -1,3 +1,4 @@
+import 'package:filter/pages/home/filter/filter_home.dart';
 import 'package:filter/pages/home/purifiers/purifiers_home.dart';
 import 'package:filter/pages/home/service/service_home.dart';
 import 'package:filter/services/auth.dart';
@@ -146,7 +147,14 @@ class _HomeState extends State<Home> {
           "Filter",
           Color(0xff577590),
         ),
-        onTapDown: (_) => () {},
+        onTapDown: (_) => {
+          Future.delayed(Duration(milliseconds: 150), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FilterHome()),
+            );
+          }),
+        },
       ),
     );
   }

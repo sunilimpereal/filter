@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class DateReminder {
   final String date;
   DateReminder({this.date});
@@ -15,7 +13,7 @@ class DateReminder {
       ndate.millisecond,
       ndate.microsecond,
     );
-    String newDate = DateFormat.yMMMMd().format(nnDate);
-    return newDate;
+    // String newDate = DateFormat.yMMMMd().format(nnDate);
+    return nnDate.toString();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/classes/dateremin.dart';
-import 'package:filter/models/purifier.dart';
+import 'package:filter/models/filter.dart';
 import 'package:filter/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,28 +12,28 @@ import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 
-class PurifierView extends StatefulWidget {
+class FilterView extends StatefulWidget {
   final String id;
-  PurifierView({this.id});
+  FilterView({this.id});
   @override
-  _PurifierViewState createState() => _PurifierViewState();
+  _FilterViewState createState() => _FilterViewState();
 }
 
-class _PurifierViewState extends State<PurifierView> {
+class _FilterViewState extends State<FilterView> {
   @override
   Widget build(BuildContext context) {
-    Future<Purifier> _getPurifier() async {
+    Future<Filter> _getFilter() async {
       String id = widget.id;
       final user = Provider.of<User>(context);
-      DocumentSnapshot purifiersnap = await DatabaseService(uid: user.uid)
-          .purifierCollection
+      DocumentSnapshot filtersnap = await DatabaseService(uid: user.uid)
+          .filterCollection
           .document(user.uid)
-          .collection('PurifierList')
+          .collection('FilterList')
           .document(id)
           .get();
-      Purifier purifier = DatabaseService().purifierFromSnapshot(purifiersnap);
-      print(purifier);
-      return purifier;
+      Filter filter = DatabaseService().filterFromSnapshot(filtersnap);
+      print(filter);
+      return filter;
     }
 
     return Scaffold(
@@ -47,7 +47,7 @@ class _PurifierViewState extends State<PurifierView> {
             iconSize: 30.0,
             onPressed: () {
               // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => PurifierForm()));
+              //     MaterialPageRoute(builder: (context) => FilterForm()));
             },
           )
         ],
@@ -61,8 +61,8 @@ class _PurifierViewState extends State<PurifierView> {
           ),
         ),
         child: FutureBuilder(
-          future: _getPurifier(),
-          builder: (BuildContext context, AsyncSnapshot<Purifier> snapshot) {
+          future: _getFilter(),
+          builder: (BuildContext context, AsyncSnapshot<Filter> snapshot) {
             if (snapshot.hasData) {
               return Container(
                   child: _View(
@@ -74,7 +74,7 @@ class _PurifierViewState extends State<PurifierView> {
                       snapshot.data.paid,
                       snapshot.data.due,
                       snapshot.data.date,
-                      snapshot.data.img));
+                      snapshot.data.expDate));
             } else {
               return Center(
                 child: Loading(
@@ -99,7 +99,7 @@ class _View extends StatelessWidget {
   final String paid;
   final String due;
   final String date;
-  final String img;
+  final String expDate;
 
   _View(
     this.name,
@@ -110,7 +110,7 @@ class _View extends StatelessWidget {
     this.paid,
     this.due,
     this.date,
-    this.img,
+    this.expDate,
   );
   @override
   Widget build(BuildContext context) {
@@ -216,7 +216,7 @@ class _View extends StatelessWidget {
                             child: Text(
                               number,
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500),
+                                  fontSize: 16, fontWeight: FontWeight.w500),
                             ),
                           ),
                         ],
@@ -233,7 +233,9 @@ class _View extends StatelessWidget {
                             child: Text(
                               address,
                               style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w400),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey),
                             ),
                           ),
                         ],
@@ -332,7 +334,7 @@ class _View extends StatelessWidget {
           SizedBox(height: 10),
           Container(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 2.0),
+              padding: EdgeInsets.symmetric(horizontal: .0),
               decoration: BoxDecoration(
                 borderRadius:
                     const BorderRadius.all(const Radius.circular(10.0)),
@@ -370,7 +372,7 @@ class _View extends StatelessWidget {
                             padding: EdgeInsets.only(),
                             child: Container(
                               padding:
-                                  EdgeInsets.only(top: 2, left: 3, bottom: 5),
+                                  EdgeInsets.only(top: 2, left: 20, bottom: 5),
                               child: Text(
                                 'Model:',
                                 style:
@@ -379,17 +381,19 @@ class _View extends StatelessWidget {
                             ),
                           ),
                         ]),
-
-                        Padding(
-                          padding: EdgeInsets.only(top: 1, left: 5, bottom: 10),
-                          child: Container(
-                            child: Text(
-                              '  $model',
-                              style: TextStyle(
-                                  fontSize: 19, fontWeight: FontWeight.w500),
+                        Row(children: [
+                          Padding(
+                            padding:
+                                EdgeInsets.only(top: 1, left: 5, bottom: 10),
+                            child: Container(
+                              child: Text(
+                                '  $model',
+                                style: TextStyle(
+                                    fontSize: 19, fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ),
-                        )
+                        ]),
                       ],
                     ),
                   ])),

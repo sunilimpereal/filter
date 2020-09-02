@@ -1,5 +1,5 @@
 class Filter {
-  String id;
+  final String id;
   final String name;
   final String number;
   final String address;

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:filter/classes/dateremin.dart';
 import 'package:filter/models/service.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/service/service_home.dart';
@@ -152,7 +151,6 @@ class _View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String datedisp = DateFormat.yMEd().format(DateTime.parse(date ?? ''));
-    String nextDate = DateReminder(date: date).addthreeMonths();
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
