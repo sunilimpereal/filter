@@ -1,11 +1,9 @@
 import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
@@ -37,21 +35,12 @@ class _PurifierFormState extends State<PurifierForm> {
     date = _selectedDate.toString();
     final user = Provider.of<User>(context);
     return new Scaffold(
-      appBar: new AppBar(
-        title: Text('New Installation', style: TextStyle(color: Colors.white)),
-        elevation: 0.0,
-        bottom: PreferredSize(
-            child: Container(), preferredSize: Size.fromHeight(15.0)),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color.fromARGB(255, 45, 129, 131), Color(0xFFebebeb)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-        ),
-      ),
+      appBar: GradientAppBar(
+          elevation: 0.0,
+          backgroundColorStart: Color(0xFF153243),
+          backgroundColorEnd: Color(0xFF153243),
+          title: Text('Installation'),
+          actions: []),
       body: Container(
         decoration: BoxDecoration(color: Color(0xFFebebeb)),
         child: Form(
@@ -83,9 +72,8 @@ class _PurifierFormState extends State<PurifierForm> {
                       leading: const Icon(Icons.person),
                       selected: true,
                       title: new TextFormField(
-                        validator: (value) {
-                          value.isEmpty ? 'Enter name' : null;
-                        },
+                        validator: (value) =>
+                            value.isEmpty ? 'Enter name' : null,
                         onChanged: (value) {
                           setState(() {
                             name = value.toLowerCase();

@@ -1,12 +1,9 @@
 import 'package:filter/pages/home/purifiers/purifier_form.dart';
-import 'package:filter/pages/home/purifiers/purifier_tile.dart';
-import 'package:filter/widgets/progress_buton.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
-import 'package:filter/services/auth.dart';
-
 import 'package:filter/services/database.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'purifier_list.dart';
 
@@ -16,18 +13,18 @@ class PurifierHome extends StatefulWidget {
 }
 
 class _PurifierHomeState extends State<PurifierHome> {
-  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     return StreamProvider<List<Purifier>>.value(
       value: DatabaseService(uid: user.uid).purifierList,
       child: Scaffold(
-        backgroundColor: Color(0xFFFDFFFC),
-        appBar: AppBar(
+        backgroundColor: Color(0xFFe5e5e5),
+        appBar: GradientAppBar(
           elevation: 0.0,
-          backgroundColor: Color.fromARGB(255, 45, 129, 131),
-          title: Text('Purifiers'),
+          backgroundColorStart: Color(0xFF153243),
+          backgroundColorEnd: Color(0xFF153243),
+          title: Text('Installation'),
           actions: [
             IconButton(
               icon: Icon(Icons.add),

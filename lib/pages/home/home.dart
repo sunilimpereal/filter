@@ -1,12 +1,8 @@
-import 'package:filter/models/purifier.dart';
-import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/purifiers/purifiers_home.dart';
+import 'package:filter/pages/home/service/service_home.dart';
 import 'package:filter/services/auth.dart';
 import 'package:filter/widgets/spring_button.dart';
 import 'package:flutter/material.dart';
-import 'package:filter/services/database.dart';
-import 'package:provider/provider.dart';
-import 'purifiers/purifier_list.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,6 +16,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0.0,
         backgroundColor: Colors.white,
         title: Text(
           'Home',
@@ -40,7 +37,7 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           SizedBox(
-            height: 50.0,
+            height: 120.0,
           ),
           Padding(
             padding: EdgeInsets.all(10),
@@ -67,8 +64,8 @@ class _HomeState extends State<Home> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      purchase(),
                       filter(),
+                      purchase(),
                     ],
                   ),
                 ],
@@ -88,9 +85,16 @@ class _HomeState extends State<Home> {
         SpringButtonType.OnlyScale,
         row(
           "Service",
-          Color.fromARGB(255, 131, 211, 212),
+          Color(0xFFfcbf49),
         ),
-        onTapDown: (_) => () {},
+        onTapDown: (_) => {
+          Future.delayed(Duration(milliseconds: 150), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ServiceHome()),
+            );
+          }),
+        },
       ),
     );
   }
@@ -103,7 +107,7 @@ class _HomeState extends State<Home> {
         SpringButtonType.OnlyScale,
         row(
           "Installation",
-          Color.fromARGB(255, 45, 129, 131),
+          Color(0xFF153243),
         ),
         onTapDown: (_) => {
           Future.delayed(Duration(milliseconds: 150), () {
@@ -140,7 +144,7 @@ class _HomeState extends State<Home> {
         SpringButtonType.OnlyScale,
         row(
           "Filter",
-          Color.fromARGB(200, 244, 129, 83),
+          Color(0xff577590),
         ),
         onTapDown: (_) => () {},
       ),
@@ -149,11 +153,11 @@ class _HomeState extends State<Home> {
 
   Widget row(String text, Color color) {
     return Padding(
-      padding: EdgeInsets.all(5.5),
+      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
       child: Container(
         decoration: BoxDecoration(
           color: color,
-          borderRadius: const BorderRadius.all(const Radius.circular(10.0)),
+          borderRadius: const BorderRadius.all(const Radius.circular(20.0)),
         ),
         child: Center(
           child: Text(

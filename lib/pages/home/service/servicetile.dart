@@ -1,11 +1,11 @@
-import 'package:filter/models/purifier.dart';
-import 'package:filter/pages/home/purifiers/purifier_view.dart';
+import 'package:filter/models/service.dart';
+import 'package:filter/pages/home/service/service_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class PurifierTile extends StatelessWidget {
-  final Purifier purifier;
-  PurifierTile({this.purifier});
+class ServiceTile extends StatelessWidget {
+  final Service service;
+  ServiceTile({this.service});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,19 +13,20 @@ class PurifierTile extends StatelessWidget {
       width: double.infinity,
       child: GestureDetector(
         onTap: () {
+          print(service.id);
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PurifierView(
-                        id: purifier.id,
+                  builder: (context) => ServiceView(
+                        id: service.id,
                       )));
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 5.0),
           child: Stack(
             children: [
-              filterCard(purifier.date, purifier.name, purifier.model,
-                  purifier.number, purifier.price, purifier.due, purifier.id),
+              filterCard(service.date, service.name, service.description,
+                  service.number, service.price, service.due, service.id),
               filterThumbnail,
             ],
           ),
@@ -41,7 +42,7 @@ class PurifierTile extends StatelessWidget {
     decoration: new BoxDecoration(
       color: const Color(0x00796b),
       image: new DecorationImage(
-        image: new AssetImage('lib/assets/img/purifier.png'),
+        image: new AssetImage('lib/assets/img/se.png'),
         fit: BoxFit.cover,
       ),
       borderRadius: new BorderRadius.all(new Radius.circular(55.0)),
@@ -53,7 +54,7 @@ class PurifierTile extends StatelessWidget {
   );
 
   //Building filter card
-  filterCard(String date, String name, String model, String number,
+  filterCard(String date, String name, String description, String number,
       String price, String due, String id) {
     print(DateTime.now().toString());
     print(date);
@@ -109,7 +110,7 @@ class PurifierTile extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'New Installation  |',
+                          '| Service  |',
                           style: TextStyle(
                               fontSize: 12.0,
                               fontWeight: FontWeight.w800,
@@ -122,7 +123,7 @@ class PurifierTile extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: Row(children: [
                         Text(
-                          'Model : $model',
+                          'Des : $description',
                           overflow: TextOverflow.fade,
                           style: TextStyle(
                             fontSize: 12.0,
@@ -151,7 +152,7 @@ class PurifierTile extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.w900,
-                                color: Colors.red[300],
+                                color: Colors.red[500],
                               ),
                             ),
                           ])),

@@ -1,4 +1,3 @@
-import 'package:filter/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:filter/models/user.dart';
 
