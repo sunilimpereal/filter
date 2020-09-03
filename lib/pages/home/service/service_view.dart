@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ServiceView extends StatefulWidget {
   final String id;
@@ -247,19 +248,24 @@ class _View extends StatelessWidget {
                                   ),
                                 )),
                             Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFF55a630),
-                                      borderRadius:
-                                          BorderRadius.circular(50.0)),
-                                  child: Icon(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF55a630),
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: IconButton(
+                                  icon: Icon(
                                     Icons.call,
                                     size: 25,
                                   ),
-                                )),
+                                  onPressed: () {
+                                    launch("tel:$number");
+                                  },
+                                ),
+                              ),
+                            ),
                           ])
                         ],
                       ),
@@ -721,8 +727,8 @@ showAlertDialog(BuildContext context, String uid, String id) {
   );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Confirm Deletion"),
-    content: Text("Would you like to delte the task?"),
+    title: Text("Confirm Delete"),
+    content: Text("Would you like to delete the task?"),
     actions: [
       cancelButton,
       continueButton,

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/classes/dateremin.dart';
+import 'package:filter/classes/sms.dart';
 import 'package:filter/models/filter.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/filter/filter_edit.dart';
@@ -13,6 +14,8 @@ import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class FilterView extends StatefulWidget {
   final String id;
@@ -192,8 +195,9 @@ class _View extends StatelessWidget {
                                   fontSize: 23, fontWeight: FontWeight.w900),
                             ),
                           ),
-                          Row(children: [
-                            Padding(
+                          Row(
+                            children: [
+                              Padding(
                                 padding: EdgeInsets.only(),
                                 child: Container(
                                   height: 40,
@@ -202,12 +206,30 @@ class _View extends StatelessWidget {
                                       color: Color(0xFF3bceac),
                                       borderRadius:
                                           BorderRadius.circular(50.0)),
-                                  child: Icon(
-                                    Icons.message,
-                                    size: 25,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.message,
+                                      color: Colors.white,
+                                      size: 25,
+                                    ),
+                                    onPressed: () {
+                                      sendSms(number);
+                                      final snackBar = SnackBar(
+                                        content: Text('Message Sent to $name'),
+                                        action: SnackBarAction(
+                                          label: '',
+                                          onPressed: () {
+                                            // Some code to undo the change.
+                                          },
+                                        ),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
                                   ),
-                                )),
-                            Padding(
+                                ),
+                              ),
+                              Padding(
                                 padding: EdgeInsets.only(left: 10),
                                 child: Container(
                                   height: 40,
@@ -216,12 +238,20 @@ class _View extends StatelessWidget {
                                       color: Color(0xFF55a630),
                                       borderRadius:
                                           BorderRadius.circular(50.0)),
-                                  child: Icon(
-                                    Icons.call,
-                                    size: 25,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.call,
+                                      color: Colors.white,
+                                      size: 25,
+                                    ),
+                                    onPressed: () {
+                                      launch("tel:$number");
+                                    },
                                   ),
-                                )),
-                          ])
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                       Row(

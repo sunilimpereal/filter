@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/classes/dateremin.dart';
+import 'package:filter/classes/sms.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/purifiers/purifier_edit.dart';
@@ -13,6 +14,8 @@ import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class PurifierView extends StatefulWidget {
   final String id;
@@ -195,33 +198,45 @@ class _View extends StatelessWidget {
                           ),
                           Row(children: [
                             Padding(
-                                padding: EdgeInsets.only(),
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFF3bceac),
-                                      borderRadius:
-                                          BorderRadius.circular(50.0)),
-                                  child: Icon(
+                              padding: EdgeInsets.only(),
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF3bceac),
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: IconButton(
+                                  icon: Icon(
                                     Icons.message,
+                                    color: Colors.white,
                                     size: 25,
                                   ),
-                                )),
+                                  onPressed: () {
+                                    sendSms(number);
+                                  },
+                                ),
+                              ),
+                            ),
                             Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFF55a630),
-                                      borderRadius:
-                                          BorderRadius.circular(50.0)),
-                                  child: Icon(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF55a630),
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: IconButton(
+                                  icon: Icon(
                                     Icons.call,
+                                    color: Colors.white,
                                     size: 25,
                                   ),
-                                )),
+                                  onPressed: () {
+                                    launch("tel:$number");
+                                  },
+                                ),
+                              ),
+                            ),
                           ])
                         ],
                       ),

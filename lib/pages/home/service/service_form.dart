@@ -176,7 +176,7 @@ class _ServiceFormState extends State<ServiceForm> {
                 ),
               ),
 
-              //model
+              //Description
               SizedBox(height: 10),
 
               Container(
