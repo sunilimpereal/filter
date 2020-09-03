@@ -74,6 +74,7 @@ class _FilterEditState extends State<FilterEdit> {
               String paid = snapshot.data.paid;
               String due = snapshot.data.due;
               String expDate = snapshot.data.expDate;
+              String date1 = '';
 
               return Form(
                 key: _formKey,
@@ -419,10 +420,12 @@ class _FilterEditState extends State<FilterEdit> {
                             FocusScope.of(context).requestFocus(FocusNode());
                             DateTime _pickerDate =
                                 await _selectDate(_selectedDate);
-
-                            _selectedDate = _pickerDate;
-                            date = _selectedDate.toString();
-                            print(date);
+                            setState(() {
+                              _selectedDate = _pickerDate;
+                              date = _selectedDate.toString();
+                              date1 = date;
+                              print(date1);
+                            });
                           },
                         ),
                       ),
@@ -455,6 +458,7 @@ class _FilterEditState extends State<FilterEdit> {
                             },
                             onPressed: () async {
                               if (stateTextWithIcon == ButtonState.idle) {
+                                print(date1);
                                 stateTextWithIcon = ButtonState.loading;
                                 Future.delayed(Duration(seconds: 1), () {});
                                 if (_formKey.currentState.validate()) {
@@ -472,7 +476,7 @@ class _FilterEditState extends State<FilterEdit> {
                                               number,
                                               address,
                                               model,
-                                              date,
+                                              _selectedDate.toString(),
                                               price,
                                               paid,
                                               due,

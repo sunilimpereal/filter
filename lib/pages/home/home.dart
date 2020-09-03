@@ -1,5 +1,6 @@
 import 'package:filter/pages/home/filter/filter_home.dart';
 import 'package:filter/pages/home/purifiers/purifiers_home.dart';
+import 'package:filter/pages/home/reminder/reminder.dart';
 import 'package:filter/pages/home/service/service_home.dart';
 import 'package:filter/services/auth.dart';
 import 'package:filter/widgets/spring_button.dart';
@@ -233,7 +234,14 @@ class _HomeState extends State<Home> {
             color: Colors.white,
           ),
         ),
-        onTapDown: (_) => () {},
+        onTapDown: (_) => {
+          Future.delayed(Duration(milliseconds: 150), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ReminderHome()),
+            );
+          }),
+        },
       ),
     );
   }
