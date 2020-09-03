@@ -38,7 +38,14 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           SizedBox(
-            height: 120.0,
+            height: 40,
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: horizonal(),
+          ),
+          SizedBox(
+            height: 10.0,
           ),
           Padding(
             padding: EdgeInsets.all(10),
@@ -86,7 +93,7 @@ class _HomeState extends State<Home> {
         SpringButtonType.OnlyScale,
         row(
           "Service",
-          Color(0xFFfcbf49),
+          Color(0xFF49B6FF),
         ),
         onTapDown: (_) => {
           Future.delayed(Duration(milliseconds: 150), () {
@@ -177,6 +184,98 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget horizonal() {
+    return Container(
+      height: 80,
+      padding: EdgeInsets.all(8),
+      decoration: new BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey[400],
+              blurRadius: 20.0,
+              spreadRadius: 3.0,
+            )
+          ]),
+
+      //items
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            reminder(),
+            callender(),
+            wallet(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget reminder() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      height: 70,
+      width: 70,
+      child: SpringButton(
+        SpringButtonType.OnlyScale,
+        CircleAvatar(
+          backgroundColor: Color.fromARGB(200, 145, 12, 7),
+          radius: 60,
+          child: Icon(
+            Icons.notification_important,
+            size: 30,
+            color: Colors.white,
+          ),
+        ),
+        onTapDown: (_) => () {},
+      ),
+    );
+  }
+
+  Widget wallet() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      height: 70,
+      width: 70,
+      child: SpringButton(
+        SpringButtonType.OnlyScale,
+        CircleAvatar(
+          backgroundColor: Colors.green,
+          radius: 60,
+          child: Icon(
+            Icons.account_balance_wallet,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        onTapDown: (_) => () {},
+      ),
+    );
+  }
+
+  Widget callender() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      height: 70,
+      width: 70,
+      child: SpringButton(
+        SpringButtonType.OnlyScale,
+        CircleAvatar(
+          backgroundColor: Colors.blue,
+          radius: 60,
+          child: Icon(
+            Icons.insert_invitation,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        onTapDown: (_) => () {},
       ),
     );
   }

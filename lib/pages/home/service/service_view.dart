@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/models/service.dart';
 import 'package:filter/models/user.dart';
+import 'package:filter/pages/home/service/service_edit.dart';
 import 'package:filter/pages/home/service/service_home.dart';
 import 'package:filter/services/database.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class ServiceView extends StatefulWidget {
 class _ServiceViewState extends State<ServiceView> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     Future<Service> _getsService() async {
       String id = widget.id;
       final user = Provider.of<User>(context);
@@ -37,8 +39,8 @@ class _ServiceViewState extends State<ServiceView> {
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: GradientAppBar(
-        backgroundColorStart: Colors.blue[50],
-        backgroundColorEnd: Colors.blue[100],
+        backgroundColorStart: Colors.blue[300],
+        backgroundColorEnd: Colors.blue[250],
         elevation: 0.0,
         title: Text(
           'Service Detail',
@@ -61,13 +63,27 @@ class _ServiceViewState extends State<ServiceView> {
         actions: [
           IconButton(
             icon: Icon(
+              Icons.delete,
+              color: Color(0xFF153243),
+            ),
+            iconSize: 30,
+            onPressed: () {
+              showAlertDialog(context, user.uid, widget.id);
+            },
+          ),
+          IconButton(
+            icon: Icon(
               Icons.edit,
               color: Color(0xFF153243),
             ),
             iconSize: 30.0,
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => PurifierForm()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ServiceEdit(
+                            id: widget.id,
+                          )));
             },
           )
         ],
@@ -684,4 +700,39 @@ class _View extends StatelessWidget {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, String uid, String id) {
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text("Continue"),
+    onPressed: () {
+      DatabaseService(uid: uid).deleteService(id);
+      Navigator.pop(context);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ServiceHome()));
+    },
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Confirm Deletion"),
+    content: Text("Would you like to delte the task?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

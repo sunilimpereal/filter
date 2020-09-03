@@ -122,7 +122,7 @@ class FilterTile extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: Row(children: [
                         Text(
-                          'Filter Model : $model',
+                          model ?? '',
                           overflow: TextOverflow.fade,
                           style: TextStyle(
                             fontSize: 12.0,

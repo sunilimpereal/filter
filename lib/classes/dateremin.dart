@@ -2,7 +2,8 @@ class DateReminder {
   final String date;
   DateReminder({this.date});
   String addthreeMonths() {
-    DateTime ndate = DateTime.parse(date ?? '');
+    var parse = DateTime.parse(date);
+    DateTime ndate = parse;
     DateTime nnDate = new DateTime(
       ndate.year,
       ndate.month + 3,

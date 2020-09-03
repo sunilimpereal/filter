@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/classes/dateremin.dart';
 import 'package:filter/models/filter.dart';
 import 'package:filter/models/user.dart';
+import 'package:filter/pages/home/filter/filter_edit.dart';
+import 'package:filter/pages/home/filter/filter_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/services/database.dart';
@@ -22,6 +24,7 @@ class FilterView extends StatefulWidget {
 class _FilterViewState extends State<FilterView> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     Future<Filter> _getFilter() async {
       String id = widget.id;
       final user = Provider.of<User>(context);
@@ -40,14 +43,28 @@ class _FilterViewState extends State<FilterView> {
       appBar: GradientAppBar(
         backgroundColorStart: Color(0xFF153243),
         backgroundColorEnd: Color(0xFF235470),
-        title: Text('Installation'),
+        title: Text('Filter Change'),
         actions: [
+          IconButton(
+            icon: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            iconSize: 30,
+            onPressed: () {
+              showAlertDialog(context, user.uid, widget.id);
+            },
+          ),
           IconButton(
             icon: Icon(Icons.edit),
             iconSize: 30.0,
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => FilterForm()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FilterEdit(
+                            id: widget.id,
+                          )));
             },
           )
         ],
@@ -64,6 +81,7 @@ class _FilterViewState extends State<FilterView> {
           future: _getFilter(),
           builder: (BuildContext context, AsyncSnapshot<Filter> snapshot) {
             if (snapshot.hasData) {
+              print(snapshot.data.number);
               return Container(
                   child: _View(
                       snapshot.data.name,
@@ -80,7 +98,7 @@ class _FilterViewState extends State<FilterView> {
                 child: Loading(
                     indicator: BallPulseIndicator(),
                     size: 100.0,
-                    color: Colors.pink),
+                    color: Colors.blue),
               );
             }
           },
@@ -570,4 +588,42 @@ class _View extends StatelessWidget {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, String uid, String id) {
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text(
+      "Confirm",
+      style: TextStyle(color: Colors.red),
+    ),
+    onPressed: () {
+      DatabaseService(uid: uid).deleteFilter(id);
+      Navigator.pop(context);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => FilterHome()));
+    },
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Confirm Delete"),
+    content: Text("Would you like to delete the task?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/classes/dateremin.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
+import 'package:filter/pages/home/purifiers/purifier_edit.dart';
+import 'package:filter/pages/home/purifiers/purifiers_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/services/database.dart';
@@ -22,6 +24,7 @@ class PurifierView extends StatefulWidget {
 class _PurifierViewState extends State<PurifierView> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     Future<Purifier> _getPurifier() async {
       String id = widget.id;
       final user = Provider.of<User>(context);
@@ -43,13 +46,29 @@ class _PurifierViewState extends State<PurifierView> {
         title: Text('Installation'),
         actions: [
           IconButton(
+            icon: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            iconSize: 30,
+            onPressed: () {
+              showAlertDialog(context, user.uid, widget.id);
+            },
+          ),
+          IconButton(
             icon: Icon(Icons.edit),
             iconSize: 30.0,
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => PurifierForm()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PurifierEdit(
+                    id: widget.id,
+                  ),
+                ),
+              );
             },
-          )
+          ),
         ],
       ),
       body: Container(
@@ -566,4 +585,44 @@ class _View extends StatelessWidget {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, String uid, String id) {
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text(
+      "Confirm",
+      style: TextStyle(
+        color: Colors.red,
+      ),
+    ),
+    onPressed: () {
+      DatabaseService(uid: uid).deletePurifier(id);
+      Navigator.pop(context);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PurifierHome()));
+    },
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Confirm Delete"),
+    content: Text("Would you like to delete the task?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

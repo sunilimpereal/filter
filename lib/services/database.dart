@@ -40,14 +40,22 @@ class DatabaseService {
     });
   }
 
-  Future updatePurifer(
+  deletePurifier(String id) {
+    purifierCollection
+        .document(uid)
+        .collection('PurifierList')
+        .document(id)
+        .delete();
+  }
+
+  Future updatePurifier(
     String id,
     String name,
     String number,
     String address,
     String model,
-    String price,
     String date,
+    String price,
     String paid,
     String due,
     String img,
@@ -56,7 +64,7 @@ class DatabaseService {
         .document(uid)
         .collection('PurifierList')
         .document(id)
-        .setData({
+        .updateData({
       'id': id,
       'name': name,
       'number': number,
@@ -163,6 +171,14 @@ class DatabaseService {
     });
   }
 
+  deleteService(String id) {
+    serviceCollection
+        .document(uid)
+        .collection('ServiceList')
+        .document(id)
+        .delete();
+  }
+
   Future updateService(
     String id,
     String name,
@@ -184,7 +200,7 @@ class DatabaseService {
         .document(uid)
         .collection('ServiceList')
         .document(id)
-        .setData({
+        .updateData({
       'id': id,
       'name': name,
       'number': number,
@@ -296,6 +312,14 @@ class DatabaseService {
     });
   }
 
+  deleteFilter(String id) {
+    filterCollection
+        .document(uid)
+        .collection('FilterList')
+        .document(id)
+        .delete();
+  }
+
   //Update Filter
 
   Future updateFilter(
@@ -303,8 +327,8 @@ class DatabaseService {
     String name,
     String number,
     String address,
-    String date,
     String model,
+    String date,
     String price,
     String paid,
     String due,
@@ -314,7 +338,7 @@ class DatabaseService {
         .document(uid)
         .collection('FilterList')
         .document(id)
-        .setData({
+        .updateData({
       'id': id,
       'name': name,
       'number': number,
@@ -335,6 +359,7 @@ class DatabaseService {
         name: snapshot.data['name'],
         number: snapshot.data['number'],
         address: snapshot.data['address'],
+        model: snapshot.data['model'],
         date: snapshot.data['date'],
         price: snapshot.data['price'],
         paid: snapshot.data['paid'],
