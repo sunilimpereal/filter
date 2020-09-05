@@ -1,6 +1,4 @@
 import 'package:filter/models/filter.dart';
-import 'package:filter/pages/home/filter/filter_form.dart';
-import 'package:filter/pages/home/filter/filter_list.dart';
 import 'package:filter/pages/home/reminder/reminder.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/models/user.dart';

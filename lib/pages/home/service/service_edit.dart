@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:filter/classes/dateremin.dart';
-import 'package:filter/models/filter.dart';
 import 'package:filter/models/service.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/services/database.dart';
@@ -79,7 +77,6 @@ class _ServiceEditState extends State<ServiceEdit> {
               String date = snapshot.data.date;
               String paid = snapshot.data.paid;
               String due = snapshot.data.due;
-              String img = '';
 
               return Container(
                 decoration: BoxDecoration(color: Color(0xFFebebeb)),
@@ -763,7 +760,7 @@ class _ServiceEditState extends State<ServiceEdit> {
                                       number,
                                       address,
                                       description,
-                                      date,
+                                      _selectedDate.toString(),
                                       spare1,
                                       spare2,
                                       spare3,

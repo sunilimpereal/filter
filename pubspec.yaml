@@ -38,6 +38,10 @@ dependencies:
   gradient_app_bar: ^0.0.1
   url_launcher: ^5.0.3
   sms_maintained: ^0.2.5
+  date_range_picker: ^1.0.3 
+  firebase_messaging: ^5.1.2
+  flutter_launcher_icons: "^0.7.5"
+
 
 
 dev_dependencies:
@@ -59,6 +63,13 @@ flutter:
      - lib/assets/img/purifier.png
      - lib/assets/img/fil.png
      - lib/assets/img/service.jpg
+     - lib/assets/img/home1.jpg
+
+flutter_icons:
+    android: true
+    image_path_android: "lib/assets/icon/ic_launcher.png"
+    ios: true
+    image_path_ios: "lib/assets/icon/ic_launcher.png"
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

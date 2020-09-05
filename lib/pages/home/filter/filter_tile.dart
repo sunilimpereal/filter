@@ -58,7 +58,7 @@ class FilterTile extends StatelessWidget {
     print(DateTime.now().toString());
     print(date);
     print(name);
-    date = DateFormat.Md().format(DateTime.parse(date ?? ''));
+    date = DateFormat('dd/MM/yyy').format(DateTime.parse(date ?? ''));
     return Container(
       height: 124.0,
       width: double.infinity,
@@ -109,7 +109,7 @@ class FilterTile extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'New Installation  |',
+                          'Filter Change | $model',
                           style: TextStyle(
                               fontSize: 12.0,
                               fontWeight: FontWeight.w800,
@@ -145,15 +145,15 @@ class FilterTile extends StatelessWidget {
                                 color: Colors.green[200],
                               ),
                             ),
-                            Text(
-                              due != '0' ? 'Due : $due' : '',
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.red[300],
-                              ),
-                            ),
+                            // Text(
+                            //   due != '0' ? 'Due : $due' : '',
+                            //   overflow: TextOverflow.fade,
+                            //   style: TextStyle(
+                            //     fontSize: 15.0,
+                            //     fontWeight: FontWeight.w900,
+                            //     color: Colors.red[300],
+                            //   ),
+                            // ),
                           ])),
                 ],
               ),

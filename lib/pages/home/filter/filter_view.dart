@@ -213,7 +213,7 @@ class _View extends StatelessWidget {
                                       size: 25,
                                     ),
                                     onPressed: () {
-                                      sendSms(number);
+                                      sendSms(number, nextDate);
                                       final snackBar = SnackBar(
                                         content: Text('Message Sent to $name'),
                                         action: SnackBarAction(
@@ -453,8 +453,8 @@ class _View extends StatelessWidget {
           SizedBox(height: 15),
           Row(children: [
             Container(
-              height: 150,
-              width: 300,
+              height: 50,
+              width: 250,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 3.0),
                 decoration: BoxDecoration(
@@ -462,7 +462,7 @@ class _View extends StatelessWidget {
                       const BorderRadius.all(const Radius.circular(10.0)),
                 ),
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 1),
+                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 1),
                   decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.all(const Radius.circular(10.0)),
@@ -500,67 +500,67 @@ class _View extends StatelessWidget {
                         ],
                       ),
 
-                      //paid
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsets.only(left: 20, top: 13, right: 10),
-                            child: Text(
-                              'Paid',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.green),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsets.only(left: 50, top: 13, right: 10),
-                            child: Text(
-                              '₹ $paid',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.green[600]),
-                            ),
-                          ),
-                        ],
-                      ),
+//                       //paid
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Padding(
+//                             padding:
+//                                 EdgeInsets.only(left: 20, top: 13, right: 10),
+//                             child: Text(
+//                               'Paid',
+//                               style: TextStyle(
+//                                   fontSize: 20,
+//                                   fontWeight: FontWeight.w600,
+//                                   color: Colors.green),
+//                             ),
+//                           ),
+//                           Padding(
+//                             padding:
+//                                 EdgeInsets.only(left: 50, top: 13, right: 10),
+//                             child: Text(
+//                               '₹ $paid',
+//                               style: TextStyle(
+//                                   fontSize: 20,
+//                                   fontWeight: FontWeight.w600,
+//                                   color: Colors.green[600]),
+//                             ),
+//                           ),
+//                         ],
+//                       ),
 
-//Due
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsets.only(left: 20, top: 13, right: 10),
-                            child: Text(
-                              'Due',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: due == '0'
-                                      ? Colors.green
-                                      : Colors.redAccent),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsets.only(left: 30, top: 13, right: 10),
-                            child: Text(
-                              '₹ $due',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: due == '0'
-                                      ? Colors.green[600]
-                                      : Colors.red[600]),
-                            ),
-                          ),
-                        ],
-                      ),
+// //Due
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Padding(
+//                             padding:
+//                                 EdgeInsets.only(left: 20, top: 13, right: 10),
+//                             child: Text(
+//                               'Due',
+//                               style: TextStyle(
+//                                   fontSize: 20,
+//                                   fontWeight: FontWeight.w600,
+//                                   color: due == '0'
+//                                       ? Colors.green
+//                                       : Colors.redAccent),
+//                             ),
+//                           ),
+//                           Padding(
+//                             padding:
+//                                 EdgeInsets.only(left: 30, top: 13, right: 10),
+//                             child: Text(
+//                               '₹ $due',
+//                               style: TextStyle(
+//                                   fontSize: 20,
+//                                   fontWeight: FontWeight.w600,
+//                                   color: due == '0'
+//                                       ? Colors.green[600]
+//                                       : Colors.red[600]),
+//                             ),
+// //                           ),
+//                         ],
+//                       ),
                     ],
                   ),
                 ),

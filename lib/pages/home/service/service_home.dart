@@ -3,6 +3,8 @@ import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/home.dart';
 import 'package:filter/pages/home/service/service_form.dart';
 import 'package:filter/pages/home/service/service_list.dart';
+import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
+
 import 'package:filter/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +15,31 @@ class ServiceHome extends StatefulWidget {
 }
 
 class _ServiceHomeState extends State<ServiceHome> {
+  DateTime curDate = DateTime.now();
+  DateTime _startDate =
+      (DateTime.now()).subtract(Duration(days: ((DateTime.now().day) - 1)));
+
+  DateTime _endDate = (DateTime.now())
+      .subtract(Duration(days: (DateTime.now().day) - 1))
+      .add(Duration(days: 29));
+
+  Future dispalyDateRangePicker(BuildContext context) async {
+    print(_startDate);
+    final List<DateTime> picked = await DateRangePicker.showDatePicker(
+      context: context,
+      initialFirstDate: _startDate,
+      initialLastDate: _endDate,
+      firstDate: new DateTime(DateTime.now().year - 20),
+      lastDate: new DateTime(DateTime.now().year + 20),
+    );
+    if (picked != null && picked.length == 2) {
+      setState(() {
+        _startDate = picked[0];
+        _endDate = picked[1];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -41,16 +68,26 @@ class _ServiceHomeState extends State<ServiceHome> {
           ),
           actions: [
             IconButton(
+              icon: Icon(Icons.insert_invitation),
+              iconSize: 25.0,
+              onPressed: () {
+                dispalyDateRangePicker(context);
+              },
+            ),
+            IconButton(
               icon: Icon(Icons.add),
               iconSize: 30.0,
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ServiceForm()));
               },
-            )
+            ),
           ],
         ),
-        body: ServiceList(),
+        body: ServiceList(
+          startDate: _startDate,
+          endDate: _endDate,
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:filter/classes/sms.dart';
 import 'package:filter/models/service.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/service/service_edit.dart';
@@ -242,9 +243,25 @@ class _View extends StatelessWidget {
                                       color: Color(0xFF3bceac),
                                       borderRadius:
                                           BorderRadius.circular(50.0)),
-                                  child: Icon(
-                                    Icons.message,
-                                    size: 25,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.message,
+                                      size: 25,
+                                    ),
+                                    onPressed: () {
+                                      sendSms(number, '');
+                                      final snackBar = SnackBar(
+                                        content: Text('Message Sent to $name'),
+                                        action: SnackBarAction(
+                                          label: '',
+                                          onPressed: () {
+                                            // Some code to undo the change.
+                                          },
+                                        ),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
                                   ),
                                 )),
                             Padding(

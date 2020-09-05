@@ -212,7 +212,17 @@ class _View extends StatelessWidget {
                                     size: 25,
                                   ),
                                   onPressed: () {
-                                    sendSms(number);
+                                    sendSms(number, '');
+                                    final snackBar = SnackBar(
+                                      content: Text('Message Sent to $name'),
+                                      action: SnackBarAction(
+                                        label: '',
+                                        onPressed: () {
+                                          // Some code to undo the change.
+                                        },
+                                      ),
+                                    );
+                                    Scaffold.of(context).showSnackBar(snackBar);
                                   },
                                 ),
                               ),

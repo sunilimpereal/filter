@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:filter/classes/dateremin.dart';
-import 'package:filter/models/filter.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/services/database.dart';

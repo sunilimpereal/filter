@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/models/filter.dart';
+import 'package:filter/models/product.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/service.dart';
 
@@ -375,6 +376,7 @@ class DatabaseService {
         name: doc.data['name'],
         number: doc.data['number'],
         address: doc.data['address'],
+        model: doc.data['model'],
         date: doc.data['date'],
         price: doc.data['price'],
         paid: doc.data['paid'],
@@ -395,5 +397,128 @@ class DatabaseService {
         .collection('FilterList')
         .snapshots()
         .map(_filterListFromSnapshot);
+  }
+
+//purchase database reference
+
+  final CollectionReference productCollection =
+      Firestore.instance.collection('Products');
+
+  Future createProduct(
+    String id,
+    String item1,
+    String price1,
+    String item2,
+    String price2,
+    String item3,
+    String price3,
+    String item4,
+    String price4,
+    String item5,
+    String price5,
+    String item6,
+    String price6,
+    String item7,
+    String price7,
+    String item8,
+    String price8,
+    String item9,
+    String price9,
+    String item10,
+    String price10,
+    String item11,
+    String price11,
+    String item12,
+    String price12,
+    String item13,
+    String price13,
+    String item14,
+    String price14,
+    String item15,
+    String price15,
+  ) async {
+    return await productCollection
+        .document(uid)
+        .collection('ProductList')
+        .document()
+        .setData({
+      'id': id,
+      'item1': item1,
+      'price1': price2,
+      'item2': item2,
+      'price2': price2,
+      'item3': item3,
+      'price3': price3,
+      'item4': item4,
+      'price4': price4,
+      'item5': item5,
+      'price5': price5,
+      'item6': item6,
+      'price6': price6,
+      'item7': item7,
+      'price7': price7,
+      'item8': item8,
+      'price8': price8,
+      'item9': item9,
+      'price9': price9,
+      'item10': item10,
+      'price10': price10,
+      'item11': item11,
+      'price11': price11,
+      'item12': item12,
+      'price12': price12,
+      'item13': item13,
+      'price13': price13,
+      'item14': item14,
+      'price14': price14,
+      'item15': item15,
+      'price15': price15,
+    });
+  }
+
+  List<Product> _productListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Product(
+        id: doc.documentID,
+        item1: doc.data['item1'],
+        price1: doc.data['price1'],
+        item2: doc.data['item2'],
+        price2: doc.data['price2'],
+        item3: doc.data['item3'],
+        price3: doc.data['price3'],
+        item4: doc.data['item4'],
+        price4: doc.data['price4'],
+        item5: doc.data['item5'],
+        price5: doc.data['price5'],
+        item6: doc.data['item6'],
+        price6: doc.data['price6'],
+        item7: doc.data['item7'],
+        price7: doc.data['price7'],
+        item8: doc.data['item8'],
+        price8: doc.data['price8'],
+        item9: doc.data['item9'],
+        price9: doc.data['price9'],
+        item10: doc.data['item10'],
+        price10: doc.data['price10'],
+        item11: doc.data['item11'],
+        price11: doc.data['price11'],
+        item12: doc.data['item12'],
+        price12: doc.data['price12'],
+        item13: doc.data['item13'],
+        price13: doc.data['price13'],
+        item14: doc.data['item14'],
+        price14: doc.data['price14'],
+        item15: doc.data['item15'],
+        price15: doc.data['price15'],
+      );
+    }).toList();
+  }
+
+  Stream<List<Product>> get productList {
+    return filterCollection
+        .document(uid)
+        .collection('ProductList')
+        .snapshots()
+        .map(_productListFromSnapshot);
   }
 }

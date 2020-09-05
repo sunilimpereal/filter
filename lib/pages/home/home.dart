@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:filter/pages/home/filter/filter_home.dart';
+import 'package:filter/pages/home/products/productview.dart';
 import 'package:filter/pages/home/purifiers/purifiers_home.dart';
-import 'package:filter/pages/home/reminder/reminder.dart';
+import 'package:filter/pages/home/reminder/rimender_home.dart';
+import 'package:filter/pages/home/search/searchhome.dart';
 import 'package:filter/pages/home/service/service_home.dart';
-import 'package:filter/services/auth.dart';
 import 'package:filter/widgets/spring_button.dart';
 import 'package:flutter/material.dart';
 
@@ -12,66 +15,114 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        title: Text(
-          'Home',
-          style: TextStyle(
-            color: Colors.black,
-          ),
+
+        // appBar: AppBar(
+        //   elevation: 0.0,
+        //   backgroundColor: Colors.transparent,
+        //   title: Text(
+        //     'Home',
+        //     style: TextStyle(
+        //       color: Colors.black,
+        //     ),
+        //   ),
+        //   actions: [
+        //     IconButton(s
+        //       icon: Icon(Icons.exit_to_app),
+        //       color: Colors.black,
+        //       onPressed: () async {
+        //         await _auth.signOut();
+        //       },
+        //     )
+        //   ],
+        // ),
+        body: Stack(children: [
+      Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("lib/assets/img/home1.jpg"), fit: BoxFit.cover),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            color: Colors.black,
-            onPressed: () async {
-              await _auth.signOut();
-            },
-          )
-        ],
       ),
-      body: Column(
+      Column(
         children: [
-          SizedBox(
-            height: 40,
+          SizedBox(height: 35),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white38.withAlpha(170),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+            child: Column(
+              children: [
+                Row(children: [
+                  SearchHome(),
+                  Container(
+                    padding: EdgeInsets.only(top: 6, left: 1),
+                    child: Icon(
+                      Icons.more_vert,
+                      size: 28,
+                    ),
+                  ),
+                ]),
+                Padding(
+                  padding: EdgeInsets.all(1),
+                  child: horizonal(),
+                ),
+              ],
+            ),
           ),
+          // Row(
+          //   children: [
+          //     SearchHome(),
+          //     Container(
+          //       padding: EdgeInsets.only(top: 6, left: 1),
+          //       child: Icon(
+          //         Icons.more_vert,
+          //         size: 28,
+          //       ),
+          //     )
+          //   ],
+          // ),
+          // SizedBox(
+          //   height: 20,
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.all(10),
+          //   child: horizonal(),
+          // ),
+          // SizedBox(
+          //   height: 10.0,
+          // ),
           Padding(
             padding: EdgeInsets.all(10),
-            child: horizonal(),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
+            // child: ClipRect(
+            //   child: BackdropFilter(
+            //     filter: ImageFilter.blur(
+            //       sigmaX: 10,
+            //       sigmaY: 10,
+            //     ),
             child: Container(
-              decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[400],
-                      blurRadius: 20.0,
-                      spreadRadius: 3.0,
-                    )
-                  ]),
+              width: 350,
+              decoration: BoxDecoration(
+                color: Colors.white38.withAlpha(90),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(40),
+                ),
+              ),
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       installation(),
                       service(),
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       filter(),
                       purchase(),
@@ -81,13 +132,16 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+          // ),
+          // ),
         ],
       ),
-    );
+    ]));
   }
 
   Widget service() {
     return Container(
+      padding: EdgeInsets.all(10),
       height: 120.0,
       width: 170.0,
       child: SpringButton(
@@ -110,6 +164,7 @@ class _HomeState extends State<Home> {
 
   Widget installation() {
     return Container(
+      padding: EdgeInsets.all(10),
       height: 120.0,
       width: 170.0,
       child: SpringButton(
@@ -132,6 +187,7 @@ class _HomeState extends State<Home> {
 
   Widget purchase() {
     return Container(
+      padding: EdgeInsets.all(10),
       height: 120.0,
       width: 170.0,
       child: SpringButton(
@@ -140,26 +196,11 @@ class _HomeState extends State<Home> {
           "Purchase",
           Color.fromARGB(200, 145, 12, 7),
         ),
-        onTapDown: (_) => () {},
-      ),
-    );
-  }
-
-  Widget filter() {
-    return Container(
-      height: 120.0,
-      width: 170.0,
-      child: SpringButton(
-        SpringButtonType.OnlyScale,
-        row(
-          "Filter",
-          Color(0xff577590),
-        ),
         onTapDown: (_) => {
           Future.delayed(Duration(milliseconds: 150), () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FilterHome()),
+              MaterialPageRoute(builder: (context) => ProductView()),
             );
           }),
         },
@@ -167,21 +208,58 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Widget filter() {
+    return Container(
+      child: Container(
+        padding: EdgeInsets.all(10),
+        height: 120.0,
+        width: 170.0,
+        child: SpringButton(
+          SpringButtonType.OnlyScale,
+          row(
+            "Filter",
+            Color(0xff577590),
+          ),
+          onTapDown: (_) => {
+            Future.delayed(Duration(milliseconds: 150), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FilterHome()),
+              );
+            }),
+          },
+        ),
+      ),
+    );
+  }
+
   Widget row(String text, Color color) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: Container(
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: const BorderRadius.all(const Radius.circular(20.0)),
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 17.5,
+        decoration: new BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.transparent,
+                blurRadius: 0.1,
+                spreadRadius: 0.2,
+              )
+            ]),
+        child: Container(
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: const BorderRadius.all(const Radius.circular(20.0)),
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 17.5,
+              ),
             ),
           ),
         ),
@@ -191,27 +269,35 @@ class _HomeState extends State<Home> {
 
   Widget horizonal() {
     return Container(
-      height: 80,
+      height: 92,
+      width: 400,
       padding: EdgeInsets.all(8),
-      decoration: new BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[400],
-              blurRadius: 20.0,
-              spreadRadius: 3.0,
-            )
-          ]),
+      decoration: BoxDecoration(
+        color: Colors.white.withAlpha(0),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+      ),
 
       //items
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
+            SizedBox(
+              width: 23,
+            ),
             reminder(),
+            SizedBox(
+              width: 13,
+            ),
             callender(),
+            SizedBox(
+              width: 13,
+            ),
             wallet(),
+            SizedBox(width: 13),
+            cart(),
           ],
         ),
       ),
@@ -219,72 +305,124 @@ class _HomeState extends State<Home> {
   }
 
   Widget reminder() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      height: 70,
-      width: 70,
-      child: SpringButton(
-        SpringButtonType.OnlyScale,
-        CircleAvatar(
-          backgroundColor: Color.fromARGB(200, 145, 12, 7),
-          radius: 60,
-          child: Icon(
-            Icons.notification_important,
-            size: 30,
-            color: Colors.white,
+    return Column(children: [
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        height: 60,
+        width: 60,
+        child: SpringButton(
+          SpringButtonType.OnlyScale,
+          CircleAvatar(
+            backgroundColor: Color.fromARGB(200, 145, 12, 7),
+            radius: 60,
+            child: Icon(
+              Icons.notification_important,
+              size: 30,
+              color: Colors.white,
+            ),
           ),
+          onTapDown: (_) => {
+            Future.delayed(Duration(milliseconds: 150), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReminderHome()),
+              );
+            }),
+          },
         ),
-        onTapDown: (_) => {
-          Future.delayed(Duration(milliseconds: 150), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ReminderHome()),
-            );
-          }),
-        },
       ),
-    );
+      Text(
+        'Nottification',
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+      )
+    ]);
+  }
+
+  Widget cart() {
+    return Column(children: [
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        height: 60,
+        width: 60,
+        child: SpringButton(
+          SpringButtonType.OnlyScale,
+          CircleAvatar(
+            backgroundColor: Color.fromARGB(200, 200, 150, 7),
+            radius: 60,
+            child: Icon(
+              Icons.shopping_cart,
+              size: 30,
+              color: Colors.white,
+            ),
+          ),
+          onTapDown: (_) => {
+            Future.delayed(Duration(milliseconds: 150), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReminderHome()),
+              );
+            }),
+          },
+        ),
+      ),
+      Text(
+        'Cart',
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+      )
+    ]);
   }
 
   Widget wallet() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      height: 70,
-      width: 70,
-      child: SpringButton(
-        SpringButtonType.OnlyScale,
-        CircleAvatar(
-          backgroundColor: Colors.green,
-          radius: 60,
-          child: Icon(
-            Icons.account_balance_wallet,
-            color: Colors.white,
-            size: 30,
+    return Column(children: [
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        height: 60,
+        width: 60,
+        child: SpringButton(
+          SpringButtonType.OnlyScale,
+          CircleAvatar(
+            backgroundColor: Colors.green,
+            radius: 60,
+            child: Icon(
+              Icons.account_box,
+              color: Colors.white,
+              size: 30,
+            ),
           ),
+          onTapDown: (_) => () {},
         ),
-        onTapDown: (_) => () {},
       ),
-    );
+      Text(
+        'Accounts',
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+      )
+    ]);
   }
 
   Widget callender() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      height: 70,
-      width: 70,
-      child: SpringButton(
-        SpringButtonType.OnlyScale,
-        CircleAvatar(
-          backgroundColor: Colors.blue,
-          radius: 60,
-          child: Icon(
-            Icons.insert_invitation,
-            color: Colors.white,
-            size: 30,
+    return Column(children: [
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        height: 60,
+        width: 60,
+        child: SpringButton(
+          SpringButtonType.OnlyScale,
+          CircleAvatar(
+            backgroundColor: Colors.blue,
+            radius: 60,
+            child: Icon(
+              Icons.insert_invitation,
+              color: Colors.white,
+              size: 30,
+            ),
           ),
+          onTapDown: (_) => () {},
         ),
-        onTapDown: (_) => () {},
       ),
-    );
+      Text(
+        'Calender',
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+      )
+    ]);
   }
 }

@@ -58,7 +58,7 @@ class PurifierTile extends StatelessWidget {
     print(DateTime.now().toString());
     print(date);
     print(name);
-    date = DateFormat.Md().format(DateTime.parse(date ?? ''));
+    date = DateFormat('dd/MM/yyyy').format(DateTime.parse(date ?? ''));
     return Container(
       height: 124.0,
       width: double.infinity,
