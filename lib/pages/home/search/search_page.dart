@@ -17,7 +17,7 @@ class SearchPage extends StatelessWidget {
           margin: EdgeInsets.only(top: 10, left: 10),
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
           decoration: BoxDecoration(
-            color: Colors.black38.withAlpha(50),
+            color: Colors.blue[100].withAlpha(50),
             borderRadius: BorderRadius.all(
               Radius.circular(40),
             ),
@@ -28,7 +28,7 @@ class SearchPage extends StatelessWidget {
                 GestureDetector(
                   child: Container(
                     child: Text(
-                      "Search",
+                      "    Search",
                       style: TextStyle(
                         color: Colors.black.withAlpha(160),
                         fontSize: 18,

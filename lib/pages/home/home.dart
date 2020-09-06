@@ -48,10 +48,10 @@ class _HomeState extends State<Home> {
       ),
       Column(
         children: [
-          SizedBox(height: 35),
+          SizedBox(height: 28),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white.withAlpha(250),
+              color: Colors.white.withAlpha(255),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -283,7 +283,7 @@ class _HomeState extends State<Home> {
       width: 400,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(180),
+        color: Colors.white.withAlpha(100),
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),

@@ -9,6 +9,7 @@ class FilterTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       height: 140,
       width: double.infinity,
       child: GestureDetector(
@@ -21,6 +22,7 @@ class FilterTile extends StatelessWidget {
                       )));
         },
         child: Container(
+          color: Colors.white,
           margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 5.0),
           child: Stack(
             children: [
@@ -70,8 +72,8 @@ class FilterTile extends StatelessWidget {
           boxShadow: <BoxShadow>[
             new BoxShadow(
                 color: Colors.black12,
-                blurRadius: 100.0,
-                offset: new Offset(0.0, 10.0))
+                blurRadius: 1.0,
+                offset: new Offset(2.0, 3.0))
           ]),
       child: Container(
         padding: EdgeInsets.only(left: 46.0),

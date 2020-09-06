@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/services/database.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
@@ -46,32 +47,85 @@ class _PurifierHomeState extends State<PurifierHome> {
       value: DatabaseService(uid: user.uid).purifierList,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: GradientAppBar(
-          elevation: 0.0,
-          backgroundColorStart: Color(0xFF153243),
-          backgroundColorEnd: Color(0xFF153243),
-          title: Text('Installation'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.insert_invitation),
-              iconSize: 30.0,
-              onPressed: () {
-                dispalyDateRangePicker(context);
-              },
+        // appBar: GradientAppBar(
+        //   elevation: 0.0,
+        //   backgroundColorStart: Color(0xFF153243),
+        //   backgroundColorEnd: Color(0xFF153243),
+        //   title: Text('Installation'),
+        //   actions: [
+        //     IconButton(
+        //       icon: Icon(Icons.insert_invitation),
+        //       iconSize: 30.0,
+        //       onPressed: () {
+        //         dispalyDateRangePicker(context);
+        //       },
+        //     ),
+        //     IconButton(
+        //       icon: Icon(Icons.add),
+        //       iconSize: 30.0,
+        //       onPressed: () {
+        //         Navigator.push(context,
+        //             MaterialPageRoute(builder: (context) => PurifierForm()));
+        //       },
+        //     )
+        //   ],
+        // ),
+        body: Column(children: [
+          SizedBox(
+            height: 70,
+          ),
+          Expanded(
+            child: PurifierList(
+              startDate: _startDate,
+              endDate: _endDate,
             ),
-            IconButton(
-              icon: Icon(Icons.add),
-              iconSize: 30.0,
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PurifierForm()));
-              },
-            )
+          ),
+        ]),
+        floatingActionButton: Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 60, right: 0, left: 30),
+                  child: FloatingActionButton.extended(
+                    icon: Icon(Icons.arrow_back),
+                    label: Text(''),
+                    heroTag: null,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 60, left: 70),
+                  child: FloatingActionButton.extended(
+                    backgroundColor: Colors.blue,
+                    icon: FaIcon(FontAwesomeIcons.calendarAlt),
+                    label: Text(''),
+                    heroTag: null,
+                    onPressed: () {
+                      dispalyDateRangePicker(context);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 60, left: 10),
+                  child: FloatingActionButton.extended(
+                    backgroundColor: Colors.green,
+                    icon: Icon(Icons.add),
+                    label: Text('New  '),
+                    heroTag: null,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PurifierForm()));
+                    },
+                  ),
+                ),
+              ],
+            ),
           ],
-        ),
-        body: PurifierList(
-          startDate: _startDate,
-          endDate: _endDate,
         ),
       ),
     );

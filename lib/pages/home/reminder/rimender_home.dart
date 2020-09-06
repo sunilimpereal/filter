@@ -21,7 +21,7 @@ class _ReminderHomeState extends State<ReminderHome> {
         backgroundColor: Color(0xFFe5e5e5),
         appBar: GradientAppBar(
           elevation: 0.0,
-          title: Text('Notification'),
+          title: Text('Filter Changing'),
         ),
         body: ReminderList(),
       ),

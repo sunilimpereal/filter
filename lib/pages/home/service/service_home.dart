@@ -7,6 +7,7 @@ import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 
 import 'package:filter/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ServiceHome extends StatefulWidget {
@@ -47,46 +48,99 @@ class _ServiceHomeState extends State<ServiceHome> {
       value: DatabaseService(uid: user.uid).serviceList,
       child: Scaffold(
         backgroundColor: Color(0xFFFDFFFC),
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.blue[300],
-          title: Text(
-            'Services',
-            style: TextStyle(color: Color(0xFF153243)),
+        // appBar: AppBar(
+        //   elevation: 0.0,
+        //   backgroundColor: Colors.blue[300],
+        //   title: Text(
+        //     'Services',
+        //     style: TextStyle(color: Color(0xFF153243)),
+        //   ),
+        //   leading: new IconButton(
+        //     icon: new Icon(
+        //       Icons.arrow_back,
+        //       color: Color(0xFF153243),
+        //     ),
+        //     onPressed: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => Home()),
+        //       );
+        //     },
+        //   ),
+        //   actions: [
+        //     IconButton(
+        //       icon: Icon(Icons.insert_invitation),
+        //       iconSize: 25.0,
+        //       onPressed: () {
+        //         dispalyDateRangePicker(context);
+        //       },
+        //     ),
+        //     IconButton(
+        //       icon: Icon(Icons.add),
+        //       iconSize: 30.0,
+        //       onPressed: () {
+        //         Navigator.push(context,
+        //             MaterialPageRoute(builder: (context) => ServiceForm()));
+        //       },
+        //     ),
+        //   ],
+        // ),
+        body: Column(children: [
+          SizedBox(
+            height: 70,
           ),
-          leading: new IconButton(
-            icon: new Icon(
-              Icons.arrow_back,
-              color: Color(0xFF153243),
+          Expanded(
+            child: ServiceList(
+              startDate: _startDate,
+              endDate: _endDate,
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Home()),
-              );
-            },
           ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.insert_invitation),
-              iconSize: 25.0,
-              onPressed: () {
-                dispalyDateRangePicker(context);
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.add),
-              iconSize: 30.0,
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ServiceForm()));
-              },
+        ]),
+        floatingActionButton: Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 60, right: 0, left: 30),
+                  child: FloatingActionButton.extended(
+                    icon: Icon(Icons.arrow_back),
+                    label: Text(''),
+                    heroTag: null,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 60, left: 70),
+                  child: FloatingActionButton.extended(
+                    backgroundColor: Colors.blue,
+                    icon: FaIcon(FontAwesomeIcons.calendarAlt),
+                    label: Text(''),
+                    heroTag: null,
+                    onPressed: () {
+                      dispalyDateRangePicker(context);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 60, left: 10),
+                  child: FloatingActionButton.extended(
+                    backgroundColor: Colors.green,
+                    icon: Icon(Icons.add),
+                    label: Text('New  '),
+                    heroTag: null,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ServiceForm()));
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-        body: ServiceList(
-          startDate: _startDate,
-          endDate: _endDate,
         ),
       ),
     );
