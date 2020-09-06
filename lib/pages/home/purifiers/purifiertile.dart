@@ -21,6 +21,7 @@ class PurifierTile extends StatelessWidget {
                       )));
         },
         child: Container(
+          decoration: BoxDecoration(),
           margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 5.0),
           child: Stack(
             children: [
@@ -46,7 +47,7 @@ class PurifierTile extends StatelessWidget {
       ),
       borderRadius: new BorderRadius.all(new Radius.circular(55.0)),
       border: new Border.all(
-        color: Color(0xFF102542),
+        color: Colors.grey,
         width: 3.0,
       ),
     ),
@@ -64,14 +65,16 @@ class PurifierTile extends StatelessWidget {
       width: double.infinity,
       margin: new EdgeInsets.only(left: 40.0),
       decoration: new BoxDecoration(
-          color: new Color(0xFF153243),
+          color: Colors.blueGrey[700],
+          // image: DecorationImage(
+          //     image: AssetImage("lib/assets/img/tile3.png"), fit: BoxFit.cover),
           shape: BoxShape.rectangle,
           borderRadius: new BorderRadius.circular(8.0),
           boxShadow: <BoxShadow>[
             new BoxShadow(
-                color: Colors.black12,
-                blurRadius: 100.0,
-                offset: new Offset(0.0, 10.0))
+                color: Colors.black38,
+                blurRadius: 0.5,
+                offset: Offset(1.2, 3.3))
           ]),
       child: Container(
         padding: EdgeInsets.only(left: 46.0),

@@ -45,7 +45,7 @@ class _PurifierHomeState extends State<PurifierHome> {
     return StreamProvider<List<Purifier>>.value(
       value: DatabaseService(uid: user.uid).purifierList,
       child: Scaffold(
-        backgroundColor: Color(0xFFe5e5e5),
+        backgroundColor: Colors.white,
         appBar: GradientAppBar(
           elevation: 0.0,
           backgroundColorStart: Color(0xFF153243),

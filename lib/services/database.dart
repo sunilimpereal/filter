@@ -406,6 +406,7 @@ class DatabaseService {
 
   Future createProduct(
     String id,
+    String date,
     String item1,
     String price1,
     String item2,
@@ -443,8 +444,9 @@ class DatabaseService {
         .document()
         .setData({
       'id': id,
+      'date': date,
       'item1': item1,
-      'price1': price2,
+      'price1': price1,
       'item2': item2,
       'price2': price2,
       'item3': item3,
@@ -476,10 +478,19 @@ class DatabaseService {
     });
   }
 
+  deleteProduct(String id) {
+    productCollection
+        .document(uid)
+        .collection('ProductList')
+        .document(id)
+        .delete();
+  }
+
   List<Product> _productListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Product(
         id: doc.documentID,
+        date: doc.data['date'],
         item1: doc.data['item1'],
         price1: doc.data['price1'],
         item2: doc.data['item2'],
@@ -515,7 +526,12 @@ class DatabaseService {
   }
 
   Stream<List<Product>> get productList {
-    return filterCollection
+    print(productCollection
+        .document(uid)
+        .collection('ProductList')
+        .snapshots()
+        .map(_productListFromSnapshot));
+    return productCollection
         .document(uid)
         .collection('ProductList')
         .snapshots()

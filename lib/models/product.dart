@@ -2,6 +2,7 @@ import 'package:filter/models/productlist.dart';
 
 class Product {
   String id;
+  String date;
   String item1;
   String price1;
   String item2;
@@ -34,6 +35,7 @@ class Product {
   String price15;
   Product({
     this.id,
+    this.date,
     this.item1,
     this.price1,
     this.item2,

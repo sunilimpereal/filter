@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:filter/pages/home/filter/filter_home.dart';
+import 'package:filter/pages/home/products/cart.dart';
 import 'package:filter/pages/home/products/productview.dart';
 import 'package:filter/pages/home/purifiers/purifiers_home.dart';
 import 'package:filter/pages/home/reminder/rimender_home.dart';
@@ -50,7 +51,7 @@ class _HomeState extends State<Home> {
           SizedBox(height: 35),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white38.withAlpha(170),
+              color: Colors.white.withAlpha(250),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -96,8 +97,11 @@ class _HomeState extends State<Home> {
           // SizedBox(
           //   height: 10.0,
           // ),
+          SizedBox(
+            height: 20,
+          ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(2),
             // child: ClipRect(
             //   child: BackdropFilter(
             //     filter: ImageFilter.blur(
@@ -107,9 +111,9 @@ class _HomeState extends State<Home> {
             child: Container(
               width: 350,
               decoration: BoxDecoration(
-                color: Colors.white38.withAlpha(90),
+                color: Colors.white38.withAlpha(230),
                 borderRadius: BorderRadius.all(
-                  Radius.circular(40),
+                  Radius.circular(20),
                 ),
               ),
               child: Column(
@@ -237,28 +241,34 @@ class _HomeState extends State<Home> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: Container(
-        decoration: new BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            color: Colors.white,
+        padding: EdgeInsets.all(2),
+        decoration: BoxDecoration(
+            color: color.withAlpha(180),
+            borderRadius: BorderRadius.circular(22),
             boxShadow: [
               BoxShadow(
-                color: Colors.transparent,
-                blurRadius: 0.1,
-                spreadRadius: 0.2,
-              )
+                  color: Colors.black38,
+                  blurRadius: 0.5,
+                  offset: Offset(1.2, 2.3))
             ]),
         child: Container(
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: const BorderRadius.all(const Radius.circular(20.0)),
-          ),
-          child: Center(
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 17.5,
+          decoration: new BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              color: Colors.white,
+              boxShadow: <BoxShadow>[]),
+          child: Container(
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: const BorderRadius.all(const Radius.circular(20.0)),
+            ),
+            child: Center(
+              child: Text(
+                text,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17.5,
+                ),
               ),
             ),
           ),
@@ -273,7 +283,7 @@ class _HomeState extends State<Home> {
       width: 400,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(0),
+        color: Colors.white.withAlpha(180),
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
@@ -285,7 +295,7 @@ class _HomeState extends State<Home> {
         child: Row(
           children: [
             SizedBox(
-              width: 23,
+              width: 20,
             ),
             reminder(),
             SizedBox(
@@ -312,13 +322,25 @@ class _HomeState extends State<Home> {
         width: 60,
         child: SpringButton(
           SpringButtonType.OnlyScale,
-          CircleAvatar(
-            backgroundColor: Color.fromARGB(200, 145, 12, 7),
-            radius: 60,
-            child: Icon(
-              Icons.notification_important,
-              size: 30,
-              color: Colors.white,
+          Container(
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(200, 145, 12, 7).withAlpha(150),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 0.5,
+                      offset: Offset(1.2, 2.3))
+                ]),
+            child: CircleAvatar(
+              backgroundColor: Color.fromARGB(200, 145, 12, 7),
+              radius: 30,
+              child: Icon(
+                Icons.notification_important,
+                size: 30,
+                color: Colors.white,
+              ),
             ),
           ),
           onTapDown: (_) => {
@@ -332,8 +354,8 @@ class _HomeState extends State<Home> {
         ),
       ),
       Text(
-        'Nottification',
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+        'Notification',
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
       )
     ]);
   }
@@ -346,20 +368,32 @@ class _HomeState extends State<Home> {
         width: 60,
         child: SpringButton(
           SpringButtonType.OnlyScale,
-          CircleAvatar(
-            backgroundColor: Color.fromARGB(200, 200, 150, 7),
-            radius: 60,
-            child: Icon(
-              Icons.shopping_cart,
-              size: 30,
-              color: Colors.white,
+          Container(
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(200, 200, 150, 7).withAlpha(150),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 0.5,
+                      offset: Offset(1.2, 2.3))
+                ]),
+            child: CircleAvatar(
+              backgroundColor: Color.fromARGB(200, 200, 150, 7),
+              radius: 60,
+              child: Icon(
+                Icons.shopping_cart,
+                size: 30,
+                color: Colors.white,
+              ),
             ),
           ),
           onTapDown: (_) => {
             Future.delayed(Duration(milliseconds: 150), () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ReminderHome()),
+                MaterialPageRoute(builder: (context) => CartHome()),
               );
             }),
           },
@@ -367,7 +401,7 @@ class _HomeState extends State<Home> {
       ),
       Text(
         'Cart',
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
       )
     ]);
   }
@@ -380,13 +414,25 @@ class _HomeState extends State<Home> {
         width: 60,
         child: SpringButton(
           SpringButtonType.OnlyScale,
-          CircleAvatar(
-            backgroundColor: Colors.green,
-            radius: 60,
-            child: Icon(
-              Icons.account_box,
-              color: Colors.white,
-              size: 30,
+          Container(
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                color: Colors.green[500].withAlpha(150),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 0.5,
+                      offset: Offset(1.2, 2.3))
+                ]),
+            child: CircleAvatar(
+              backgroundColor: Colors.green,
+              radius: 60,
+              child: Icon(
+                Icons.account_box,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
           ),
           onTapDown: (_) => () {},
@@ -394,7 +440,7 @@ class _HomeState extends State<Home> {
       ),
       Text(
         'Accounts',
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
       )
     ]);
   }
@@ -407,13 +453,25 @@ class _HomeState extends State<Home> {
         width: 60,
         child: SpringButton(
           SpringButtonType.OnlyScale,
-          CircleAvatar(
-            backgroundColor: Colors.blue,
-            radius: 60,
-            child: Icon(
-              Icons.insert_invitation,
-              color: Colors.white,
-              size: 30,
+          Container(
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                color: Colors.blue[500].withAlpha(150),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 0.5,
+                      offset: Offset(1.2, 2.3))
+                ]),
+            child: CircleAvatar(
+              backgroundColor: Colors.blue,
+              radius: 60,
+              child: Icon(
+                Icons.insert_invitation,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
           ),
           onTapDown: (_) => () {},
@@ -421,7 +479,7 @@ class _HomeState extends State<Home> {
       ),
       Text(
         'Calender',
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
       )
     ]);
   }

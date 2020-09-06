@@ -21,7 +21,7 @@ class _SearchBarState extends State<SearchBar> {
             margin: EdgeInsets.only(top: 10, left: 10),
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
             decoration: BoxDecoration(
-              color: Colors.black38.withAlpha(10),
+              color: Colors.white.withAlpha(210),
               borderRadius: BorderRadius.all(
                 Radius.circular(40),
               ),
@@ -34,7 +34,7 @@ class _SearchBarState extends State<SearchBar> {
                     decoration: InputDecoration(
                       hintText: "Search",
                       hintStyle: TextStyle(
-                        color: Colors.black.withAlpha(120),
+                        color: Colors.white.withAlpha(120),
                       ),
                       border: InputBorder.none,
                     ),

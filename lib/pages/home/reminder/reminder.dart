@@ -46,16 +46,32 @@ class _ReminderListState extends State<ReminderList> {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Container(
-          color: Colors.grey,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          height: 25,
-          width: double.infinity,
-          child: Text(
-            'Today',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+        SizedBox(
+          height: 5,
         ),
+        Row(children: [
+          SizedBox(
+            width: 30,
+          ),
+          Container(
+            height: 40,
+            width: 80,
+            decoration: BoxDecoration(
+              color: Colors.red[800],
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(left: 18, right: 10, top: 8),
+              child: Text(
+                'Today',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+        ]),
         Container(
           height: 300,
           child: // (() {
@@ -77,15 +93,29 @@ class _ReminderListState extends State<ReminderList> {
             ),
           ),
         ),
-        Container(
-          color: Colors.grey,
-          width: double.infinity,
-          height: 25,
-          child: Text(
-            '        Upcoming',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        Row(children: [
+          SizedBox(
+            width: 30,
           ),
-        ),
+          Container(
+            height: 40,
+            width: 100,
+            decoration: BoxDecoration(
+              color: Colors.blue[800],
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 8),
+              child: Text(
+                'Upcoming',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+        ]),
         Container(
           child: new Expanded(
             child: ListView.builder(

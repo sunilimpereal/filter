@@ -67,7 +67,7 @@ class ReminderTile extends StatelessWidget {
       width: double.infinity,
       margin: new EdgeInsets.only(left: 40.0),
       decoration: new BoxDecoration(
-          color: new Color(0xFF153243),
+          color: Color(0xFF153243),
           shape: BoxShape.rectangle,
           borderRadius: new BorderRadius.circular(8.0),
           boxShadow: <BoxShadow>[
@@ -102,7 +102,7 @@ class ReminderTile extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14.0,
                               fontWeight: FontWeight.w800,
-                              color: Colors.red),
+                              color: Colors.white),
                         )
                       ],
                     ),
