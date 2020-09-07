@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:filter/pages/home/account/account_home.dart';
 import 'package:filter/pages/home/filter/filter_home.dart';
 import 'package:filter/pages/home/products/cart.dart';
 import 'package:filter/pages/home/products/productview.dart';
@@ -9,6 +10,7 @@ import 'package:filter/pages/home/search/searchhome.dart';
 import 'package:filter/pages/home/service/service_home.dart';
 import 'package:filter/widgets/spring_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -295,7 +297,7 @@ class _HomeState extends State<Home> {
         child: Row(
           children: [
             SizedBox(
-              width: 20,
+              width: 25,
             ),
             reminder(),
             SizedBox(
@@ -305,7 +307,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               width: 13,
             ),
-            wallet(),
+            report(),
             SizedBox(width: 13),
             cart(),
           ],
@@ -406,7 +408,7 @@ class _HomeState extends State<Home> {
     ]);
   }
 
-  Widget wallet() {
+  Widget report() {
     return Column(children: [
       Container(
         padding: EdgeInsets.symmetric(horizontal: 5),
@@ -429,13 +431,20 @@ class _HomeState extends State<Home> {
               backgroundColor: Colors.green,
               radius: 60,
               child: Icon(
-                Icons.account_box,
+                Ionicons.ios_analytics,
                 color: Colors.white,
                 size: 30,
               ),
             ),
           ),
-          onTapDown: (_) => () {},
+          onTapDown: (_) => {
+            Future.delayed(Duration(milliseconds: 150), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AccountHome()),
+              );
+            }),
+          },
         ),
       ),
       Text(

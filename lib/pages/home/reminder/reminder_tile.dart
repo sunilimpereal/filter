@@ -148,15 +148,15 @@ class ReminderTile extends StatelessWidget {
                                 color: Colors.green[200],
                               ),
                             ),
-                            Text(
-                              due != '0' ? 'Due : $due' : '',
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.red[300],
-                              ),
-                            ),
+                            // Text(
+                            //   due != '0' ? 'Due : $due' : '',
+                            //   overflow: TextOverflow.fade,
+                            //   style: TextStyle(
+                            //     fontSize: 15.0,
+                            //     fontWeight: FontWeight.w900,
+                            //     color: Colors.red[300],
+                            //   ),
+                            // ),
                           ])),
                 ],
               ),

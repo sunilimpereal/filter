@@ -376,7 +376,7 @@ class _View extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
-                    'spare : ',
+                    'Spare : ',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
@@ -403,7 +403,7 @@ class _View extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
-                    'spare : ',
+                    'Spare : ',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
