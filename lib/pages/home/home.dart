@@ -9,8 +9,11 @@ import 'package:filter/pages/home/reminder/rimender_home.dart';
 import 'package:filter/pages/home/search/searchhome.dart';
 import 'package:filter/pages/home/service/service_home.dart';
 import 'package:filter/widgets/spring_button.dart';
+import 'package:filter/pages/authenticate/authenticate.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:filter/services/auth.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -50,7 +53,7 @@ class _HomeState extends State<Home> {
       ),
       Column(
         children: [
-          SizedBox(height: 28),
+          SizedBox(height: 30),
           Container(
             decoration: BoxDecoration(
               color: Colors.white.withAlpha(255),
@@ -60,15 +63,12 @@ class _HomeState extends State<Home> {
             ),
             child: Column(
               children: [
+                SizedBox(
+                  height: 10,
+                ),
                 Row(children: [
                   SearchHome(),
-                  Container(
-                    padding: EdgeInsets.only(top: 6, left: 1),
-                    child: Icon(
-                      Icons.more_vert,
-                      size: 28,
-                    ),
-                  ),
+                  _childPopup(),
                 ]),
                 Padding(
                   padding: EdgeInsets.all(1),
@@ -157,7 +157,7 @@ class _HomeState extends State<Home> {
           Color(0xFF49B6FF),
         ),
         onTapDown: (_) => {
-          Future.delayed(Duration(milliseconds: 150), () {
+          Future.delayed(Duration(milliseconds: 100), () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ServiceHome()),
@@ -180,7 +180,7 @@ class _HomeState extends State<Home> {
           Color(0xFF153243),
         ),
         onTapDown: (_) => {
-          Future.delayed(Duration(milliseconds: 150), () {
+          Future.delayed(Duration(milliseconds: 100), () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => PurifierHome()),
@@ -203,7 +203,7 @@ class _HomeState extends State<Home> {
           Color.fromARGB(200, 145, 12, 7),
         ),
         onTapDown: (_) => {
-          Future.delayed(Duration(milliseconds: 150), () {
+          Future.delayed(Duration(milliseconds: 100), () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ProductView()),
@@ -227,7 +227,7 @@ class _HomeState extends State<Home> {
             Color(0xff577590),
           ),
           onTapDown: (_) => {
-            Future.delayed(Duration(milliseconds: 150), () {
+            Future.delayed(Duration(milliseconds: 100), () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => FilterHome()),
@@ -297,7 +297,7 @@ class _HomeState extends State<Home> {
         child: Row(
           children: [
             SizedBox(
-              width: 25,
+              width: 30,
             ),
             reminder(),
             SizedBox(
@@ -492,4 +492,21 @@ class _HomeState extends State<Home> {
       )
     ]);
   }
+
+  Widget _childPopup() => PopupMenuButton<int>(
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: 1,
+            child: Text(
+              "Logout",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+            ),
+          ),
+        ],
+        onSelected: (value) {
+          AuthService().signOut();
+        },
+        offset: Offset(0, 100),
+      );
 }

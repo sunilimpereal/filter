@@ -21,241 +21,12 @@ class _ProductViewState extends State<ProductView> {
     final user = Provider.of<User>(context);
     return Scaffold(
       key: globalKey,
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              padding: EdgeInsets.only(right: 20),
-              icon: Icon(
-                Icons.save,
-                size: 40,
-              ),
-              onPressed: () {
-                print(itemList);
-                String d = DateTime.now().toString();
-                DatabaseService(uid: user.uid).createProduct(
-                    '',
-                    d,
-                    (() {
-                      try {
-                        return itemList[0];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[1];
-                      } catch (e) {
-                        print('erro');
-                        return '0';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[2];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[3];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[4];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[5];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[6];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[7];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[8];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[9];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[10];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[11];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[12];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[13];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[14];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[15];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[16];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[17];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[18];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[19];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[20];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[21];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[22];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[23];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[24];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[25];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[26];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[27];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[28];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()),
-                    (() {
-                      try {
-                        return itemList[29];
-                      } catch (e) {
-                        return '';
-                      }
-                    }()));
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              }),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: 70,
+            ),
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
@@ -438,261 +209,274 @@ class _ProductViewState extends State<ProductView> {
           ],
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(top: 600, bottom: 40.0, right: 10),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => customItem(context, '', '')),
-                  );
-                  // Add your onPressed code here!
-                },
-                child: Icon(Icons.add),
-                backgroundColor: Colors.blue,
-              ),
-            ],
+      floatingActionButton: Column(children: [
+        Padding(
+          padding: EdgeInsets.only(top: 60, right: 260, left: 20),
+          child: FloatingActionButton.extended(
+            icon: Icon(Icons.arrow_back),
+            label: Text(''),
+            heroTag: null,
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              new FloatingActionButton.extended(
-                heroTag: null,
-                backgroundColor: Colors.green,
-                icon: Icon(Icons.save),
-                label: Text('Save'),
-                onPressed: () {
-                  print(itemList);
-                  String d = DateTime.now().toString();
-                  DatabaseService(uid: user.uid).createProduct(
-                      '',
-                      d,
-                      (() {
-                        try {
-                          return itemList[0];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[1];
-                        } catch (e) {
-                          print('erro');
-                          return '0';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[2];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[3];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[4];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[5];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[6];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[7];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[8];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[9];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[10];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[11];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[12];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[13];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[14];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[15];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[16];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[17];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[18];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[19];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[20];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[21];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[22];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[23];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[24];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[25];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[26];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[27];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[28];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()),
-                      (() {
-                        try {
-                          return itemList[29];
-                        } catch (e) {
-                          return '';
-                        }
-                      }()));
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          )
-        ]),
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 475, bottom: 50.0, right: 10),
+          child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => customItem(context, '', '')),
+                    );
+                    // Add your onPressed code here!
+                  },
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.blue,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                new FloatingActionButton.extended(
+                  heroTag: null,
+                  backgroundColor: Colors.green,
+                  icon: Icon(Icons.save),
+                  label: Text('Save'),
+                  onPressed: () {
+                    print(itemList);
+                    String d = DateTime.now().toString();
+                    DatabaseService(uid: user.uid).createProduct(
+                        '',
+                        d,
+                        (() {
+                          try {
+                            return itemList[0];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[1];
+                          } catch (e) {
+                            print('erro');
+                            return '0';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[2];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[3];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[4];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[5];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[6];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[7];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[8];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[9];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[10];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[11];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[12];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[13];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[14];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[15];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[16];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[17];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[18];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[19];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[20];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[21];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[22];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[23];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[24];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[25];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[26];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[27];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[28];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()),
+                        (() {
+                          try {
+                            return itemList[29];
+                          } catch (e) {
+                            return '';
+                          }
+                        }()));
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            )
+          ]),
+        ),
+      ]),
     );
   }
 

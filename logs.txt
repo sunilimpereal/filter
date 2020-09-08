@@ -21,3 +21,98 @@ Author: unknown <sunilhari496@gmail.com>
 Date:   Sat Aug 29 17:24:28 2020 +0530
 
     first
+[33mcommit 8c47291ea776756f7c8c9a5f49f1b4f56b6d9056[m[33m ([m[1;36mHEAD -> [m[1;32mpurifier[m[33m)[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Mon Sep 7 16:28:24 2020 +0530
+
+    finished
+
+[33mcommit f8c7d1756fcaf434e3c52a963080ccea79430c17[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Mon Sep 7 03:12:11 2020 +0530
+
+    changed ui
+
+[33mcommit 9388b52f7cac77d2322b45f7bfff40f0a1f3998f[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sun Sep 6 23:56:17 2020 +0530
+
+    added product
+
+[33mcommit def217403a9df2c1f7076e308e7a3e6f6ee97fdb[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sun Sep 6 03:18:27 2020 +0530
+
+    added purchase and icon and search and notification
+
+[33mcommit a448c2bf5aaf408710ce1e9c866a557562473709[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Thu Sep 3 14:58:39 2020 +0530
+
+    added notification and call
+
+[33mcommit 933cebecaafbceacdaa2870f0ae278a3e54bd9ab[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Thu Sep 3 09:24:51 2020 +0530
+
+    added sms and call
+
+[33mcommit 35c6adf0fc0077f30c530aea0bd0d4255e0f8871[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Thu Sep 3 05:51:08 2020 +0530
+
+    added delte fand edit for all types
+
+[33mcommit b988cae002008511b4e84de3b5f6ce79bbba14ad[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Wed Sep 2 23:13:53 2020 +0530
+
+    filter added
+
+[33mcommit ca6a8dc2d4d045a1a08f904ae806f45a6afa41c7[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Wed Sep 2 16:12:21 2020 +0530
+
+    service added -home-view
+
+[33mcommit 4ea36a52e20f129154777446e372493c9e0a9651[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Tue Sep 1 10:44:44 2020 +0530
+
+    Purifier view
+
+[33mcommit f3e8904d6b2cd80f91849ee3173981b9e1fae86d[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sun Aug 30 21:35:13 2020 +0530
+
+    added date fiels in purier form
+
+[33mcommit 24d5916d5243c2b07d952954835df4dad22e3f58[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sun Aug 30 17:39:08 2020 +0530
+
+    purifier form added anf connected backend
+
+[33mcommit b05aa44fad0b5d780bf2ede5ad8d272a43682830[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sun Aug 30 12:06:41 2020 +0530
+
+    added choosing pallete
+
+[33mcommit 168f39ff23b443f8c986ac0bde310a0a78a89998[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sat Aug 29 19:45:10 2020 +0530
+
+    created purifier in firestore and stram for purifier
+
+[33mcommit 693fb1aaf44ce168390fa66742c0dfbe3f4812a3[m[33m ([m[1;32mmaster[m[33m)[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sat Aug 29 17:53:48 2020 +0530
+
+    normal
+
+[33mcommit 94abc03d95165408cfc1aa666e7174b02a07d861[m
+Author: unknown <sunilhari496@gmail.com>
+Date:   Sat Aug 29 17:24:28 2020 +0530
+
+    first

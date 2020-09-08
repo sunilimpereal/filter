@@ -27,13 +27,18 @@ class _FilterFormState extends State<FilterForm> {
   String date = '';
   String paid = '';
   String due = '';
-  String expDate = '';
+  String fexpDate = '';
+  DateTime expDate = DateTime.parse(
+      DateReminder(date: (DateTime.now().toString())).addthreeMonths());
   String id = '';
   String img = '';
 
   @override
   Widget build(BuildContext context) {
     date = _selectedDate.toString();
+    fexpDate = expDate.toString();
+
+    fexpDate = DateReminder(date: (DateTime.now().toString())).addthreeMonths();
     final user = Provider.of<User>(context);
     return new Scaffold(
       backgroundColor: Color(0xFFebebeb),
@@ -259,7 +264,7 @@ class _FilterFormState extends State<FilterForm> {
                             ],
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Total",
+                              hintText: "Price",
                             ),
                           ),
                         ),
@@ -391,16 +396,51 @@ class _FilterFormState extends State<FilterForm> {
                     setState(() {
                       _selectedDate = _pickerDate;
                       date = _selectedDate.toString();
-                      print(date);
+                      String nexpDate =
+                          DateReminder(date: date).addthreeMonths();
+                      expDate = DateTime.parse(nexpDate);
+                      print(expDate);
+                      fexpDate = expDate.toString();
                     });
                   },
                 ),
               ),
               new ListTile(
-                leading: const Icon(Icons.image),
-                title: const Text('Image'),
-                subtitle: const Text('Warranty image'),
+                leading: const Icon(
+                  Icons.today,
+                  color: Colors.red,
+                ),
+                title: FlatButton(
+                  padding: EdgeInsets.all(0.0),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        DateFormat.yMMMEd().format(expDate),
+                        style: TextStyle(
+                            color: Colors.black54, fontWeight: FontWeight.bold),
+                      ),
+                      Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.black54,
+                      ),
+                    ],
+                  ),
+                  onPressed: () async {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    DateTime _pickerDate = await _selectDate1(expDate);
+                    setState(() {
+                      expDate = _pickerDate;
+                      fexpDate = expDate.toString();
+                      print(fexpDate);
+                    });
+                  },
+                ),
               ),
+              // new ListTile(
+              //   leading: const Icon(Icons.image),
+              //   title: const Text('Image'),
+              //   subtitle: const Text('Warranty image'),
+              // ),
               Container(
                 child: ProgressButton.icon(
                     iconedButtons: {
@@ -427,11 +467,10 @@ class _FilterFormState extends State<FilterForm> {
                         stateTextWithIcon = ButtonState.loading;
                         Future.delayed(Duration(seconds: 1), () {});
                         if (_formKey.currentState.validate()) {
-                          expDate = DateReminder(date: date).addthreeMonths();
-
+                          print(fexpDate);
                           dynamic result = await DatabaseService(uid: user.uid)
                               .createFilter(id, name, number, address, date,
-                                  model, price, paid, due, expDate);
+                                  model, price, paid, due, expDate.toString());
                           print(result);
 
                           Future.delayed(Duration(seconds: 1), () {
@@ -458,6 +497,29 @@ class _FilterFormState extends State<FilterForm> {
 
   //Date Picker
   Future<DateTime> _selectDate(DateTime selectedDate) async {
+    DateTime _initialDate = selectedDate;
+
+    final DateTime _pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _initialDate,
+      firstDate: DateTime.now().subtract(Duration(days: 365)),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+    );
+    if (_pickedDate != null) {
+      selectedDate = DateTime(
+          _pickedDate.year,
+          _pickedDate.month,
+          _pickedDate.day,
+          _initialDate.hour,
+          _initialDate.minute,
+          _initialDate.second,
+          _initialDate.millisecond,
+          _initialDate.microsecond);
+    }
+    return selectedDate;
+  }
+
+  Future<DateTime> _selectDate1(DateTime selectedDate) async {
     DateTime _initialDate = selectedDate;
 
     final DateTime _pickedDate = await showDatePicker(

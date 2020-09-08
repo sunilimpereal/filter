@@ -13,7 +13,7 @@ class SearchPage extends StatelessWidget {
       GestureDetector(
         child: Container(
           height: 50,
-          width: 320,
+          width: 300,
           margin: EdgeInsets.only(top: 10, left: 10),
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
           decoration: BoxDecoration(

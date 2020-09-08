@@ -189,7 +189,7 @@ class _SignInState extends State<SignIn> {
                                           builder: (context) => Register()));
                                 },
                                 child: Text(
-                                  'Sing up',
+                                  'Sign up',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.white,

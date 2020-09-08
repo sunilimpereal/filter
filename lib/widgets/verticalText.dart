@@ -13,7 +13,7 @@ class _VerticalTextState extends State<VerticalText> {
       child: RotatedBox(
           quarterTurns: -1,
           child: Text(
-            'Sing in',
+            'Sign in',
             style: TextStyle(
               color: Colors.white,
               fontSize: 38,

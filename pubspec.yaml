@@ -44,6 +44,7 @@ dependencies:
   fluttertoast: ^7.0.4
   font_awesome_flutter: ^8.8.1
   flutter_icons: ^1.1.0
+  flutter_open_whatsapp: ^0.1.2
 
 
 dev_dependencies:
@@ -66,8 +67,11 @@ flutter:
      - lib/assets/img/fil.png
      - lib/assets/img/service.jpg
      - lib/assets/img/home1.jpg
-     - lib/assets/img/tile3.png
-     - lib/assets/img/background.png
+  
+
+
+  
+    
 
 flutter_icons:
     android: true

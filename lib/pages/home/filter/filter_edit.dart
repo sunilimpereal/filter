@@ -36,6 +36,8 @@ class _FilterEditState extends State<FilterEdit> {
   String due;
   String expDate;
   String img;
+  String date1 = '';
+  String fexpDate;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,12 @@ class _FilterEditState extends State<FilterEdit> {
               String paid = snapshot.data.paid;
               String due = snapshot.data.due;
               String expDate = snapshot.data.expDate;
-              String date1 = '';
+              if (fexpDate == null) {
+                fexpDate = snapshot.data.expDate;
+              }
+              if (date1 == '') {
+                date1 = snapshot.data.date;
+              }
 
               return Form(
                 key: _formKey,
@@ -430,6 +437,40 @@ class _FilterEditState extends State<FilterEdit> {
                         ),
                       ),
                       new ListTile(
+                        leading: const Icon(
+                          Icons.today,
+                          color: Colors.red,
+                        ),
+                        title: FlatButton(
+                          padding: EdgeInsets.all(0.0),
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                DateFormat.yMMMEd()
+                                    .format(DateTime.parse(fexpDate)),
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black54,
+                              ),
+                            ],
+                          ),
+                          onPressed: () async {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            DateTime _pickerDate =
+                                await _selectDate(DateTime.parse(fexpDate));
+                            setState(() {
+                              expDate = _pickerDate.toString();
+                              fexpDate = expDate.toString();
+                            });
+                          },
+                        ),
+                      ),
+
+                      new ListTile(
                         leading: const Icon(Icons.image),
                         title: const Text('Image'),
                         subtitle: const Text('Warranty image'),
@@ -476,11 +517,11 @@ class _FilterEditState extends State<FilterEdit> {
                                               number,
                                               address,
                                               model,
-                                              _selectedDate.toString(),
+                                              date1,
                                               price,
                                               paid,
                                               due,
-                                              expDate);
+                                              fexpDate);
                                   print(result);
 
                                   Future.delayed(Duration(seconds: 1), () {

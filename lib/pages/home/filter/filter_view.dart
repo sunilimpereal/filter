@@ -8,8 +8,8 @@ import 'package:filter/pages/home/filter/filter_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/services/database.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
@@ -158,8 +158,7 @@ class _View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String datedisp = DateFormat.yMd().format(DateTime.parse(date ?? ''));
-    String nDate = DateReminder(date: date).addthreeMonths();
-    String nextDate = DateFormat.yMd().format(DateTime.parse(nDate));
+    String expDate1 = DateFormat.yMd().format(DateTime.parse(expDate ?? ''));
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: 150, left: 20),
@@ -255,6 +254,33 @@ class _View extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
+                    'Model : ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(),
+                  child: Text(
+                    '  $model',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(),
+                  child: Text(
                     'Price  : ',
                     style: TextStyle(
                       fontSize: 20,
@@ -320,7 +346,7 @@ class _View extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
-                    ' $nextDate',
+                    ' $expDate1',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -361,7 +387,7 @@ class _View extends StatelessWidget {
             icon: FaIcon(FontAwesomeIcons.sms),
             label: Text(''),
             onPressed: () {
-              sendSms(number, nextDate);
+              sendSms(number, expDate);
               final snackBar = SnackBar(
                 content: Text('Message Sent to $name'),
                 action: SnackBarAction(
@@ -381,7 +407,18 @@ class _View extends StatelessWidget {
             heroTag: null,
             icon: FaIcon(FontAwesomeIcons.whatsapp),
             label: Text(''),
-            onPressed: () {},
+            onPressed: () {
+              FlutterOpenWhatsapp.sendSingleMessage("+91$number",
+                  "Your Water Purifier Filter replace date is $date\nBy SMART AQUA PURIFIER\nBala Chandar | 9534989863\nChange Outer Filter every three months for long life");
+              final snackBar = SnackBar(
+                content: Text('Message Sent to $name'),
+                action: SnackBarAction(
+                  label: '',
+                  onPressed: () {},
+                ),
+              );
+              Scaffold.of(context).showSnackBar(snackBar);
+            },
           ),
         ),
       ]),
