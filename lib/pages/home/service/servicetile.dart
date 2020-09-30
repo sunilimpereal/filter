@@ -25,8 +25,15 @@ class ServiceTile extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 5.0),
           child: Stack(
             children: [
-              filterCard(service.date, service.name, service.description,
-                  service.number, service.price, service.due, service.id),
+              filterCard(
+                  service.date,
+                  service.name,
+                  service.address,
+                  service.description,
+                  service.number,
+                  service.price,
+                  service.due,
+                  service.id),
               filterThumbnail,
             ],
           ),
@@ -40,10 +47,10 @@ class ServiceTile extends StatelessWidget {
     width: 85,
     margin: new EdgeInsets.symmetric(vertical: 16.0),
     decoration: new BoxDecoration(
-      color: const Color(0x00796b),
+      color: Colors.white,
       image: new DecorationImage(
         image: new AssetImage('lib/assets/img/se.png'),
-        fit: BoxFit.cover,
+        // fit: BoxFit.cover,
       ),
       borderRadius: new BorderRadius.all(new Radius.circular(55.0)),
       border: new Border.all(
@@ -54,8 +61,8 @@ class ServiceTile extends StatelessWidget {
   );
 
   //Building filter card
-  filterCard(String date, String name, String description, String number,
-      String price, String due, String id) {
+  filterCard(String date, String name, String address, String description,
+      String number, String price, String due, String id) {
     print(DateTime.now().toString());
     print(date);
     print(name);
@@ -105,18 +112,26 @@ class ServiceTile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          '| Service  |',
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white),
-                        )
-                      ],
+                  Flexible(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 16.0),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Container(
+                              width: 190,
+                              child: Text(
+                                '$address',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -146,15 +161,15 @@ class ServiceTile extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-                            Text(
-                              due != '0' ? 'Due : $due' : '',
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.red[500],
-                              ),
-                            ),
+                            // Text(
+                            //   due != '0' ? 'Due : $due' : '',
+                            //   overflow: TextOverflow.fade,
+                            //   style: TextStyle(
+                            //     fontSize: 15.0,
+                            //     fontWeight: FontWeight.w900,
+                            //     color: Colors.red[500],
+                            //   ),
+                            // ),
                           ])),
                 ],
               ),

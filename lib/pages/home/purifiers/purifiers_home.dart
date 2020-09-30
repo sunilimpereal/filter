@@ -83,47 +83,58 @@ class _PurifierHomeState extends State<PurifierHome> {
         ]),
         floatingActionButton: Column(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 60, right: 0, left: 30),
-                  child: FloatingActionButton.extended(
-                    icon: Icon(Icons.arrow_back),
-                    label: Text(''),
-                    heroTag: null,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+            SizedBox(
+              height: 60,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 0, right: 0, left: 20),
+                    child: FloatingActionButton.extended(
+                      label: Text(''),
+                      heroTag: null,
+                      icon: FaIcon(FontAwesomeIcons.arrowCircleLeft),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 60, left: 70),
-                  child: FloatingActionButton.extended(
-                    backgroundColor: Colors.blue,
-                    icon: FaIcon(FontAwesomeIcons.calendarAlt),
-                    label: Text(''),
-                    heroTag: null,
-                    onPressed: () {
-                      dispalyDateRangePicker(context);
-                    },
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 0, left: 0),
+                        child: FloatingActionButton.extended(
+                          backgroundColor: Colors.blue,
+                          icon: FaIcon(FontAwesomeIcons.calendarAlt),
+                          label: Text(''),
+                          heroTag: null,
+                          onPressed: () {
+                            dispalyDateRangePicker(context);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 0, left: 10),
+                        child: FloatingActionButton.extended(
+                          backgroundColor: Colors.green,
+                          icon: Icon(Icons.add),
+                          label: Text('New  '),
+                          heroTag: null,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PurifierForm()));
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 60, left: 10),
-                  child: FloatingActionButton.extended(
-                    backgroundColor: Colors.green,
-                    icon: Icon(Icons.add),
-                    label: Text('New  '),
-                    heroTag: null,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PurifierForm()));
-                    },
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

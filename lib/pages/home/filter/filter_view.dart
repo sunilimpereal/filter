@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:filter/classes/dateremin.dart';
 import 'package:filter/classes/sms.dart';
 import 'package:filter/models/filter.dart';
 import 'package:filter/models/user.dart';
@@ -157,8 +156,8 @@ class _View extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    String datedisp = DateFormat.yMd().format(DateTime.parse(date ?? ''));
-    String expDate1 = DateFormat.yMd().format(DateTime.parse(expDate ?? ''));
+    String datedisp = DateFormat.yMMMMd().format(DateTime.parse(date ?? ''));
+    String expDate1 = DateFormat.yMMMMd().format(DateTime.parse(expDate ?? ''));
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: 150, left: 20),
@@ -166,13 +165,21 @@ class _View extends StatelessWidget {
           children: [
             Row(
               children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Name : ',
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
                     ),
                   ),
                 ),
@@ -189,18 +196,25 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               children: [
+                Icon(
+                  Icons.phone,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Phone : ',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
                 ),
                 Padding(
@@ -216,18 +230,25 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 15,
+              height: 30,
             ),
             Row(
               children: [
+                Icon(
+                  Icons.home,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Address : ',
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
                 ),
                 Container(
@@ -247,18 +268,29 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 15,
+            ),
+            Divider(),
+            SizedBox(
+              height: 15,
             ),
             Row(
               children: [
+                Icon(
+                  Icons.view_module,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Model : ',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
                 ),
                 Padding(
@@ -274,18 +306,29 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 15,
+            ),
+            Divider(),
+            SizedBox(
+              height: 15,
             ),
             Row(
               children: [
+                Icon(
+                  Icons.account_balance_wallet,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
-                    'Price  : ',
+                    'Price :  ',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
                 ),
                 Padding(
@@ -301,14 +344,18 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 15,
+            ),
+            Divider(),
+            SizedBox(
+              height: 15,
             ),
             Row(
               children: [
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
-                    'Last Installation Date  : ',
+                    'Last Filter Change : ',
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -320,7 +367,7 @@ class _View extends StatelessWidget {
                   child: Text(
                     ' $datedisp',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -328,14 +375,14 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               children: [
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
-                    'Next Installation Date  : ',
+                    'Next Filter Change : ',
                     style: TextStyle(
                       color: Colors.red[700],
                       fontSize: 17,
@@ -348,7 +395,7 @@ class _View extends StatelessWidget {
                   child: Text(
                     ' $expDate1',
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                   ),
@@ -359,15 +406,23 @@ class _View extends StatelessWidget {
         ),
       ),
       floatingActionButton: Column(children: [
-        Padding(
-          padding: EdgeInsets.only(top: 60, right: 260),
-          child: FloatingActionButton.extended(
-            icon: Icon(Icons.arrow_back),
-            label: Text(''),
-            heroTag: null,
-            onPressed: () {
-              Navigator.pop(context);
-            },
+        SizedBox(height: 60),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: FloatingActionButton.extended(
+                  label: Text(''),
+                  heroTag: null,
+                  icon: FaIcon(FontAwesomeIcons.arrowCircleLeft),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
           ),
         ),
         Padding(
@@ -384,10 +439,10 @@ class _View extends StatelessWidget {
           padding: EdgeInsets.only(top: 10, left: 270),
           child: FloatingActionButton.extended(
             heroTag: null,
-            icon: FaIcon(FontAwesomeIcons.sms),
+            icon: Icon(Icons.message),
             label: Text(''),
             onPressed: () {
-              sendSms(number, expDate);
+              sendSms(number, expDate, date);
               final snackBar = SnackBar(
                 content: Text('Message Sent to $name'),
                 action: SnackBarAction(
@@ -408,8 +463,12 @@ class _View extends StatelessWidget {
             icon: FaIcon(FontAwesomeIcons.whatsapp),
             label: Text(''),
             onPressed: () {
+              String pdate =
+                  DateFormat('dd/MM/yyy').format(DateTime.parse(date ?? ''));
+              String pdate1 =
+                  DateFormat('dd/MM/yyy').format(DateTime.parse(expDate ?? ''));
               FlutterOpenWhatsapp.sendSingleMessage("+91$number",
-                  "Your Water Purifier Filter replace date is $date\nBy SMART AQUA PURIFIER\nBala Chandar | 9534989863\nChange Outer Filter every three months for long life");
+                  "Your Water Purifier Filter replace date is $pdate\nLast filter replace date-\n$pdate1 \nEvery three month once filter change for long life machine\n By SMART AQUA PURIFIER\nBala Chandar | 9524989863");
               final snackBar = SnackBar(
                 content: Text('Message Sent to $name'),
                 action: SnackBarAction(
@@ -442,8 +501,7 @@ showAlertDialog(BuildContext context, String uid, String id) {
     onPressed: () {
       DatabaseService(uid: uid).deleteFilter(id);
       Navigator.pop(context);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => FilterHome()));
+      Navigator.pop(context);
     },
   );
   // set up the AlertDialog
@@ -457,6 +515,7 @@ showAlertDialog(BuildContext context, String uid, String id) {
   );
   // show the dialog
   showDialog(
+    useRootNavigator: false,
     context: context,
     builder: (BuildContext context) {
       return alert;

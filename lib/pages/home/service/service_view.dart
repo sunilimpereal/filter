@@ -7,7 +7,6 @@ import 'package:filter/pages/home/service/service_home.dart';
 import 'package:filter/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
@@ -456,15 +455,25 @@ class _View extends StatelessWidget {
         ),
       ),
       floatingActionButton: Column(children: [
-        Padding(
-          padding: EdgeInsets.only(top: 60, right: 260),
-          child: FloatingActionButton.extended(
-            icon: Icon(Icons.arrow_back),
-            label: Text(''),
-            heroTag: null,
-            onPressed: () {
-              Navigator.pop(context);
-            },
+        SizedBox(
+          height: 60,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: FloatingActionButton.extended(
+                  label: Text(''),
+                  heroTag: null,
+                  icon: FaIcon(FontAwesomeIcons.arrowCircleLeft),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
           ),
         ),
         Padding(
@@ -484,7 +493,7 @@ class _View extends StatelessWidget {
             icon: FaIcon(FontAwesomeIcons.sms),
             label: Text(''),
             onPressed: () {
-              sendSms(number, '');
+              sendSms(number, '', date);
               final snackBar = SnackBar(
                 content: Text('Message Sent to $name'),
                 action: SnackBarAction(

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:filter/models/user.dart';
+import 'package:filter/pages/home/purifiers/ins_filterform.dart';
 import 'package:filter/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +24,8 @@ class _PurifierFormState extends State<PurifierForm> {
   String number = '';
   String address = '';
   String model = '';
+  String membrane = '';
+  String pump = '';
   String price = '';
   String date = '';
   String paid = '';
@@ -67,7 +70,9 @@ class _PurifierFormState extends State<PurifierForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.person),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.person)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) => value.isEmpty ? 'Enter name' : null,
@@ -77,7 +82,7 @@ class _PurifierFormState extends State<PurifierForm> {
                         });
                       },
                       decoration: new InputDecoration(
-                        hintText: "Name",
+                        labelText: "Name",
                         border: InputBorder.none,
                       ),
                     ),
@@ -106,7 +111,9 @@ class _PurifierFormState extends State<PurifierForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.phone),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.phone)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) =>
@@ -121,7 +128,7 @@ class _PurifierFormState extends State<PurifierForm> {
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
                       decoration: new InputDecoration(
-                        hintText: "Phone",
+                        labelText: "Phone",
                         border: InputBorder.none,
                       ),
                     ),
@@ -150,7 +157,9 @@ class _PurifierFormState extends State<PurifierForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.home),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.home)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) =>
@@ -164,7 +173,7 @@ class _PurifierFormState extends State<PurifierForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
-                        hintText: "Address",
+                        labelText: "Address",
                         border: InputBorder.none,
                       ),
                     ),
@@ -195,7 +204,9 @@ class _PurifierFormState extends State<PurifierForm> {
                       ]),
                   child: new ListTile(
                     selected: true,
-                    leading: const Icon(Icons.description),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 5),
+                        child: const Icon(Icons.description)),
                     title: new TextFormField(
                       validator: (value) =>
                           value.isEmpty ? 'Enter model' : null,
@@ -207,7 +218,93 @@ class _PurifierFormState extends State<PurifierForm> {
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Model",
+                        labelText: "Model",
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              //membrane
+              SizedBox(height: 10),
+
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(10.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: new ListTile(
+                    selected: true,
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.layers)),
+                    title: new TextFormField(
+                      validator: (value) =>
+                          value.isEmpty ? 'Enter membrane' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          membrane = value;
+                        });
+                      },
+                      keyboardType: TextInputType.multiline,
+                      decoration: new InputDecoration(
+                        border: InputBorder.none,
+                        labelText: "Membrane",
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              //pump
+              SizedBox(height: 10),
+
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(10.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: new ListTile(
+                    selected: true,
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 6),
+                        child: const Icon(Icons.battery_full)),
+                    title: new TextFormField(
+                      validator: (value) => value.isEmpty ? 'Enter pump' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          pump = value;
+                        });
+                      },
+                      keyboardType: TextInputType.multiline,
+                      decoration: new InputDecoration(
+                        border: InputBorder.none,
+                        labelText: "Pump",
                       ),
                     ),
                   ),
@@ -239,17 +336,24 @@ class _PurifierFormState extends State<PurifierForm> {
                               )
                             ]),
                         child: new ListTile(
-                          leading: const Icon(
-                            Icons.attach_money,
-                            color: Colors.amber,
+                          dense: true,
+                          visualDensity:
+                              VisualDensity(horizontal: 0, vertical: -4),
+                          contentPadding:
+                              EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
+                          leading: Text(
+                            '   ₹',
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.blue,
+                            ),
                           ),
                           title: new TextFormField(
                             validator: (value) =>
                                 value.isEmpty ? 'Enter Total anount' : null,
                             onChanged: (value) {
-                              setState(() {
-                                price = value.toString();
-                              });
+                              price = value.toString();
+                              print(price);
                             },
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -257,7 +361,7 @@ class _PurifierFormState extends State<PurifierForm> {
                             ],
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Total",
+                              labelText: "Total",
                             ),
                           ),
                         ),
@@ -292,17 +396,23 @@ class _PurifierFormState extends State<PurifierForm> {
                               )
                             ]),
                         child: new ListTile(
-                          leading: const Icon(
-                            Icons.attach_money,
-                            color: Colors.green,
+                          dense: true,
+                          visualDensity:
+                              VisualDensity(horizontal: 0, vertical: -4),
+                          contentPadding:
+                              EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
+                          leading: Text(
+                            '   ₹',
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.green,
+                            ),
                           ),
                           title: new TextFormField(
                             validator: (value) =>
                                 value.isEmpty ? 'Enter paid' : null,
                             onChanged: (value) {
-                              setState(() {
-                                paid = value.toString();
-                              });
+                              paid = value.toString();
                             },
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -310,7 +420,7 @@ class _PurifierFormState extends State<PurifierForm> {
                             ],
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Paid",
+                              labelText: "Paid",
                             ),
                           ),
                         ),
@@ -318,7 +428,7 @@ class _PurifierFormState extends State<PurifierForm> {
                     ),
                   ),
                   Container(
-                    width: 180,
+                    width: 160,
                     height: 60,
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -339,26 +449,40 @@ class _PurifierFormState extends State<PurifierForm> {
                               )
                             ]),
                         child: new ListTile(
-                          leading: const Icon(
-                            Icons.attach_money,
-                            color: Colors.red,
+                          dense: true,
+                          visualDensity:
+                              VisualDensity(horizontal: 0, vertical: -4),
+                          contentPadding:
+                              EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
+                          leading: Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Container(
+                              child: Text(
+                                '    ₹',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
                           ),
-                          title: new TextFormField(
-                            validator: (value) =>
-                                value.isEmpty ? 'Enter Due' : null,
-                            onChanged: (value) {
-                              setState(() {
+                          title: Container(
+                            padding: const EdgeInsets.all(0.0),
+                            child: new TextFormField(
+                              validator: (value) =>
+                                  value.isEmpty ? 'Enter Due' : null,
+                              onChanged: (value) {
                                 due = value.toString();
-                              });
-                            },
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              WhitelistingTextInputFormatter.digitsOnly
-                            ],
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Due",
-                                fillColor: Colors.red),
+                              },
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                WhitelistingTextInputFormatter.digitsOnly
+                              ],
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  labelText: "Due",
+                                  fillColor: Colors.red),
+                            ),
                           ),
                         ),
                       ),
@@ -427,7 +551,7 @@ class _PurifierFormState extends State<PurifierForm> {
                         if (_formKey.currentState.validate()) {
                           dynamic result = await DatabaseService(uid: user.uid)
                               .createPurifer(id, name, number, address, model,
-                                  price, date, paid, due, img);
+                                  membrane, pump, price, date, paid, due, img);
                           print(result);
 
                           Future.delayed(Duration(seconds: 1), () {
@@ -436,6 +560,13 @@ class _PurifierFormState extends State<PurifierForm> {
                                   ? ButtonState.success
                                   : ButtonState.fail;
                             });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => InsFilterForm(
+                                        name: name,
+                                        number: number,
+                                        address: address)));
                           });
                         }
                       }
@@ -444,7 +575,10 @@ class _PurifierFormState extends State<PurifierForm> {
                       });
                     },
                     state: stateTextWithIcon),
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
@@ -479,7 +613,18 @@ class _PurifierFormState extends State<PurifierForm> {
       stateTextWithIcon = ButtonState.loading;
       if (_formKey.currentState.validate()) {
         dynamic result = await DatabaseService(uid: user.uid).createPurifer(
-            name, number, address, model, price, date, paid, due, id, img);
+            name,
+            number,
+            address,
+            model,
+            membrane,
+            pump,
+            price,
+            date,
+            paid,
+            due,
+            id,
+            img);
         print(result);
       }
       Future.delayed(Duration(seconds: 1), () {

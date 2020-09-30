@@ -3,17 +3,16 @@ import 'dart:ui';
 import 'package:filter/pages/home/account/account_home.dart';
 import 'package:filter/pages/home/filter/filter_home.dart';
 import 'package:filter/pages/home/products/cart.dart';
+import 'package:filter/pages/home/products/product_home.dart';
 import 'package:filter/pages/home/products/productview.dart';
 import 'package:filter/pages/home/purifiers/purifiers_home.dart';
 import 'package:filter/pages/home/reminder/rimender_home.dart';
 import 'package:filter/pages/home/search/searchhome.dart';
 import 'package:filter/pages/home/service/service_home.dart';
 import 'package:filter/widgets/spring_button.dart';
-import 'package:filter/pages/authenticate/authenticate.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:filter/services/auth.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -48,19 +47,26 @@ class _HomeState extends State<Home> {
       Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("lib/assets/img/home1.jpg"), fit: BoxFit.cover),
+              image: AssetImage("lib/assets/img/home.png"), fit: BoxFit.cover),
         ),
       ),
       Column(
         children: [
           SizedBox(height: 30),
           Container(
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Colors.white.withAlpha(255),
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-            ),
+                color: Colors.white.withAlpha(255),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 3.0,
+                    offset: Offset(0, 0),
+                    color: Colors.grey[300],
+                  )
+                ]),
             child: Column(
               children: [
                 SizedBox(
@@ -72,7 +78,7 @@ class _HomeState extends State<Home> {
                 ]),
                 Padding(
                   padding: EdgeInsets.all(1),
-                  child: horizonal(),
+                  child: horizonal(context),
                 ),
               ],
             ),
@@ -100,7 +106,7 @@ class _HomeState extends State<Home> {
           //   height: 10.0,
           // ),
           SizedBox(
-            height: 20,
+            height: 50,
           ),
           Padding(
             padding: EdgeInsets.all(2),
@@ -113,7 +119,7 @@ class _HomeState extends State<Home> {
             child: Container(
               width: 350,
               decoration: BoxDecoration(
-                color: Colors.white38.withAlpha(230),
+                color: Colors.white38.withAlpha(40),
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
@@ -152,17 +158,72 @@ class _HomeState extends State<Home> {
       width: 170.0,
       child: SpringButton(
         SpringButtonType.OnlyScale,
-        row(
-          "Service",
-          Color(0xFF49B6FF),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          child: Container(
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                color: Color(0xFFD9BBF9).withAlpha(250),
+                borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 0.5,
+                      offset: Offset(1.2, 2.3))
+                ]),
+            child: Column(children: [
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: 50,
+                height: 50,
+                // color: Colors.black,
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Colors.transparent,
+                    boxShadow: <BoxShadow>[]),
+                child: Image(
+                  image: AssetImage('lib/assets/icon/service.png'),
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                height: 0,
+              ),
+              Container(
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Colors.transparent,
+                    boxShadow: <BoxShadow>[]),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFD9BBF9).withAlpha(250),
+                    borderRadius:
+                        const BorderRadius.all(const Radius.circular(20.0)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Service',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
         ),
+        // row("Service", Color(0xFFD9BBF9), 17.5, 'lib/assets/icon/service.png'),
         onTapDown: (_) => {
-          Future.delayed(Duration(milliseconds: 100), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ServiceHome()),
-            );
-          }),
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ServiceHome()),
+          ),
         },
       ),
     );
@@ -175,17 +236,72 @@ class _HomeState extends State<Home> {
       width: 170.0,
       child: SpringButton(
         SpringButtonType.OnlyScale,
-        row(
-          "Installation",
-          Color(0xFF153243),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          child: Container(
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                color: Color(0xff6A66A3).withAlpha(250),
+                borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 0.5,
+                      offset: Offset(1.2, 2.3))
+                ]),
+            child: Column(children: [
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: 50,
+                height: 50,
+                // color: Colors.black,
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Colors.transparent,
+                    boxShadow: <BoxShadow>[]),
+                child: Image(
+                  image: AssetImage('lib/assets/icon/purifier.png'),
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                height: 0,
+              ),
+              Container(
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Colors.transparent,
+                    boxShadow: <BoxShadow>[]),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xff6A66A3).withAlpha(250),
+                    borderRadius:
+                        const BorderRadius.all(const Radius.circular(20.0)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Customer Entry',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
         ),
+        // row("Customer Entry", Color(0xff6A66A3), 16.5,
+        //     'lib/assets/icon/purifier.png'),
         onTapDown: (_) => {
-          Future.delayed(Duration(milliseconds: 100), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => PurifierHome()),
-            );
-          }),
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PurifierHome()),
+          ),
         },
       ),
     );
@@ -198,17 +314,73 @@ class _HomeState extends State<Home> {
       width: 170.0,
       child: SpringButton(
         SpringButtonType.OnlyScale,
-        row(
-          "Purchase",
-          Color.fromARGB(200, 145, 12, 7),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          child: Container(
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                color: Colors.blue[400].withAlpha(250),
+                borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 0.5,
+                      offset: Offset(1.2, 2.3))
+                ]),
+            child: Column(children: [
+              SizedBox(
+                height: 19,
+              ),
+              Container(
+                width: 40,
+                height: 40,
+                // color: Colors.black,
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Colors.transparent,
+                    boxShadow: <BoxShadow>[]),
+                child: Image(
+                  image: AssetImage('lib/assets/icon/purchase.png'),
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Colors.transparent,
+                    boxShadow: <BoxShadow>[]),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue[400].withAlpha(250),
+                    borderRadius:
+                        const BorderRadius.all(const Radius.circular(20.0)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Purchase',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
         ),
+
+        // row("Purchase", Color(0xffCCF5AC).withAlpha(250), 17.5,
+        //     'lib/assets/icon/purchase.png'),
         onTapDown: (_) => {
-          Future.delayed(Duration(milliseconds: 100), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProductView()),
-            );
-          }),
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProducthomeBloc()),
+          ),
         },
       ),
     );
@@ -216,36 +388,94 @@ class _HomeState extends State<Home> {
 
   Widget filter() {
     return Container(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        height: 120.0,
-        width: 170.0,
-        child: SpringButton(
-          SpringButtonType.OnlyScale,
-          row(
-            "Filter",
-            Color(0xff577590),
-          ),
-          onTapDown: (_) => {
-            Future.delayed(Duration(milliseconds: 100), () {
+      child: Column(children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          height: 120.0,
+          width: 170.0,
+          child: SpringButton(
+            SpringButtonType.OnlyScale,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              child: Container(
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                    color: Hexcolor('7692FF').withAlpha(250),
+                    borderRadius: BorderRadius.circular(22),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black38,
+                          blurRadius: 0.5,
+                          offset: Offset(1.2, 2.3))
+                    ]),
+                child: Column(children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    // color: Colors.black,
+                    decoration: new BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        color: Colors.transparent,
+                        boxShadow: <BoxShadow>[]),
+                    child: Image(
+                      image: AssetImage('lib/assets/icon/filter.png'),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    decoration: new BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        color: Colors.transparent,
+                        boxShadow: <BoxShadow>[]),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Hexcolor('7692FF').withAlpha(250),
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(20.0)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Filter',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+
+            // row("Filter", Hexcolor('7692FF'), 17.5,
+            //     'lib/assets/icon/filter.png'),
+            onTapDown: (_) => {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => FilterHome()),
-              );
-            }),
-          },
+              ),
+            },
+          ),
         ),
-      ),
+      ]),
     );
   }
 
-  Widget row(String text, Color color) {
+  Widget row(String text, Color color, double a, String path) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: Container(
         padding: EdgeInsets.all(2),
         decoration: BoxDecoration(
-            color: color.withAlpha(180),
+            color: color,
             borderRadius: BorderRadius.circular(22),
             boxShadow: [
               BoxShadow(
@@ -253,35 +483,53 @@ class _HomeState extends State<Home> {
                   blurRadius: 0.5,
                   offset: Offset(1.2, 2.3))
             ]),
-        child: Container(
-          decoration: new BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              color: Colors.white,
-              boxShadow: <BoxShadow>[]),
-          child: Container(
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: const BorderRadius.all(const Radius.circular(20.0)),
+        child: Column(children: [
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: 70,
+            height: 60,
+            // color: Colors.black,
+            decoration: new BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                color: Colors.transparent,
+                boxShadow: <BoxShadow>[]),
+            child: Image(
+              image: AssetImage(path),
             ),
-            child: Center(
-              child: Text(
-                text,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17.5,
+          ),
+          Container(
+            decoration: new BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                color: Colors.transparent,
+                boxShadow: <BoxShadow>[]),
+            child: Container(
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius:
+                    const BorderRadius.all(const Radius.circular(20.0)),
+              ),
+              child: Center(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: a,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ]),
       ),
     );
   }
 
-  Widget horizonal() {
+  Widget horizonal(BuildContext context) {
     return Container(
-      height: 92,
+      height: 95,
       width: 400,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -292,26 +540,30 @@ class _HomeState extends State<Home> {
       ),
 
       //items
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            SizedBox(
-              width: 30,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  reminder(),
+                  SizedBox(
+                    width: 13,
+                  ),
+                  callender(context),
+                  SizedBox(
+                    width: 13,
+                  ),
+                  report(),
+                  SizedBox(width: 13),
+                  cart(),
+                ],
+              ),
             ),
-            reminder(),
-            SizedBox(
-              width: 13,
-            ),
-            callender(),
-            SizedBox(
-              width: 13,
-            ),
-            report(),
-            SizedBox(width: 13),
-            cart(),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -323,37 +575,35 @@ class _HomeState extends State<Home> {
         height: 60,
         width: 60,
         child: SpringButton(
-          SpringButtonType.OnlyScale,
-          Container(
-            padding: EdgeInsets.all(2),
-            decoration: BoxDecoration(
-                color: Color.fromARGB(200, 145, 12, 7).withAlpha(150),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black38,
-                      blurRadius: 0.5,
-                      offset: Offset(1.2, 2.3))
-                ]),
-            child: CircleAvatar(
-              backgroundColor: Color.fromARGB(200, 145, 12, 7),
-              radius: 30,
-              child: Icon(
-                Icons.notification_important,
-                size: 30,
-                color: Colors.white,
+            SpringButtonType.OnlyScale,
+            Container(
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                  color: Colors.red[500].withAlpha(150),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black38,
+                        blurRadius: 0.5,
+                        offset: Offset(1.0, 2.0))
+                  ]),
+              child: CircleAvatar(
+                backgroundColor: Colors.red[700],
+                radius: 30,
+                child: Image(
+                  image: AssetImage('lib/assets/icon/notification.png'),
+                  width: 30,
+                  height: 30,
+                  color: null,
+                ),
               ),
             ),
-          ),
-          onTapDown: (_) => {
-            Future.delayed(Duration(milliseconds: 150), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ReminderHome()),
-              );
-            }),
-          },
-        ),
+            onTapDown: (_) => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ReminderHome()),
+                  ),
+                }),
       ),
       Text(
         'Notification',
@@ -373,7 +623,7 @@ class _HomeState extends State<Home> {
           Container(
             padding: EdgeInsets.all(2),
             decoration: BoxDecoration(
-                color: Color.fromARGB(200, 200, 150, 7).withAlpha(150),
+                color: Colors.lightBlueAccent[400].withAlpha(150),
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
@@ -382,22 +632,21 @@ class _HomeState extends State<Home> {
                       offset: Offset(1.2, 2.3))
                 ]),
             child: CircleAvatar(
-              backgroundColor: Color.fromARGB(200, 200, 150, 7),
+              backgroundColor: Colors.lightBlueAccent[400],
               radius: 60,
-              child: Icon(
-                Icons.shopping_cart,
-                size: 30,
-                color: Colors.white,
+              child: Image(
+                image: AssetImage('lib/assets/icon/cart.png'),
+                width: 30,
+                height: 30,
+                color: null,
               ),
             ),
           ),
           onTapDown: (_) => {
-            Future.delayed(Duration(milliseconds: 150), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CartHome()),
-              );
-            }),
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CartHome()),
+            ),
           },
         ),
       ),
@@ -430,31 +679,30 @@ class _HomeState extends State<Home> {
             child: CircleAvatar(
               backgroundColor: Colors.green,
               radius: 60,
-              child: Icon(
-                Ionicons.ios_analytics,
-                color: Colors.white,
-                size: 30,
+              child: Image(
+                image: AssetImage('lib/assets/icon/accounts.png'),
+                width: 35,
+                height: 35,
+                color: null,
               ),
             ),
           ),
           onTapDown: (_) => {
-            Future.delayed(Duration(milliseconds: 150), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AccountHome()),
-              );
-            }),
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AccountHome()),
+            ),
           },
         ),
       ),
       Text(
-        'Accounts',
+        ' Accounts',
         style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
       )
     ]);
   }
 
-  Widget callender() {
+  Widget callender(BuildContext context) {
     return Column(children: [
       Container(
         padding: EdgeInsets.symmetric(horizontal: 5),
@@ -476,24 +724,36 @@ class _HomeState extends State<Home> {
             child: CircleAvatar(
               backgroundColor: Colors.blue,
               radius: 60,
-              child: Icon(
-                Icons.insert_invitation,
-                color: Colors.white,
-                size: 30,
+              child: Image(
+                image: AssetImage('lib/assets/icon/callender.png'),
+                width: 35,
+                height: 35,
+                color: null,
               ),
             ),
           ),
-          onTapDown: (_) => () {},
+          onTapDown: (_) => {
+            showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now().add(Duration(days: -370)),
+              lastDate: DateTime.now().add(Duration(days: 370)),
+            ),
+          },
         ),
       ),
       Text(
-        'Calender',
+        '  Calender',
         style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
       )
     ]);
   }
 
   Widget _childPopup() => PopupMenuButton<int>(
+        icon: Icon(
+          Icons.more_vert,
+          size: 35,
+        ),
         itemBuilder: (context) => [
           PopupMenuItem(
             value: 1,

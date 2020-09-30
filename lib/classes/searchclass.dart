@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 
 class DataSearch extends SearchDelegate<String> {
   List<String> names;
+
   DataSearch(this.names);
   List<String> recentNames = [];
+  List<String> items = ['Filter', 'Service', 'Installation'];
+  String type = 'Type';
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -13,8 +16,30 @@ class DataSearch extends SearchDelegate<String> {
         onPressed: () {
           query = '';
         },
+      ),
+      DropdownButtonHideUnderline(
+        child: new DropdownButton<String>(
+          items: items.map((String val) {
+            return new DropdownMenuItem<String>(
+              value: val,
+              child: new Text(val),
+            );
+          }).toList(),
+          hint: Text(type),
+          onChanged: (value) {
+            type = value;
+          },
+        ),
       )
     ];
+  }
+
+  addrecent(String name, List<String> recentNames1) {
+    recentNames1.add(name);
+    if (recentNames1.length > 5) {
+      recentNames1.removeAt(0);
+    }
+    print(recentNames1);
   }
 
   @override
@@ -32,14 +57,18 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return SearchResultHome(query);
+    addrecent(query, recentNames);
+    print('type');
+    print(type);
+    return SearchResultHome(query, type);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    print('recent $recentNames');
     final suggestionList = query.isEmpty
         ? recentNames
-        : names.where((p) => p.startsWith(query)).toList();
+        : names.toSet().toList().where((p) => p.startsWith(query)).toList();
     return ListView.builder(
       itemBuilder: (context, index) => GestureDetector(
         child: ListTile(

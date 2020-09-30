@@ -1,10 +1,11 @@
 import 'package:filter/models/user.dart';
-import 'package:filter/pages/home/home.dart';
+import 'package:filter/pages/home/products/cartview.dart';
 import 'package:filter/services/database.dart';
 import 'package:filter/widgets/spring_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ProductView extends StatefulWidget {
@@ -13,10 +14,23 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductViewState extends State<ProductView> {
+  String description = '';
+  String total;
+  String paid = '0';
+  String due = '0';
+  var selectedNumber;
+  List<String> items = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   List<String> itemList = [];
+  int itemnum(List<String> list) {
+    double len = (list.length) / 3;
+    return len.round();
+  }
+
+  int nu;
   @override
   Widget build(BuildContext context) {
     final globalKey = GlobalKey<ScaffoldState>();
+    int nu = itemnum(itemList);
 
     final user = Provider.of<User>(context);
     return Scaffold(
@@ -25,8 +39,138 @@ class _ProductViewState extends State<ProductView> {
         child: Column(
           children: [
             SizedBox(
-              height: 70,
+              height: 100,
             ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text(
+                  'SYSTEMS',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => systems(context)),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text(
+                  'SPARE PARTS',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => spare(context)),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: Column(children: [
+        SizedBox(height: 50),
+        Container(
+          padding: EdgeInsets.only(left: 30, right: 0),
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 0, right: 0, left: 0),
+                child: FloatingActionButton.extended(
+                  label: Text(''),
+                  heroTag: null,
+                  icon: FaIcon(FontAwesomeIcons.arrowCircleLeft),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 0, right: 0, left: 0),
+                child: new FloatingActionButton.extended(
+                  heroTag: null,
+                  backgroundColor: Colors.green,
+                  icon: Icon(Icons.shopping_cart),
+                  label: Text('Cart ($nu)'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CartView(
+                                list: itemList,
+                              )),
+                    );
+                    print(itemList);
+                  },
+                ),
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     SizedBox(
+              //       width: 100,
+              //     ),
+
+              //   ],
+              // ),
+            ],
+          ),
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            height: (MediaQuery.of(context).size.height - 98),
+            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FloatingActionButton(
+                    heroTag: null,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                customItem(context, '', '', '1')),
+                      );
+                      // Add your onPressed code here!
+                    },
+                    child: Icon(Icons.add),
+                    backgroundColor: Colors.blue,
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Widget spare(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Spares'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
@@ -209,274 +353,1146 @@ class _ProductViewState extends State<ProductView> {
           ],
         ),
       ),
-      floatingActionButton: Column(children: [
-        Padding(
-          padding: EdgeInsets.only(top: 60, right: 260, left: 20),
-          child: FloatingActionButton.extended(
-            icon: Icon(Icons.arrow_back),
-            label: Text(''),
-            heroTag: null,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 475, bottom: 50.0, right: 10),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => customItem(context, '', '')),
-                    );
-                    // Add your onPressed code here!
-                  },
-                  child: Icon(Icons.add),
-                  backgroundColor: Colors.blue,
-                ),
-              ],
+    );
+  }
+
+  Widget systems(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Systems'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('2LPH'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => lph2(context)),
+                  );
+                },
+              ),
             ),
-            SizedBox(
-              height: 20,
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('12LPH'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => lph12(context)),
+                  );
+                },
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                new FloatingActionButton.extended(
-                  heroTag: null,
-                  backgroundColor: Colors.green,
-                  icon: Icon(Icons.save),
-                  label: Text('Save'),
-                  onPressed: () {
-                    print(itemList);
-                    String d = DateTime.now().toString();
-                    DatabaseService(uid: user.uid).createProduct(
-                        '',
-                        d,
-                        (() {
-                          try {
-                            return itemList[0];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[1];
-                          } catch (e) {
-                            print('erro');
-                            return '0';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[2];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[3];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[4];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[5];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[6];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[7];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[8];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[9];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[10];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[11];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[12];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[13];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[14];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[15];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[16];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[17];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[18];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[19];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[20];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[21];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[22];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[23];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[24];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[25];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[26];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[27];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[28];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()),
-                        (() {
-                          try {
-                            return itemList[29];
-                          } catch (e) {
-                            return '';
-                          }
-                        }()));
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            )
-          ]),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('25LPH'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => lph25(context)),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('40LPH'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => lph40(context)),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('50LPH'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => lph50(context)),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
-      ]),
+      ),
+    );
+  }
+
+  Widget lph2(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('2 Litre'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('AQUA PARAL'),
+                subtitle: Text('₹13,900'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'AQUA PARAL', '4750', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('AQUA PARAL added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('DOLPHIN'),
+                subtitle: Text('₹3,900'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'DOLPHIN MINERALS', '3900', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('DOLPHIN MINERALS added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('DOLPHIN MINERALS'),
+                subtitle: Text('₹3,750'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'DOLPHIN', '3750', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('DOLPHIN added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('ULTR SMART'),
+                subtitle: Text('₹4,800'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'ULTR SMART', '4800', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('ULTR SMART added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget lph12(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('12 LPH'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SWAN(12LPH)'),
+                subtitle: Text('₹13,900'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SWAN(12LPH)', '13900', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('SWAN added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('TAGO'),
+                subtitle: Text('₹11,500'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'TAGO', '11500', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('TAGO added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('PURE H20'),
+                subtitle: Text('₹8,750'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'PURE H20', '8750', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('PURE H20 added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('PURE WATER'),
+                subtitle: Text('₹8,750'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'PURE WATER', '8750', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('PURE WATER added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('M PURE'),
+                subtitle: Text('₹14,999'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'M PURE', '14999', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('M PURE added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('I PURE'),
+                subtitle: Text('₹12,000'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'I PURE', '12000', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('I PURE added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('ALIVE'),
+                subtitle: Text('₹14,999'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'ALIVE', '14999', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('ALIVE added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('CLUO'),
+                subtitle: Text('₹11,700'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'CULO', '11700', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('CULO added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('GLORY'),
+                subtitle: Text('₹12,450'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'ALIVE', '12450', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('GLORY added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('GLANCE'),
+                subtitle: Text('₹10,500'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'GLANCE', '10500', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('GLANCE added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MINTO'),
+                subtitle: Text('₹11,880'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'MINTO', '11880', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('MINTO added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MISTY PURE  WHITE'),
+                subtitle: Text('₹12,450'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MISTY PURE WHITE', '12450', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('MISTY PURE WHITE added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('OVAL'),
+                subtitle: Text('₹14,999'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'OVAL', '14999', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('OVAL added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SWIFT'),
+                subtitle: Text('₹1,700'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SWIFT', '11700', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('SWIFT added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WALL MOUNT'),
+                subtitle: Text('₹11,900'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'WALL MOUNT', '11900', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('WALL MOUNT added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('AQUA DIGI'),
+                subtitle: Text('₹14,999'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'AQUA DIGI', '14999', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('AQUA DIGI added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HOOL 5G'),
+                subtitle: Text('₹23,999'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'HOOL 5G', '23999', '1')),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text('HOOL 5G added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SWAN DIGITAL'),
+                subtitle: Text('₹14,000'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SWAN DIGITAL', '14000', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WAVE KRYSTAL TRANSPARENT'),
+                subtitle: Text('₹14,500'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'WAVE KRYSTAL TRANSPARENT', '14500', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WAVE KOMBO RO+UV'),
+                subtitle: Text('₹22,950'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'WAVE KOMBO RO UV', '14500', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WAVE PRIME ALKALI'),
+                subtitle: Text('₹15,300'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'WAVE PRIME (ALKALI)', '15300', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WAVE 5G PRO'),
+                subtitle: Text('₹22,950'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'WAVE 5G PRO', '22950', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('GENPURE OPTIMA'),
+                subtitle: Text('₹12,000'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'GENPURE OPTIMA', '12000', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WALL MOUNT WITH UNDERSINK'),
+                subtitle: Text('₹11,900'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'WAVE PRIME', '11900', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('NO BACT'),
+                subtitle: Text('₹13,900'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'NO BACT', '13900', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('ALPHA RO UV'),
+                subtitle: Text('₹14,999'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'ALPHA RO UV', '14999', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MISTY PURE-BLACK'),
+                subtitle: Text('₹12,450'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MISTY PURE -BLACK', '12450', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('TEKLEEN RO UV(PLASTIC)'),
+                subtitle: Text('₹15,500'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'WAVE PRIME', '15500', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('TEKLEEN RO UV(WHITE)'),
+                subtitle: Text('₹15,500'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'TEKLEEN RO UV(WHITE)', '15500', '1')),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget lph25(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('25 LPH'),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WHALE 25 LPH'),
+                subtitle: Text('₹19,950'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'WHALE 25 LPH', '19950', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SKID 25 LPH'),
+                subtitle: Text('₹18,499'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SKID 25 LPH', '18499', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('OPEN 25 LPH'),
+                subtitle: Text('₹14,999'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'OPEN 25 LPH', '14999', '1')),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget lph40(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('40 LPH'),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WHALE-E CHEN 300 HEALTHY300'),
+                subtitle: Text('₹24,750'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(context,
+                            'WHALE-E CHEN 300 HEALTHY300', '24750', '1')),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget lph50(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('50 LPH'),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WHALE 50 LPH'),
+                subtitle: Text('₹32,700'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'WHALE 50LPH', '32700', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('OPEN SS SKID 50 LPH'),
+                subtitle: Text('₹29,400'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'OPEN SS SKID 50LPH', '29400', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('CLOSED MS SKID 50 LPH'),
+                subtitle: Text('₹39,900'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'CLOSED MS SKID 50 LPH', '39900', '1')),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -492,7 +1508,7 @@ class _ProductViewState extends State<ProductView> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ANTISCALANT BALLS'),
-                subtitle: Text('200'),
+                subtitle: Text('₹200'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -501,8 +1517,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'ANTISCALANT BALLS', '200')),
+                        builder: (context) => customItem(
+                            context, 'ANTISCALANT BALLS', '200', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -522,7 +1538,7 @@ class _ProductViewState extends State<ProductView> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ANTISCALANT SlIM'),
-                subtitle: Text('300'),
+                subtitle: Text('₹300'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -531,8 +1547,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'ANTISCALANT SlIM', '300')),
+                        builder: (context) => customItem(
+                            context, 'ANTISCALANT SlIM', '300', '1')),
                   );
                   final snackBar = SnackBar(
                     content: Text('ANTISCALANT SLIM added to cart'),
@@ -574,8 +1590,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'MEMBRELLA-ALPHA', '2360')),
+                        builder: (context) => customItem(
+                            context, 'MEMBRELLA-ALPHA', '2360', '1')),
                   );
                 },
               ),
@@ -594,7 +1610,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MEMBRELLA-BETA-1812-80GPD', '2360')),
+                            context, 'MEMBRELLA-BETA-1812-80GPD', '2360', '1')),
                   );
                 },
               ),
@@ -613,7 +1629,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'HEALTHY BW-1812-80GPD', '300')),
+                            context, 'HEALTHY BW-1812-80GPD', '300', '1')),
                   );
                 },
               ),
@@ -632,7 +1648,7 @@ class _ProductViewState extends State<ProductView> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => customItem(
-                              context, 'FILMTEC BW-812-75GPD', '2800')),
+                              context, 'FILMTEC BW-812-75GPD', '2800', '1')),
                     );
                   }),
             ),
@@ -649,8 +1665,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'VONTRON-1812-80', '1600')),
+                        builder: (context) => customItem(
+                            context, 'VONTRON-1812-80', '1600', '1')),
                   );
                 },
               ),
@@ -669,7 +1685,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'CSM 100GPD', '2200')),
+                            customItem(context, 'CSM 100GPD', '2200', '1')),
                   );
                 },
               ),
@@ -688,7 +1704,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'TFC-812-80GPD', '1750')),
+                            customItem(context, 'TFC-812-80GPD', '1750', '1')),
                   );
                 },
               ),
@@ -707,7 +1723,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'HEALTHY BW-302-300GPD', '4125')),
+                            context, 'HEALTHY BW-302-300GPD', '4125', '1')),
                   );
                 },
               ),
@@ -725,8 +1741,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'TAOTEC-812-75GPD', '2050')),
+                        builder: (context) => customItem(
+                            context, 'TAOTEC-812-75GPD', '2050', '1')),
                   );
                 },
               ),
@@ -744,8 +1760,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'HI-FLOW-1812-75G', '1600')),
+                        builder: (context) => customItem(
+                            context, 'HI-FLOW-1812-75G', '1600', '1')),
                   );
                 },
               ),
@@ -778,7 +1794,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SWAN,PURE H20', '150')),
+                            customItem(context, 'SWAN,PURE H20', '150', '1')),
                   );
                 },
               ),
@@ -796,8 +1812,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'WALL MOUNT COVER', '150')),
+                        builder: (context) => customItem(
+                            context, 'WALL MOUNT COVER', '150', '1')),
                   );
                 },
               ),
@@ -816,7 +1832,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'BRIZO COVER', '200')),
+                            customItem(context, 'BRIZO COVER', '200', '1')),
                   );
                 },
               ),
@@ -834,8 +1850,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, '50 LPH OPEN COVER', '300')),
+                        builder: (context) => customItem(
+                            context, '50 LPH OPEN COVER', '300', '1')),
                   );
                 },
               ),
@@ -846,13 +1862,13 @@ class _ProductViewState extends State<ProductView> {
     );
   }
 
-  Widget customItem(BuildContext context, String item, String price) {
+  Widget customItem(BuildContext context, String item, String price, String q) {
     final _formKey = GlobalKey<FormState>();
     final globalKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: globalKey,
       appBar: AppBar(
-        title: Text('Create item'),
+        title: Text('ADD item'),
       ),
       body: Form(
         key: _formKey,
@@ -949,6 +1965,88 @@ class _ProductViewState extends State<ProductView> {
             SizedBox(
               height: 10,
             ),
+            Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 120,
+                      padding: EdgeInsets.symmetric(vertical: 3),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.all(const Radius.circular(10.0)),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 10.0,
+                            )
+                          ]),
+                      child: new ListTile(
+                        leading: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Qty',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ],
+                        ),
+                        selected: true,
+                        title: new TextFormField(
+                          initialValue: q,
+                          validator: (value) =>
+                              value.isEmpty ? 'Enter Qty' : null,
+                          onChanged: (value) {
+                            setState(() {
+                              q = value.toLowerCase();
+                            });
+                          },
+                          decoration: new InputDecoration(
+                            hintText: "QTY",
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            //Quantity
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // DropdownButtonHideUnderline(
+            //   child: new DropdownButton<String>(
+            //     items: items.map((String val) {
+            //       return new DropdownMenuItem<String>(
+            //         value: val,
+            //         child: new Text(val),
+            //       );
+            //     }).toList(),
+            //     value: selectedNumber,
+            //     hint: Text(q),
+            //     onChanged: (newValue) {
+            //       setState(() {
+            //         selectedNumber = newValue;
+            //         q = selectedNumber;
+            //       });
+            //     },
+            //   ),
+            // ),
+
+            //Add button
+
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -959,13 +2057,13 @@ class _ProductViewState extends State<ProductView> {
                     Container(
                       padding: EdgeInsets.only(left: 28, top: 13),
                       height: 50,
-                      width: 100,
+                      width: 170,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.green,
                       ),
                       child: Text(
-                        'ADD',
+                        'Add to cart',
                         style: TextStyle(
                           fontSize: 22,
                           color: Colors.white,
@@ -976,11 +2074,15 @@ class _ProductViewState extends State<ProductView> {
                     onTap: () {
                       print(price);
                       if (_formKey.currentState.validate()) {
+                        setState(() {
+                          nu = itemnum(itemList);
+                        });
                         itemList.add(item);
+                        itemList.add(q);
                         itemList.add(price);
                         print(itemList);
                         Fluttertoast.showToast(
-                            msg: "This is Center Short Toast",
+                            msg: "$item added to cart",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,
@@ -1039,7 +2141,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'INLINE PRECARBON', '590')),
+                          customItem(context, 'INLINE PRECARBON', '590', '1')),
                 );
               },
             ),
@@ -1057,8 +2159,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'INLINE POST CARBON', '590')),
+                      builder: (context) => customItem(
+                          context, 'INLINE POST CARBON', '590', '1')),
                 );
               },
             ),
@@ -1076,8 +2178,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'INLINE SET MEMBARNE', '1415')),
+                      builder: (context) => customItem(
+                          context, 'INLINE SET MEMBARNE', '1415', '1')),
                 );
               },
             ),
@@ -1095,8 +2197,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'MINERAL CARTRIDGE', '1415')),
+                      builder: (context) => customItem(
+                          context, 'MINERAL CARTRIDGE', '1415', '1')),
                 );
               },
             ),
@@ -1114,8 +2216,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'PH BOOSTER MEMBRANE', '1415')),
+                      builder: (context) => customItem(
+                          context, 'PH BOOSTER MEMBRANE', '1415', '1')),
                 );
               },
             ),
@@ -1134,7 +2236,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'INLINE SET HERO', '1300')),
+                          customItem(context, 'INLINE SET HERO', '1300', '1')),
                 );
               },
             ),
@@ -1153,7 +2255,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'SPUN 10 MEMBRELLA', '235')),
+                          customItem(context, 'SPUN 10 MEMBRELLA', '235', '1')),
                 );
               },
             ),
@@ -1171,7 +2273,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => customItem(context, 'UF', '370')),
+                      builder: (context) =>
+                          customItem(context, 'UF', '370', '1')),
                 );
               },
             ),
@@ -1189,8 +2292,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'WALLMOUNT POST CARBON', '460')),
+                      builder: (context) => customItem(
+                          context, 'WALLMOUNT POST CARBON', '460', '1')),
                 );
               },
             ),
@@ -1208,8 +2311,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'H2AAA COPPER FILTER', '2500')),
+                      builder: (context) => customItem(
+                          context, 'H2AAA COPPER FILTER', '2500', '1')),
                 );
               },
             ),
@@ -1228,7 +2331,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'TASTEIMPROVER', '1415')),
+                          customItem(context, 'TASTEIMPROVER', '1415', '1')),
                 );
               },
             ),
@@ -1258,8 +2361,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => customItem(
-                          context, 'MEMBRELLA FLOAT(Lower connection)', '295')),
+                      builder: (context) => customItem(context,
+                          'MEMBRELLA FLOAT(Lower connection)', '295', '1')),
                 );
               },
             ),
@@ -1277,8 +2380,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'FLOAT SIDE CONNECTION', '250')),
+                      builder: (context) => customItem(
+                          context, 'FLOAT SIDE CONNECTION', '250', '1')),
                 );
               },
             ),
@@ -1297,7 +2400,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'FLOAT LOWER CONNECTIONS', '250')),
+                          context, 'FLOAT LOWER CONNECTIONS', '250', '1')),
                 );
               },
             ),
@@ -1315,8 +2418,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => customItem(
-                          context, 'MEMBRELLA FLOAT SIDE CONNECTION', '295')),
+                      builder: (context) => customItem(context,
+                          'MEMBRELLA FLOAT SIDE CONNECTION', '295', '1')),
                 );
               },
             ),
@@ -1346,8 +2449,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => customItem(
-                          context, 'MEMBRELLA FLOAT SIDE CONNECTION', '295')),
+                      builder: (context) => customItem(context,
+                          'MEMBRELLA FLOAT SIDE CONNECTION', '295', '1')),
                 );
               },
             ),
@@ -1366,7 +2469,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'FR -350 ML KFL', '190')),
+                          customItem(context, 'FR -350 ML KFL', '190', '1')),
                 );
               },
             ),
@@ -1385,7 +2488,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'FR -450 ML KFL', '190')),
+                          customItem(context, 'FR -450 ML KFL', '190', '1')),
                 );
               },
             ),
@@ -1403,8 +2506,8 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'MEMBRELLA -550 ML KFL', '190')),
+                      builder: (context) => customItem(
+                          context, 'MEMBRELLA -550 ML KFL', '190', '1')),
                 );
               },
             ),
@@ -1423,7 +2526,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'FR-800', '190')),
+                          customItem(context, 'FR-800', '190', '1')),
                 );
               },
             ),
@@ -1452,7 +2555,7 @@ class _ProductViewState extends State<ProductView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(context,
-                          '20\" FILTER HOUSING 1/2\"/3/4\" SLIM', '800')),
+                          '20\" FILTER HOUSING 1/2\"/3/4\" SLIM', '800', '1')),
                 );
               },
             ),
@@ -1482,7 +2585,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MEMBERELLA SMPS 24V 1.5A', '885')),
+                            context, 'MEMBERELLA SMPS 24V 1.5A', '885', '1')),
                   );
                 },
               ),
@@ -1501,7 +2604,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SMPS 24V 5A', '1500')),
+                            customItem(context, 'SMPS 24V 5A', '1500', '1')),
                   );
                 },
               ),
@@ -1520,7 +2623,7 @@ class _ProductViewState extends State<ProductView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'ADAPTER 24V FCW', '600')),
+                            customItem(context, 'ADAPTER 24V FCW', '600', '1')),
                   );
                 },
               ),
@@ -1538,8 +2641,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'ADAPTER  36 V FCW', '600')),
+                        builder: (context) => customItem(
+                            context, 'ADAPTER  36 V FCW', '600', '1')),
                   );
                 },
               ),
@@ -1557,8 +2660,8 @@ class _ProductViewState extends State<ProductView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'ADAPTER 48V FCW', '1150')),
+                        builder: (context) => customItem(
+                            context, 'ADAPTER 48V FCW', '1150', '1')),
                   );
                 },
               ),

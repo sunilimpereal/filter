@@ -1,13 +1,10 @@
 import 'package:filter/models/filter.dart';
-import 'package:filter/models/product.dart';
-import 'package:filter/models/productlist.dart';
 import 'package:filter/pages/home/filter/filter_form.dart';
 import 'package:filter/pages/home/filter/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/services/database.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 
@@ -84,47 +81,58 @@ class _FilterHomeState extends State<FilterHome> {
         ]),
         floatingActionButton: Column(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 60, right: 0, left: 30),
-                  child: FloatingActionButton.extended(
-                    icon: Icon(Icons.arrow_back),
-                    label: Text(''),
-                    heroTag: null,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+            SizedBox(
+              height: 60,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 0, right: 0, left: 20),
+                    child: FloatingActionButton.extended(
+                      label: Text(''),
+                      heroTag: null,
+                      icon: FaIcon(FontAwesomeIcons.arrowCircleLeft),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 60, left: 70),
-                  child: FloatingActionButton.extended(
-                    backgroundColor: Colors.blue,
-                    icon: FaIcon(FontAwesomeIcons.calendarAlt),
-                    label: Text(''),
-                    heroTag: null,
-                    onPressed: () {
-                      dispalyDateRangePicker(context);
-                    },
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 0, left: 0),
+                        child: FloatingActionButton.extended(
+                          backgroundColor: Colors.blue,
+                          icon: FaIcon(FontAwesomeIcons.calendarAlt),
+                          label: Text(''),
+                          heroTag: null,
+                          onPressed: () {
+                            dispalyDateRangePicker(context);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 0, left: 10),
+                        child: FloatingActionButton.extended(
+                          backgroundColor: Colors.green,
+                          icon: Icon(Icons.add),
+                          label: Text('New  '),
+                          heroTag: null,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FilterForm()));
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 60, left: 10),
-                  child: FloatingActionButton.extended(
-                    backgroundColor: Colors.green,
-                    icon: Icon(Icons.add),
-                    label: Text('New  '),
-                    heroTag: null,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FilterForm()));
-                    },
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

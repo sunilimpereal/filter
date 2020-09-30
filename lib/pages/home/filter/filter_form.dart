@@ -74,7 +74,9 @@ class _FilterFormState extends State<FilterForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.person),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.person)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) => value.isEmpty ? 'Enter name' : null,
@@ -84,7 +86,7 @@ class _FilterFormState extends State<FilterForm> {
                         });
                       },
                       decoration: new InputDecoration(
-                        hintText: "Name",
+                        labelText: "Name",
                         border: InputBorder.none,
                       ),
                     ),
@@ -113,7 +115,9 @@ class _FilterFormState extends State<FilterForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.phone),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.phone)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) =>
@@ -128,7 +132,7 @@ class _FilterFormState extends State<FilterForm> {
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
                       decoration: new InputDecoration(
-                        hintText: "Phone",
+                        labelText: "Phone",
                         border: InputBorder.none,
                       ),
                     ),
@@ -157,7 +161,9 @@ class _FilterFormState extends State<FilterForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.home),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.home)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) =>
@@ -171,7 +177,7 @@ class _FilterFormState extends State<FilterForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
-                        hintText: "Address",
+                        labelText: "Address",
                         border: InputBorder.none,
                       ),
                     ),
@@ -202,7 +208,9 @@ class _FilterFormState extends State<FilterForm> {
                       ]),
                   child: new ListTile(
                     selected: true,
-                    leading: const Icon(Icons.description),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.description)),
                     title: new TextFormField(
                       validator: (value) =>
                           value.isEmpty ? 'Enter Filter model' : null,
@@ -214,7 +222,7 @@ class _FilterFormState extends State<FilterForm> {
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Filter Model",
+                        labelText: "Filter Model",
                       ),
                     ),
                   ),
@@ -246,9 +254,17 @@ class _FilterFormState extends State<FilterForm> {
                               )
                             ]),
                         child: new ListTile(
-                          leading: const Icon(
-                            Icons.attach_money,
-                            color: Colors.amber,
+                          dense: true,
+                          visualDensity:
+                              VisualDensity(horizontal: 0, vertical: -4),
+                          contentPadding:
+                              EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
+                          leading: Text(
+                            '    ₹',
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.red,
+                            ),
                           ),
                           title: new TextFormField(
                             validator: (value) =>
@@ -264,7 +280,7 @@ class _FilterFormState extends State<FilterForm> {
                             ],
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Price",
+                              labelText: "Price",
                             ),
                           ),
                         ),
@@ -274,105 +290,6 @@ class _FilterFormState extends State<FilterForm> {
                 ],
               ),
 
-              // SizedBox(height: 20),
-              // Row(
-              //   children: [
-              //     Container(
-              //       width: 180,
-              //       height: 60,
-              //       child: Container(
-              //         padding: EdgeInsets.symmetric(horizontal: 10.0),
-              //         decoration: BoxDecoration(
-              //           borderRadius:
-              //               const BorderRadius.all(const Radius.circular(10.0)),
-              //         ),
-              //         child: Container(
-              //           padding: EdgeInsets.symmetric(vertical: 3),
-              //           decoration: BoxDecoration(
-              //               borderRadius:
-              //                   BorderRadius.all(const Radius.circular(10.0)),
-              //               color: Colors.white,
-              //               boxShadow: [
-              //                 BoxShadow(
-              //                   color: Colors.grey,
-              //                   blurRadius: 10.0,
-              //                 )
-              //               ]),
-              //           child: new ListTile(
-              //             leading: const Icon(
-              //               Icons.attach_money,
-              //               color: Colors.green,
-              //             ),
-              //             title: new TextFormField(
-              //               validator: (value) =>
-              //                   value.isEmpty ? 'Enter paid' : null,
-              //               onChanged: (value) {
-              //                 setState(() {
-              //                   paid = value.toString();
-              //                 });
-              //               },
-              //               keyboardType: TextInputType.number,
-              //               inputFormatters: [
-              //                 WhitelistingTextInputFormatter.digitsOnly
-              //               ],
-              //               decoration: new InputDecoration(
-              //                 border: InputBorder.none,
-              //                 hintText: "Paid",
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //     // Container(
-              //     //   width: 180,
-              //     //   height: 60,
-              //     //   child: Container(
-              //     //     padding: EdgeInsets.symmetric(horizontal: 10.0),
-              //     //     decoration: BoxDecoration(
-              //     //       borderRadius:
-              //     //           const BorderRadius.all(const Radius.circular(10.0)),
-              //     //     ),
-              //     //     child: Container(
-              //     //       padding: EdgeInsets.symmetric(vertical: 0),
-              //     //       decoration: BoxDecoration(
-              //     //           borderRadius:
-              //     //               BorderRadius.all(const Radius.circular(10.0)),
-              //     //           color: Colors.white,
-              //     //           boxShadow: [
-              //     //             BoxShadow(
-              //     //               color: Colors.grey,
-              //     //               blurRadius: 10.0,
-              //     //             )
-              //     //           ]),
-              //     //       child: new ListTile(
-              //     //         leading: const Icon(
-              //     //           Icons.attach_money,
-              //     //           color: Colors.red,
-              //     //         ),
-              //     //         title: new TextFormField(
-              //     //           validator: (value) =>
-              //     //               value.isEmpty ? 'Enter Due' : null,
-              //     //           onChanged: (value) {
-              //     //             setState(() {
-              //     //               due = value.toString();
-              //     //             });
-              //     //           },
-              //     //           keyboardType: TextInputType.number,
-              //     //           inputFormatters: [
-              //     //             WhitelistingTextInputFormatter.digitsOnly
-              //     //           ],
-              //     //           decoration: new InputDecoration(
-              //     //               border: InputBorder.none,
-              //     //               hintText: "Due",
-              //     //               fillColor: Colors.red),
-              //     //         ),
-              //     //       ),
-              //     //     ),
-              //     //   ),
-              //     // )
-              //   ],
-              // ),
               new ListTile(
                 leading: const Icon(Icons.today),
                 title: FlatButton(

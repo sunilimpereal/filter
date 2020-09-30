@@ -4,12 +4,11 @@ import 'package:filter/classes/sms.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/purifiers/purifier_edit.dart';
-import 'package:filter/pages/home/purifiers/purifiers_home.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/services/database.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
@@ -44,37 +43,6 @@ class _PurifierViewState extends State<PurifierView> {
     }
 
     return Scaffold(
-      // appBar: GradientAppBar(
-      //   backgroundColorStart: Color(0xFF153243),
-      //   backgroundColorEnd: Color(0xFF235470),
-      //   title: Text('Installation'),
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(
-      //         Icons.delete,
-      //         color: Colors.white,
-      //       ),
-      //       iconSize: 30,
-      //       onPressed: () {
-      //         showAlertDialog(context, user.uid, widget.id);
-      //       },
-      //     ),
-      //     IconButton(
-      //       icon: Icon(Icons.edit),
-      //       iconSize: 30.0,
-      //       onPressed: () {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (context) => PurifierEdit(
-      //               id: widget.id,
-      //             ),
-      //           ),
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -93,6 +61,8 @@ class _PurifierViewState extends State<PurifierView> {
                       snapshot.data.number,
                       snapshot.data.address,
                       snapshot.data.model,
+                      snapshot.data.membrane,
+                      snapshot.data.pump,
                       snapshot.data.price,
                       snapshot.data.paid,
                       snapshot.data.due,
@@ -148,6 +118,8 @@ class _View extends StatelessWidget {
   final String number;
   final String address;
   final String model;
+  final String membrane;
+  final String pump;
   final String price;
   final String paid;
   final String due;
@@ -159,6 +131,8 @@ class _View extends StatelessWidget {
     this.number,
     this.address,
     this.model,
+    this.membrane,
+    this.pump,
     this.price,
     this.paid,
     this.due,
@@ -177,14 +151,21 @@ class _View extends StatelessWidget {
           children: [
             Row(
               children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Name : ',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
                 ),
                 Padding(
@@ -200,18 +181,25 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               children: [
+                Icon(
+                  Icons.phone,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Phone : ',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
                 ),
                 Padding(
@@ -227,18 +215,25 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 15,
+              height: 30,
             ),
             Row(
               children: [
+                Icon(
+                  Icons.home,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Address : ',
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
                 ),
                 Container(
@@ -258,18 +253,135 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 15,
+            ),
+            Divider(),
+            SizedBox(
+              height: 15,
             ),
             Row(
               children: [
+                Icon(
+                  Icons.view_module,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(),
+                  child: Text(
+                    'Model : ',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(),
+                  child: Text(
+                    '  $model',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.layers,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(),
+                  child: Text(
+                    'Membrane : ',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(),
+                  child: Text(
+                    '  $membrane',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.battery_full,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(),
+                  child: Text(
+                    'Pump : ',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(),
+                  child: Text(
+                    '  $pump',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Divider(),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.account_balance_wallet,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Price  : ',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
                 ),
                 Padding(
@@ -285,17 +397,25 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               children: [
+                Icon(
+                  Icons.account_balance_wallet,
+                  color: Colors.red,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
                     'Due   : ',
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
                     ),
                   ),
                 ),
@@ -312,14 +432,14 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               children: [
                 Padding(
                   padding: EdgeInsets.only(),
                   child: Text(
-                    'Last Installation Date  : ',
+                    'Installation Date  : ',
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -339,50 +459,35 @@ class _View extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Next Change Date  : ',
-                    style: TextStyle(
-                      color: Colors.red[700],
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    ' $nextDate',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                ),
-              ],
+              height: 30,
             ),
           ],
         ),
       ),
       floatingActionButton: Column(children: [
-        Padding(
-          padding: EdgeInsets.only(top: 60, right: 260),
-          child: FloatingActionButton.extended(
-            icon: Icon(Icons.arrow_back),
-            label: Text(''),
-            heroTag: null,
-            onPressed: () {
-              Navigator.pop(context);
-            },
+        SizedBox(
+          height: 60,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: FloatingActionButton.extended(
+                  label: Text(''),
+                  heroTag: null,
+                  icon: FaIcon(FontAwesomeIcons.arrowCircleLeft),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 0, left: 270),
+          padding: EdgeInsets.only(top: 0, left: 290),
           child: FloatingActionButton.extended(
             icon: Icon(Icons.call),
             label: Text(''),
@@ -392,13 +497,13 @@ class _View extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 10, left: 270),
+          padding: EdgeInsets.only(top: 10, left: 290),
           child: FloatingActionButton.extended(
             heroTag: null,
-            icon: FaIcon(FontAwesomeIcons.sms),
+            icon: Icon(Icons.message),
             label: Text(''),
             onPressed: () {
-              sendSms(number, nextDate);
+              sendSms(number, nextDate, date);
               final snackBar = SnackBar(
                 content: Text('Message Sent to $name'),
                 action: SnackBarAction(
@@ -413,7 +518,7 @@ class _View extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 10, left: 270),
+          padding: EdgeInsets.only(top: 10, left: 290),
           child: FloatingActionButton.extended(
             heroTag: null,
             icon: FaIcon(FontAwesomeIcons.whatsapp),
@@ -902,7 +1007,7 @@ showAlertDialog(BuildContext context, String uid, String id) {
   Widget cancelButton = FlatButton(
     child: Text("Cancel"),
     onPressed: () {
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     },
   );
   Widget continueButton = FlatButton(
@@ -915,8 +1020,7 @@ showAlertDialog(BuildContext context, String uid, String id) {
     onPressed: () {
       DatabaseService(uid: uid).deletePurifier(id);
       Navigator.pop(context);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PurifierHome()));
+      Navigator.pop(context);
     },
   );
   // set up the AlertDialog
@@ -930,6 +1034,7 @@ showAlertDialog(BuildContext context, String uid, String id) {
   );
   // show the dialog
   showDialog(
+    useRootNavigator: false,
     context: context,
     builder: (BuildContext context) {
       return alert;

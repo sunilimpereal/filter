@@ -11,8 +11,8 @@ class ReminderList extends StatefulWidget {
 class _ReminderListState extends State<ReminderList> {
   bool t = true;
   Color color = Colors.blue;
-  @override
   DateTime curDate = DateTime.now();
+  @override
   Widget build(BuildContext context) {
     final filters = Provider.of<List<Filter>>(context) ?? [];
     filters.sort((a, b) => b.date.compareTo(a.date));
@@ -231,7 +231,7 @@ class _ReminderListState extends State<ReminderList> {
               Padding(
                 padding: EdgeInsets.only(left: 20, top: 70),
                 child: FloatingActionButton.extended(
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.red[800],
                   label: Text(
                     ' Upcoming ',
                     style: TextStyle(fontSize: 20),

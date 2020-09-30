@@ -10,7 +10,9 @@ import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 class SearchResultHome extends StatelessWidget {
   String name;
-  SearchResultHome(this.name);
+  String type;
+
+  SearchResultHome(this.name, this.type);
   @override
   Widget build(BuildContext context) {
     print(name);
@@ -21,7 +23,7 @@ class SearchResultHome extends StatelessWidget {
         value: DatabaseService(uid: user.uid).purifierList,
         child: StreamProvider<List<Service>>.value(
             value: DatabaseService(uid: user.uid).serviceList,
-            child: Container(child: SearchResult(name: name))),
+            child: Container(child: SearchResult(name: name, type: type))),
       ),
     );
   }

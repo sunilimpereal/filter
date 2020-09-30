@@ -4,6 +4,8 @@ class Purifier {
   final String number;
   final String address;
   final String model;
+  final String membrane;
+  final String pump;
   final String price;
   final String paid;
   final String due;
@@ -16,6 +18,8 @@ class Purifier {
     this.number,
     this.address,
     this.model,
+    this.membrane,
+    this.pump,
     this.price,
     this.date,
     this.paid,

@@ -71,7 +71,9 @@ class _ServiceFormState extends State<ServiceForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.person),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.person)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) => value.isEmpty ? 'Enter name' : null,
@@ -81,7 +83,7 @@ class _ServiceFormState extends State<ServiceForm> {
                         });
                       },
                       decoration: new InputDecoration(
-                        hintText: "Name",
+                        labelText: "Name",
                         border: InputBorder.none,
                       ),
                     ),
@@ -110,7 +112,9 @@ class _ServiceFormState extends State<ServiceForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.phone),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.phone)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) =>
@@ -125,7 +129,7 @@ class _ServiceFormState extends State<ServiceForm> {
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
                       decoration: new InputDecoration(
-                        hintText: "Phone",
+                        labelText: "Phone",
                         border: InputBorder.none,
                       ),
                     ),
@@ -154,7 +158,9 @@ class _ServiceFormState extends State<ServiceForm> {
                         )
                       ]),
                   child: new ListTile(
-                    leading: const Icon(Icons.home),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.home)),
                     selected: true,
                     title: new TextFormField(
                       validator: (value) =>
@@ -168,7 +174,7 @@ class _ServiceFormState extends State<ServiceForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
-                        hintText: "Address",
+                        labelText: "Address",
                         border: InputBorder.none,
                       ),
                     ),
@@ -199,7 +205,9 @@ class _ServiceFormState extends State<ServiceForm> {
                       ]),
                   child: new ListTile(
                     selected: true,
-                    leading: const Icon(Icons.description),
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.description)),
                     title: new TextFormField(
                       validator: (value) =>
                           value.isEmpty ? 'Enter description' : null,
@@ -211,7 +219,7 @@ class _ServiceFormState extends State<ServiceForm> {
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Discription",
+                        labelText: "Discription",
                       ),
                     ),
                   ),
@@ -254,7 +262,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             },
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Spare part",
+                              labelText: "Spare part",
                             ),
                           ),
                         ),
@@ -297,7 +305,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             ],
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Cost",
+                              labelText: "Cost",
                             ),
                           ),
                         ),
@@ -344,7 +352,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             },
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Spare part",
+                              labelText: "Spare part",
                             ),
                           ),
                         ),
@@ -387,7 +395,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             ],
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Cost",
+                              labelText: "Cost",
                             ),
                           ),
                         ),
@@ -433,7 +441,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             },
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Spare part",
+                              labelText: "Spare part",
                             ),
                           ),
                         ),
@@ -476,7 +484,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             ],
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Cost",
+                              labelText: "Cost",
                             ),
                           ),
                         ),
@@ -512,9 +520,17 @@ class _ServiceFormState extends State<ServiceForm> {
                               )
                             ]),
                         child: new ListTile(
-                          leading: const Icon(
-                            Icons.attach_money,
-                            color: Colors.amber,
+                          dense: true,
+                          visualDensity:
+                              VisualDensity(horizontal: 0, vertical: -4),
+                          contentPadding:
+                              EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
+                          leading: Text(
+                            '    ₹',
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.red,
+                            ),
                           ),
                           title: new TextFormField(
                             validator: (value) =>
@@ -530,7 +546,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             ],
                             decoration: new InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Price",
+                              labelText: "Price",
                             ),
                           ),
                         ),
@@ -583,7 +599,7 @@ class _ServiceFormState extends State<ServiceForm> {
               //               ],
               //               decoration: new InputDecoration(
               //                 border: InputBorder.none,
-              //                 hintText: "Paid",
+              //                 labelText: "Paid",
               //               ),
               //             ),
               //           ),
@@ -630,7 +646,7 @@ class _ServiceFormState extends State<ServiceForm> {
               //               ],
               //               decoration: new InputDecoration(
               //                   border: InputBorder.none,
-              //                   hintText: "Due",
+              //                   labelText: "Due",
               //                   fillColor: Colors.red),
               //             ),
               //           ),

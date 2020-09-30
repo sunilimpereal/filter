@@ -57,7 +57,7 @@ class _PurifierEditState extends State<PurifierEdit> {
           elevation: 0.0,
           backgroundColorStart: Color(0xFF153243),
           backgroundColorEnd: Color(0xFF153243),
-          title: Text('Installation'),
+          title: Text('Installation Edit'),
           actions: []),
       body: FutureBuilder(
           future: _getPurifier(),
@@ -67,6 +67,8 @@ class _PurifierEditState extends State<PurifierEdit> {
               String number = snapshot.data.number;
               String address = snapshot.data.address;
               String model = snapshot.data.model;
+              String membrane = snapshot.data.membrane;
+              String pump = snapshot.data.pump;
               String price = snapshot.data.price;
               String date = snapshot.data.date;
               String paid = snapshot.data.paid;
@@ -101,7 +103,9 @@ class _PurifierEditState extends State<PurifierEdit> {
                                   )
                                 ]),
                             child: new ListTile(
-                              leading: const Icon(Icons.person),
+                              leading: Container(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: const Icon(Icons.person)),
                               selected: true,
                               title: new TextFormField(
                                 initialValue: snapshot.data.name,
@@ -112,7 +116,7 @@ class _PurifierEditState extends State<PurifierEdit> {
                                   print(name);
                                 },
                                 decoration: new InputDecoration(
-                                  hintText: "Name",
+                                  labelText: "Name",
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -141,7 +145,9 @@ class _PurifierEditState extends State<PurifierEdit> {
                                   )
                                 ]),
                             child: new ListTile(
-                              leading: const Icon(Icons.phone),
+                              leading: Container(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: const Icon(Icons.phone)),
                               selected: true,
                               title: new TextFormField(
                                 initialValue: snapshot.data.number,
@@ -156,7 +162,7 @@ class _PurifierEditState extends State<PurifierEdit> {
                                   WhitelistingTextInputFormatter.digitsOnly
                                 ],
                                 decoration: new InputDecoration(
-                                  hintText: "Phone",
+                                  labelText: "Phone",
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -185,7 +191,9 @@ class _PurifierEditState extends State<PurifierEdit> {
                                   )
                                 ]),
                             child: new ListTile(
-                              leading: const Icon(Icons.home),
+                              leading: Container(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: const Icon(Icons.home)),
                               selected: true,
                               title: new TextFormField(
                                 initialValue: snapshot.data.address,
@@ -198,7 +206,7 @@ class _PurifierEditState extends State<PurifierEdit> {
                                 minLines: 1,
                                 maxLines: 4,
                                 decoration: new InputDecoration(
-                                  hintText: "Address",
+                                  labelText: "Address",
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -229,7 +237,9 @@ class _PurifierEditState extends State<PurifierEdit> {
                                 ]),
                             child: new ListTile(
                               selected: true,
-                              leading: const Icon(Icons.description),
+                              leading: Container(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: const Icon(Icons.description)),
                               title: new TextFormField(
                                 initialValue: snapshot.data.model,
                                 validator: (value) => value.isEmpty
@@ -241,7 +251,92 @@ class _PurifierEditState extends State<PurifierEdit> {
                                 keyboardType: TextInputType.multiline,
                                 decoration: new InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: "Purifier Model",
+                                  labelText: "Filter Model",
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        //membrane
+                        SizedBox(height: 10),
+
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                                const Radius.circular(10.0)),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 3),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    const Radius.circular(10.0)),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 10.0,
+                                  )
+                                ]),
+                            child: new ListTile(
+                              selected: true,
+                              leading: Container(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: const Icon(Icons.layers)),
+                              title: new TextFormField(
+                                initialValue: snapshot.data.membrane,
+                                validator: (value) =>
+                                    value.isEmpty ? 'Enter membrane' : null,
+                                onChanged: (value) {
+                                  membrane = value;
+                                },
+                                keyboardType: TextInputType.multiline,
+                                decoration: new InputDecoration(
+                                  labelText: "Membrane",
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //Pump
+                        SizedBox(height: 10),
+
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                                const Radius.circular(10.0)),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 3),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    const Radius.circular(10.0)),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 10.0,
+                                  )
+                                ]),
+                            child: new ListTile(
+                              selected: true,
+                              leading: Container(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: const Icon(Icons.battery_full)),
+                              title: new TextFormField(
+                                initialValue: snapshot.data.pump,
+                                validator: (value) =>
+                                    value.isEmpty ? 'Enter Pump' : null,
+                                onChanged: (value) {
+                                  pump = value;
+                                },
+                                keyboardType: TextInputType.multiline,
+                                decoration: new InputDecoration(
+                                  labelText: "Pump",
+                                  border: InputBorder.none,
                                 ),
                               ),
                             ),
@@ -273,9 +368,17 @@ class _PurifierEditState extends State<PurifierEdit> {
                                         )
                                       ]),
                                   child: new ListTile(
-                                    leading: const Icon(
-                                      Icons.attach_money,
-                                      color: Colors.amber,
+                                    dense: true,
+                                    visualDensity: VisualDensity(
+                                        horizontal: 0, vertical: -4),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 0.0, right: 0.0, top: -6),
+                                    leading: Text(
+                                      '   ₹',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.blue,
+                                      ),
                                     ),
                                     title: new TextFormField(
                                       initialValue: snapshot.data.price,
@@ -293,7 +396,7 @@ class _PurifierEditState extends State<PurifierEdit> {
                                       ],
                                       decoration: new InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Total",
+                                        labelText: "Total",
                                       ),
                                     ),
                                   ),
@@ -328,9 +431,17 @@ class _PurifierEditState extends State<PurifierEdit> {
                                         )
                                       ]),
                                   child: new ListTile(
-                                    leading: const Icon(
-                                      Icons.attach_money,
-                                      color: Colors.green,
+                                    dense: true,
+                                    visualDensity: VisualDensity(
+                                        horizontal: 0, vertical: -4),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 0.0, right: 0.0, top: -6),
+                                    leading: Text(
+                                      '   ₹',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.green,
+                                      ),
                                     ),
                                     title: new TextFormField(
                                       initialValue: snapshot.data.paid,
@@ -346,7 +457,7 @@ class _PurifierEditState extends State<PurifierEdit> {
                                       ],
                                       decoration: new InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Paid",
+                                        labelText: "Paid",
                                       ),
                                     ),
                                   ),
@@ -354,7 +465,7 @@ class _PurifierEditState extends State<PurifierEdit> {
                               ),
                             ),
                             Container(
-                              width: 180,
+                              width: 160,
                               height: 60,
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -375,26 +486,42 @@ class _PurifierEditState extends State<PurifierEdit> {
                                         )
                                       ]),
                                   child: new ListTile(
-                                    leading: const Icon(
-                                      Icons.attach_money,
-                                      color: Colors.red,
+                                    dense: true,
+                                    visualDensity: VisualDensity(
+                                        horizontal: 0, vertical: -4),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 0.0, right: 0.0, top: -6),
+                                    leading: Padding(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: Container(
+                                        child: Text(
+                                          '    ₹',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    title: new TextFormField(
-                                      initialValue: snapshot.data.due,
-                                      validator: (value) =>
-                                          value.isEmpty ? 'Enter Due' : null,
-                                      onChanged: (value) {
-                                        due = value.toString();
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [
-                                        WhitelistingTextInputFormatter
-                                            .digitsOnly
-                                      ],
-                                      decoration: new InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: "Due",
-                                          fillColor: Colors.red),
+                                    title: Container(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: new TextFormField(
+                                        initialValue: snapshot.data.due,
+                                        validator: (value) =>
+                                            value.isEmpty ? 'Enter Due' : null,
+                                        onChanged: (value) {
+                                          due = value.toString();
+                                        },
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: [
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly
+                                        ],
+                                        decoration: new InputDecoration(
+                                            border: InputBorder.none,
+                                            labelText: "Due",
+                                            fillColor: Colors.red),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -476,6 +603,8 @@ class _PurifierEditState extends State<PurifierEdit> {
                                                 number,
                                                 address,
                                                 model,
+                                                membrane,
+                                                pump,
                                                 date,
                                                 price,
                                                 paid,

@@ -12,12 +12,12 @@ class SearchPage extends StatelessWidget {
         child: Row(children: [
       GestureDetector(
         child: Container(
-          height: 50,
-          width: 300,
+          height: 48,
+          width: (MediaQuery.of(context).size.width - 60),
           margin: EdgeInsets.only(top: 10, left: 10),
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
           decoration: BoxDecoration(
-            color: Colors.blue[100].withAlpha(50),
+            color: Colors.blue[300].withAlpha(50),
             borderRadius: BorderRadius.all(
               Radius.circular(40),
             ),

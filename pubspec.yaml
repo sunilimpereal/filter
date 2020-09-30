@@ -22,7 +22,7 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter
+     sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,6 +45,9 @@ dependencies:
   font_awesome_flutter: ^8.8.1
   flutter_icons: ^1.1.0
   flutter_open_whatsapp: ^0.1.2
+  flutter_rounded_date_picker: ^1.0.0
+  hexcolor: ^1.0.4
+  splashscreen:
 
 
 dev_dependencies:
@@ -61,13 +64,35 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+      - family: Monaco
+        fonts:
+          - asset: lib/assets/fonts/monaco.ttf
+          - style: italic
+      - family: Roboto
+        fonts:
+          - asset: lib/assets/fonts/Roboto-Light.ttf
+          - style: italic
+      - family: Sans
+        fonts:
+          - asset: lib/assets/fonts/OpenSans-Regular.ttf
+          - style: italic
   assets:
      - lib/assets/img/se.png
      - lib/assets/img/purifier.png
      - lib/assets/img/fil.png
-     - lib/assets/img/service.jpg
-     - lib/assets/img/home1.jpg
-  
+     - lib/assets/img/home.png
+     - lib/assets/img/signup.png
+     - lib/assets/icon/accounts.png
+     - lib/assets/icon/callender.png
+     - lib/assets/icon/notification.png
+     - lib/assets/icon/purifier.png
+     - lib/assets/icon/service.png
+     - lib/assets/icon/filter.png
+     - lib/assets/icon/cart.png
+     - lib/assets/icon/purchase.png
+     - lib/assets/img/flash.png
+     - lib/assets/icon/purchasehome.png
 
 
   
@@ -75,9 +100,9 @@ flutter:
 
 flutter_icons:
     android: true
-    image_path_android: "lib/assets/icon/ic_launcher1.png"
+    image_path_android: "lib/assets/icon/ic_launcher112.png"
     ios: true
-    image_path_ios: "lib/assets/icon/ic_launcher.png"
+    image_path_ios: "lib/assets/icon/ic_launcher112.png"
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

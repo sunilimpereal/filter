@@ -61,7 +61,7 @@ class _FilterEditState extends State<FilterEdit> {
           elevation: 0.0,
           backgroundColorStart: Color(0xFF153243),
           backgroundColorEnd: Color(0xFF153243),
-          title: Text('Installation'),
+          title: Text('Filter Edit'),
           actions: []),
       body: FutureBuilder(
           future: _getFilter(),
@@ -109,7 +109,9 @@ class _FilterEditState extends State<FilterEdit> {
                                 )
                               ]),
                           child: new ListTile(
-                            leading: const Icon(Icons.person),
+                            leading: Container(
+                                padding: EdgeInsets.only(top: 7),
+                                child: const Icon(Icons.person)),
                             selected: true,
                             title: new TextFormField(
                               initialValue: snapshot.data.name,
@@ -120,7 +122,7 @@ class _FilterEditState extends State<FilterEdit> {
                                 print(name);
                               },
                               decoration: new InputDecoration(
-                                hintText: "Name",
+                                labelText: "Name",
                                 border: InputBorder.none,
                               ),
                             ),
@@ -149,7 +151,9 @@ class _FilterEditState extends State<FilterEdit> {
                                 )
                               ]),
                           child: new ListTile(
-                            leading: const Icon(Icons.phone),
+                            leading: Container(
+                                padding: EdgeInsets.only(top: 7),
+                                child: const Icon(Icons.phone)),
                             selected: true,
                             title: new TextFormField(
                               initialValue: snapshot.data.number,
@@ -163,7 +167,7 @@ class _FilterEditState extends State<FilterEdit> {
                                 WhitelistingTextInputFormatter.digitsOnly
                               ],
                               decoration: new InputDecoration(
-                                hintText: "Phone",
+                                labelText: "Phone",
                                 border: InputBorder.none,
                               ),
                             ),
@@ -192,7 +196,9 @@ class _FilterEditState extends State<FilterEdit> {
                                 )
                               ]),
                           child: new ListTile(
-                            leading: const Icon(Icons.home),
+                            leading: Container(
+                                padding: EdgeInsets.only(top: 7),
+                                child: const Icon(Icons.home)),
                             selected: true,
                             title: new TextFormField(
                               initialValue: snapshot.data.address,
@@ -205,7 +211,7 @@ class _FilterEditState extends State<FilterEdit> {
                               minLines: 1,
                               maxLines: 4,
                               decoration: new InputDecoration(
-                                hintText: "Address",
+                                labelText: "Address",
                                 border: InputBorder.none,
                               ),
                             ),
@@ -236,7 +242,9 @@ class _FilterEditState extends State<FilterEdit> {
                               ]),
                           child: new ListTile(
                             selected: true,
-                            leading: const Icon(Icons.description),
+                            leading: Container(
+                                padding: EdgeInsets.only(top: 7),
+                                child: const Icon(Icons.description)),
                             title: new TextFormField(
                               initialValue: snapshot.data.model,
                               validator: (value) =>
@@ -247,7 +255,7 @@ class _FilterEditState extends State<FilterEdit> {
                               keyboardType: TextInputType.multiline,
                               decoration: new InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "Filter Model",
+                                labelText: "Filter Model",
                               ),
                             ),
                           ),
@@ -279,9 +287,12 @@ class _FilterEditState extends State<FilterEdit> {
                                       )
                                     ]),
                                 child: new ListTile(
-                                  leading: const Icon(
-                                    Icons.attach_money,
-                                    color: Colors.amber,
+                                  leading: Container(
+                                    padding: EdgeInsets.only(top: 7),
+                                    child: const Icon(
+                                      Icons.attach_money,
+                                      color: Colors.amber,
+                                    ),
                                   ),
                                   title: new TextFormField(
                                     initialValue: snapshot.data.price,
@@ -298,7 +309,7 @@ class _FilterEditState extends State<FilterEdit> {
                                     ],
                                     decoration: new InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "Total",
+                                      labelText: "Total",
                                     ),
                                   ),
                                 ),
@@ -350,7 +361,7 @@ class _FilterEditState extends State<FilterEdit> {
                       //               ],
                       //               decoration: new InputDecoration(
                       //                 border: InputBorder.none,
-                      //                 hintText: "Paid",
+                      //                 labelText: "Paid",
                       //               ),
                       //             ),
                       //           ),
@@ -396,7 +407,7 @@ class _FilterEditState extends State<FilterEdit> {
                       //               ],
                       //               decoration: new InputDecoration(
                       //                   border: InputBorder.none,
-                      //                   hintText: "Due",
+                      //                   labelText: "Due",
                       //                   fillColor: Colors.red),
                       //             ),
                       //           ),
@@ -538,7 +549,10 @@ class _FilterEditState extends State<FilterEdit> {
                               });
                             },
                             state: stateTextWithIcon),
-                      )
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                     ],
                   ),
                 ),
