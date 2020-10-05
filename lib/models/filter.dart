@@ -2,6 +2,7 @@ class Filter {
   final String id;
   final String name;
   final String number;
+  final String area;
   final String address;
   final String model;
   final String date;
@@ -14,6 +15,7 @@ class Filter {
     this.id,
     this.name,
     this.number,
+    this.area,
     this.address,
     this.model,
     this.date,

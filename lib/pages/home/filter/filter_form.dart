@@ -21,6 +21,7 @@ class _FilterFormState extends State<FilterForm> {
   //Form contents
   String name = '';
   String number = '';
+  String area = '';
   String address = '';
   String model = '';
   String price = '';
@@ -86,6 +87,8 @@ class _FilterFormState extends State<FilterForm> {
                         });
                       },
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: -10),
                         labelText: "Name",
                         border: InputBorder.none,
                       ),
@@ -132,7 +135,54 @@ class _FilterFormState extends State<FilterForm> {
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: -10),
                         labelText: "Phone",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              //area
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(10.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: new ListTile(
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.location_on)),
+                    selected: true,
+                    title: new TextFormField(
+                      validator: (value) => value.isEmpty ? 'Enter area' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          area = value;
+                        });
+                      },
+                      keyboardType: TextInputType.multiline,
+                      minLines: 1,
+                      maxLines: 4,
+                      decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: -10),
+                        labelText: "Area",
                         border: InputBorder.none,
                       ),
                     ),
@@ -177,6 +227,8 @@ class _FilterFormState extends State<FilterForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: -10),
                         labelText: "Address",
                         border: InputBorder.none,
                       ),
@@ -221,6 +273,8 @@ class _FilterFormState extends State<FilterForm> {
                       },
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: -10),
                         border: InputBorder.none,
                         labelText: "Filter Model",
                       ),
@@ -263,7 +317,7 @@ class _FilterFormState extends State<FilterForm> {
                             '    ₹',
                             style: TextStyle(
                               fontSize: 25,
-                              color: Colors.red,
+                              color: Colors.green,
                             ),
                           ),
                           title: new TextFormField(
@@ -279,6 +333,8 @@ class _FilterFormState extends State<FilterForm> {
                               WhitelistingTextInputFormatter.digitsOnly
                             ],
                             decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
                               border: InputBorder.none,
                               labelText: "Price",
                             ),
@@ -386,8 +442,18 @@ class _FilterFormState extends State<FilterForm> {
                         if (_formKey.currentState.validate()) {
                           print(fexpDate);
                           dynamic result = await DatabaseService(uid: user.uid)
-                              .createFilter(id, name, number, address, date,
-                                  model, price, paid, due, expDate.toString());
+                              .createFilter(
+                                  id,
+                                  name,
+                                  number,
+                                  area,
+                                  address,
+                                  date,
+                                  model,
+                                  price,
+                                  paid,
+                                  due,
+                                  expDate.toString());
                           print(result);
 
                           Future.delayed(Duration(seconds: 1), () {
@@ -442,8 +508,8 @@ class _FilterFormState extends State<FilterForm> {
     final DateTime _pickedDate = await showDatePicker(
       context: context,
       initialDate: _initialDate,
-      firstDate: DateTime.now().subtract(Duration(days: 365)),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      firstDate: DateTime.now().subtract(Duration(days: 365 * 50)),
+      lastDate: DateTime.now().add(Duration(days: 365 * 50)),
     );
     if (_pickedDate != null) {
       selectedDate = DateTime(

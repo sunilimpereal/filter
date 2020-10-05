@@ -15,19 +15,19 @@ class FilterHome extends StatefulWidget {
 
 class _FilterHomeState extends State<FilterHome> {
   DateTime curDate = DateTime.now();
-  DateTime _startDate =
-      (DateTime.now()).subtract(Duration(days: ((DateTime.now().day) - 1)));
+  DateTime _startDate = DateTime(DateTime.now().year - 20);
 
-  DateTime _endDate = (DateTime.now())
-      .subtract(Duration(days: (DateTime.now().day) - 1))
-      .add(Duration(days: 29));
+  DateTime _endDate = DateTime(DateTime.now().year + 20);
 
   Future dispalyDateRangePicker(BuildContext context) async {
     print(_startDate);
     final List<DateTime> picked = await DateRangePicker.showDatePicker(
       context: context,
-      initialFirstDate: _startDate,
-      initialLastDate: _endDate,
+      initialFirstDate:
+          (DateTime.now()).subtract(Duration(days: ((DateTime.now().day) - 1))),
+      initialLastDate: (DateTime.now())
+          .subtract(Duration(days: (DateTime.now().day) - 1))
+          .add(Duration(days: 29)),
       firstDate: new DateTime(DateTime.now().year - 20),
       lastDate: new DateTime(DateTime.now().year + 20),
     );

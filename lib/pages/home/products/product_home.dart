@@ -6,6 +6,7 @@ import 'package:filter/pages/home/products/productview.dart';
 import 'package:filter/services/database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -30,8 +31,35 @@ class ProductHome extends StatefulWidget {
 }
 
 class _ProductHomeState extends State<ProductHome> {
+  String allWordsCapitilize(String str) {
+    if (str.length > 0) {
+      return str.toLowerCase().split(' ').map((word) {
+        String leftText =
+            (word.length > 1) ? word.substring(1, word.length) : '';
+        return word[0].toUpperCase() + leftText;
+      }).join(' ');
+    } else {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final purchases = Provider.of<List<Product>>(context) ?? [];
+    purchases.sort((a, b) => b.date.compareTo(a.date));
+    List<Product> newPurchases = [];
+    int purchtot = 0;
+    int purchpaid = 0;
+    int purchdue = 0;
+    for (var i = 0; i < purchases.length; i++) {
+      DateTime ndate = DateTime.parse(purchases[i].date);
+
+      newPurchases.add(purchases[i]);
+      purchtot = purchtot + int.parse(purchases[i].total);
+      purchpaid = purchpaid + int.parse(purchases[i].paid);
+      purchdue = purchdue + int.parse(purchases[i].due);
+    }
+    final purchnum = (newPurchases.length).toString();
     final user = Provider.of<User>(context);
     final products = Provider.of<List<Product>>(context) ?? [];
     products.sort((a, b) => b.date.compareTo(a.date));
@@ -66,7 +94,7 @@ class _ProductHomeState extends State<ProductHome> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40)),
-                      color: new Color(0xFF153243)),
+                      color: Colors.blue[900]),
                 ),
               ],
             ),
@@ -128,166 +156,434 @@ class _ProductHomeState extends State<ProductHome> {
                     ),
                   ),
                 ),
-                Expanded(
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
                   child: Container(
-                      color: Colors.transparent,
-                      child: (() {
-                        return ListView.builder(
-                            itemCount: products.length,
-                            itemBuilder: (context, index) {
-                              String date = DateFormat('dd/mm/yyyy').format(
-                                  DateTime.parse(products[index].date ?? ''));
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 80,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              (0.94),
-                                          color: Colors.white,
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      top: 8.0,
-                                                      left: 8.0,
-                                                      bottom: 4.0,
-                                                      right: 8.0,
-                                                    ),
-                                                    child: Text(
-                                                        products[index]
-                                                            .description,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        )),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      top: 8.0,
-                                                      left: 8.0,
-                                                      bottom: 4.0,
-                                                      right: 8.0,
-                                                    ),
-                                                    child: Text(
-                                                        (() {
-                                                          return DateFormat(
-                                                                  'dd/MM/yyyy')
-                                                              .format(DateTime
-                                                                  .parse(products[
-                                                                          index]
-                                                                      .date));
-                                                        }()),
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        )),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8.0),
-                                                    child: Text(
-                                                        products[index].contact,
-                                                        style: TextStyle(
-                                                          color: Colors.grey,
-                                                          fontSize: 17,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        )),
-                                                  ),
-                                                  Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 8.0),
-                                                      child: (() {
-                                                        if (products[index]
-                                                                .due !=
-                                                            '0') {
-                                                          return Icon(
-                                                            Icons.info,
-                                                            color: Colors.red,
-                                                          );
-                                                        } else {
-                                                          return SizedBox();
-                                                        }
-                                                      }())),
-                                                ],
-                                              ),
-                                              //second ror
-                                            ],
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    width: 400,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.blue),
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(),
+                                child: Center(
+                                  child: Text(
+                                    '    Purchases',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Divider(
+                            color: Colors.blue[900],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(),
+                                      child: Text(
+                                        '    Number of purchase :',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.blue[900],
+                                        ),
+                                        width: 60,
+                                        height: 30,
+                                        child: Center(
+                                          child: Text(
+                                            '$purchnum',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ViewOderHome(
-                                              prod: products[index])),
-                                    );
-                                  },
+                                  ],
                                 ),
-                              );
-                              // return ListTile(
-                              //   title: ((){
-                              //     return
-
-                              //   }()),
-                              //   // Text(
-                              //   //   products[index].description,
-                              //   //   style: TextStyle(fontWeight: FontWeight.bold),
-                              //   // ),
-                              //   trailing: (() {
-                              //     if (products[index].due != '0') {
-                              //       return Icon(
-                              //         Icons.info,
-                              //         color: Colors.red,
-                              //       );
-                              //     } else {
-                              //       return SizedBox();
-                              //     }
-                              //   }()),
-                              //   onTap: () {
-                              //     // Navigator.push(
-                              //     //   context,
-                              //     //   MaterialPageRoute(
-                              //     //       builder: (context) =>
-                              //     //           cartItems(context, products[index], user)),
-                              //     // );
-                              //   },
-                              // );
-                            });
-                      }())),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Divider(),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(),
+                                      child: Text(
+                                        '    Total Amount :',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.blue[900],
+                                        ),
+                                        width: 100,
+                                        height: 30,
+                                        child: Center(
+                                          child: Text(
+                                            '₹ $purchtot',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Divider(),
+                          Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(),
+                                      child: Text(
+                                        '    Total Paid :   ',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.blue[900],
+                                        ),
+                                        width: 100,
+                                        height: 30,
+                                        child: Center(
+                                          child: Text(
+                                            '₹ $purchpaid',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Divider(),
+                          Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(),
+                                      child: Text(
+                                        '    Total Due :  ',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.blue[900],
+                                        ),
+                                        width: 100,
+                                        height: 30,
+                                        child: Center(
+                                          child: Text(
+                                            '₹ $purchdue',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
+
+                // Expanded(
+                //   child: Container(
+                //       color: Colors.transparent,
+                //       child: (() {
+                //         return ListView.builder(
+                //             itemCount: products.length,
+                //             itemBuilder: (context, index) {
+                //               String date = DateFormat('dd/mm/yyyy').format(
+                //                   DateTime.parse(products[index].date ?? ''));
+                //               return Padding(
+                //                 padding: const EdgeInsets.all(8.0),
+                //                 child: GestureDetector(
+                //                   child: Container(
+                //                     width: MediaQuery.of(context).size.width,
+                //                     height: 80,
+                //                     child: Row(
+                //                       mainAxisAlignment:
+                //                           MainAxisAlignment.center,
+                //                       children: [
+                //                         Container(
+                //                           width: MediaQuery.of(context)
+                //                                   .size
+                //                                   .width *
+                //                               (0.94),
+                //                           decoration: BoxDecoration(
+                //                               color: Colors.blue[900],
+                //                               borderRadius:
+                //                                   BorderRadius.circular(18)),
+                //                           child: Column(
+                //                             children: [
+                //                               Row(
+                //                                 mainAxisAlignment:
+                //                                     MainAxisAlignment
+                //                                         .spaceBetween,
+                //                                 children: [
+                //                                   Padding(
+                //                                     padding:
+                //                                         const EdgeInsets.only(
+                //                                       top: 8.0,
+                //                                       left: 24.0,
+                //                                       bottom: 4.0,
+                //                                       right: 8.0,
+                //                                     ),
+                //                                     child: Text(
+                //                                         toBeginningOfSentenceCase(
+                //                                             products[index]
+                //                                                 .contact),
+                //                                         style: GoogleFonts.lato(
+                //                                           textStyle: TextStyle(
+                //                                             color: Colors.white,
+                //                                             fontSize: 20,
+                //                                             fontWeight:
+                //                                                 FontWeight.bold,
+                //                                           ),
+                //                                         )),
+                //                                   ),
+                //                                   Padding(
+                //                                     padding:
+                //                                         const EdgeInsets.only(
+                //                                       top: 8.0,
+                //                                       left: 8.0,
+                //                                       bottom: 4.0,
+                //                                       right: 8.0,
+                //                                     ),
+                //                                     child: Text(
+                //                                       (() {
+                //                                         return DateFormat(
+                //                                                 'dd/MM/yyyy')
+                //                                             .format(DateTime
+                //                                                 .parse(products[
+                //                                                         index]
+                //                                                     .date));
+                //                                       }()),
+                //                                       style:
+                //                                           GoogleFonts.getFont(
+                //                                               'Bangers',
+                //                                               textStyle:
+                //                                                   TextStyle(
+                //                                                 color: Colors
+                //                                                     .white,
+                //                                                 fontSize: 15,
+                //                                                 fontWeight:
+                //                                                     FontWeight
+                //                                                         .bold,
+                //                                               )),
+                //                                     ),
+                //                                   ),
+                //                                 ],
+                //                               ),
+                //                               Row(
+                //                                 mainAxisAlignment:
+                //                                     MainAxisAlignment
+                //                                         .spaceBetween,
+                //                                 children: [
+                //                                   Padding(
+                //                                     padding:
+                //                                         const EdgeInsets.only(
+                //                                             left: 24.0),
+                //                                     child: Text(
+                //                                         toBeginningOfSentenceCase(
+                //                                             products[index]
+                //                                                 .description),
+                //                                         style: TextStyle(
+                //                                           color: Colors.white70,
+                //                                           fontSize: 17,
+                //                                           fontFamily:
+                //                                               'ZillaSlab-SemiBold',
+                //                                           fontWeight:
+                //                                               FontWeight.bold,
+                //                                         )),
+                //                                   ),
+                //                                   Padding(
+                //                                       padding:
+                //                                           const EdgeInsets.only(
+                //                                               right: 8.0),
+                //                                       child: (() {
+                //                                         if (products[index]
+                //                                                 .due !=
+                //                                             '0') {
+                //                                           return Icon(
+                //                                             Icons.info,
+                //                                             color: Colors.red,
+                //                                           );
+                //                                         } else {
+                //                                           return SizedBox();
+                //                                         }
+                //                                       }())),
+                //                                 ],
+                //                               ),
+                //                               //second ror
+                //                             ],
+                //                           ),
+                //                         ),
+                //                       ],
+                //                     ),
+                //                   ),
+                //                   onTap: () {
+                //                     Navigator.push(
+                //                       context,
+                //                       MaterialPageRoute(
+                //                           builder: (context) => ViewOderHome(
+                //                               prod: products[index])),
+                //                     );
+                //                   },
+                //                 ),
+                //               );
+                //               // return ListTile(
+                //               //   title: ((){
+                //               //     return
+
+                //               //   }()),
+                //               //   // Text(
+                //               //   //   products[index].description,
+                //               //   //   style: TextStyle(fontWeight: FontWeight.bold),
+                //               //   // ),
+                //               //   trailing: (() {
+                //               //     if (products[index].due != '0') {
+                //               //       return Icon(
+                //               //         Icons.info,
+                //               //         color: Colors.red,
+                //               //       );
+                //               //     } else {
+                //               //       return SizedBox();
+                //               //     }
+                //               //   }()),
+                //               //   onTap: () {
+                //               //     // Navigator.push(
+                //               //     //   context,
+                //               //     //   MaterialPageRoute(
+                //               //     //       builder: (context) =>
+                //               //     //           cartItems(context, products[index], user)),
+                //               //     // );
+                //               //   },
+                //               // );
+                //             });
+                //       }())),
+                // ),
               ],
             ),
           ],

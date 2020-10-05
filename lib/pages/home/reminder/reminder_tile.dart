@@ -24,7 +24,7 @@ class ReminderTile extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 5.0),
           child: Stack(
             children: [
-              filterCard(filter.expDate, filter.name, filter.model,
+              filterCard(filter.date, filter.name, filter.area, filter.model,
                   filter.number, filter.price, filter.due, filter.id),
               filterThumbnail,
             ],
@@ -54,7 +54,7 @@ class ReminderTile extends StatelessWidget {
 
   //Building filter card
   filterCard(String expDate, String name, String model, String number,
-      String price, String due, String id) {
+      String area, String price, String due, String id) {
     print(DateTime.now().toString());
     print(name);
     if (DateTime.now().toString() == expDate) {
@@ -85,79 +85,98 @@ class ReminderTile extends StatelessWidget {
               height: 100,
               child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.0, top: 7.0, bottom: 7.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          name,
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(0.0),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 25.0, top: 7.0, bottom: 0.0),
+                              child: Text(
+                                '',
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            Text(
+                              '$name',
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
                         ),
-                        Text(
-                          expDate ?? '',
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Filter  Change |',
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '$expDate',
                           style: TextStyle(
                               fontSize: 12.0,
                               fontWeight: FontWeight.w800,
                               color: Colors.white),
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
                       child: Row(children: [
                         Text(
-                          model ?? '',
+                          '$number',
                           overflow: TextOverflow.fade,
                           style: TextStyle(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w900,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                       ])),
-                  Padding(
-                      padding: EdgeInsets.only(left: 16.0, top: 12),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Flexible(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 25.0),
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Price : $price',
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.green[200],
+                        children: [
+                          Flexible(
+                            child: Container(
+                              child: Text(
+                                '',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white),
                               ),
                             ),
-                            // Text(
-                            //   due != '0' ? 'Due : $due' : '',
-                            //   overflow: TextOverflow.fade,
-                            //   style: TextStyle(
-                            //     fontSize: 15.0,
-                            //     fontWeight: FontWeight.w900,
-                            //     color: Colors.red[300],
-                            //   ),
-                            // ),
-                          ])),
+                          ),
+                          Flexible(
+                            child: Container(
+                              child: Text(
+                                '$area',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -2,6 +2,7 @@ class Service {
   String id;
   String name;
   String number;
+  String area;
   String address;
   String date;
   String description;
@@ -19,6 +20,7 @@ class Service {
     this.id,
     this.name,
     this.number,
+    this.area,
     this.address,
     this.description,
     this.date,

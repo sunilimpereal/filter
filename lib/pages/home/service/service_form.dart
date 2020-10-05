@@ -20,6 +20,7 @@ class _ServiceFormState extends State<ServiceForm> {
   //Form contents
   String name = '';
   String number = '';
+  String area = '';
   String address = '';
   String description = '';
   String date = '';
@@ -130,6 +131,49 @@ class _ServiceFormState extends State<ServiceForm> {
                       ],
                       decoration: new InputDecoration(
                         labelText: "Phone",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              //area
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(10.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: new ListTile(
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.location_on)),
+                    selected: true,
+                    title: new TextFormField(
+                      validator: (value) => value.isEmpty ? 'Enter area' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          area = value;
+                        });
+                      },
+                      keyboardType: TextInputType.multiline,
+                      minLines: 1,
+                      maxLines: 4,
+                      decoration: new InputDecoration(
+                        labelText: "Area",
                         border: InputBorder.none,
                       ),
                     ),
@@ -529,7 +573,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             '    ₹',
                             style: TextStyle(
                               fontSize: 25,
-                              color: Colors.red,
+                              color: Colors.green,
                             ),
                           ),
                           title: new TextFormField(
@@ -553,108 +597,65 @@ class _ServiceFormState extends State<ServiceForm> {
                       ),
                     ),
                   ),
+                  // Container(
+                  //   width: 180,
+                  //   height: 60,
+                  //   child: Container(
+                  //     padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  //     decoration: BoxDecoration(
+                  //       borderRadius:
+                  //           const BorderRadius.all(const Radius.circular(10.0)),
+                  //     ),
+                  //     child: Container(
+                  //       padding: EdgeInsets.symmetric(vertical: 3),
+                  //       decoration: BoxDecoration(
+                  //           borderRadius:
+                  //               BorderRadius.all(const Radius.circular(10.0)),
+                  //           color: Colors.white,
+                  //           boxShadow: [
+                  //             BoxShadow(
+                  //               color: Colors.grey,
+                  //               blurRadius: 10.0,
+                  //             )
+                  //           ]),
+                  //       child: new ListTile(
+                  //         dense: true,
+                  //         visualDensity:
+                  //             VisualDensity(horizontal: 0, vertical: -4),
+                  //         contentPadding:
+                  //             EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
+                  //         leading: Text(
+                  //           '    ₹',
+                  //           style: TextStyle(
+                  //             fontSize: 25,
+                  //             color: Colors.red,
+                  //           ),
+                  //         ),
+                  //         title: new TextFormField(
+                  //           initialValue: '0',
+                  //           validator: (value) =>
+                  //               value.isEmpty ? 'Enter Total anount' : null,
+                  //           onChanged: (value) {
+                  //             setState(() {
+                  //               due = value.toString();
+                  //             });
+                  //           },
+                  //           keyboardType: TextInputType.number,
+                  //           inputFormatters: [
+                  //             WhitelistingTextInputFormatter.digitsOnly
+                  //           ],
+                  //           decoration: new InputDecoration(
+                  //             border: InputBorder.none,
+                  //             labelText: "Due",
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
 
-              // SizedBox(height: 20),
-              // Row(
-              //   children: [
-              //     Container(
-              //       width: 180,
-              //       height: 60,
-              //       child: Container(
-              //         padding: EdgeInsets.symmetric(horizontal: 10.0),
-              //         decoration: BoxDecoration(
-              //           borderRadius:
-              //               const BorderRadius.all(const Radius.circular(10.0)),
-              //         ),
-              //         child: Container(
-              //           padding: EdgeInsets.symmetric(vertical: 3),
-              //           decoration: BoxDecoration(
-              //               borderRadius:
-              //                   BorderRadius.all(const Radius.circular(10.0)),
-              //               color: Colors.white,
-              //               boxShadow: [
-              //                 BoxShadow(
-              //                   color: Colors.grey,
-              //                   blurRadius: 10.0,
-              //                 )
-              //               ]),
-              //           child: new ListTile(
-              //             leading: const Icon(
-              //               Icons.attach_money,
-              //               color: Colors.green,
-              //             ),
-              //             title: new TextFormField(
-              //               validator: (value) =>
-              //                   value.isEmpty ? 'Enter paid' : null,
-              //               onChanged: (value) {
-              //                 setState(() {
-              //                   paid = value.toString();
-              //                 });
-              //               },
-              //               keyboardType: TextInputType.number,
-              //               inputFormatters: [
-              //                 WhitelistingTextInputFormatter.digitsOnly
-              //               ],
-              //               decoration: new InputDecoration(
-              //                 border: InputBorder.none,
-              //                 labelText: "Paid",
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //     Container(
-              //       width: 180,
-              //       height: 60,
-              //       child: Container(
-              //         padding: EdgeInsets.symmetric(horizontal: 10.0),
-              //         decoration: BoxDecoration(
-              //           borderRadius:
-              //               const BorderRadius.all(const Radius.circular(10.0)),
-              //         ),
-              //         child: Container(
-              //           padding: EdgeInsets.symmetric(vertical: 0),
-              //           decoration: BoxDecoration(
-              //               borderRadius:
-              //                   BorderRadius.all(const Radius.circular(10.0)),
-              //               color: Colors.white,
-              //               boxShadow: [
-              //                 BoxShadow(
-              //                   color: Colors.grey,
-              //                   blurRadius: 10.0,
-              //                 )
-              //               ]),
-              //           child: new ListTile(
-              //             leading: const Icon(
-              //               Icons.attach_money,
-              //               color: Colors.red,
-              //             ),
-              //             title: new TextFormField(
-              //               validator: (value) =>
-              //                   value.isEmpty ? 'Enter Due' : null,
-              //               onChanged: (value) {
-              //                 setState(() {
-              //                   due = value.toString();
-              //                 });
-              //               },
-              //               keyboardType: TextInputType.number,
-              //               inputFormatters: [
-              //                 WhitelistingTextInputFormatter.digitsOnly
-              //               ],
-              //               decoration: new InputDecoration(
-              //                   border: InputBorder.none,
-              //                   labelText: "Due",
-              //                   fillColor: Colors.red),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     )
-              //   ],
-              // ),
               new ListTile(
                 leading: const Icon(Icons.today),
                 title: FlatButton(
@@ -683,11 +684,7 @@ class _ServiceFormState extends State<ServiceForm> {
                   },
                 ),
               ),
-              // new ListTile(
-              //   leading: const Icon(Icons.image),
-              //   title: const Text('Image'),
-              //   subtitle: const Text('Warranty image'),
-              // ),
+
               Container(
                 child: ProgressButton.icon(
                     iconedButtons: {
@@ -719,6 +716,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             id,
                             name,
                             number,
+                            area,
                             address,
                             description,
                             date,
@@ -730,7 +728,7 @@ class _ServiceFormState extends State<ServiceForm> {
                             sparePrice3,
                             price,
                             paid,
-                            due,
+                            '0',
                           );
                           print(result);
 

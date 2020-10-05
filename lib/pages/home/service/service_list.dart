@@ -20,7 +20,8 @@ class _ServiceListState extends State<ServiceList> {
     List<Service> newServices = [];
     for (var i = 0; i < services.length; i++) {
       DateTime ndate = DateTime.parse(services[i].date);
-      if (ndate.isAfter(widget.startDate) && ndate.isBefore(widget.endDate)) {
+      if (ndate.isAfter(widget.startDate.subtract(Duration(days: 1))) &&
+          ndate.isBefore(widget.endDate.subtract(Duration(days: 1)))) {
         newServices.add(services[i]);
       }
     }

@@ -207,8 +207,9 @@ class _HomeState extends State<Home> {
                     child: Text(
                       'Service',
                       style: TextStyle(
+                        fontFamily: 'Sans',
                         color: Colors.white,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         fontSize: 17,
                       ),
                     ),
@@ -285,7 +286,8 @@ class _HomeState extends State<Home> {
                       'Customer Entry',
                       style: TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Sans',
+                        fontWeight: FontWeight.bold,
                         fontSize: 16.0,
                       ),
                     ),
@@ -362,8 +364,9 @@ class _HomeState extends State<Home> {
                     child: Text(
                       'Purchase',
                       style: TextStyle(
+                        fontFamily: 'Sans',
                         color: Colors.white,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         fontSize: 17,
                       ),
                     ),
@@ -443,8 +446,9 @@ class _HomeState extends State<Home> {
                         child: Text(
                           'Filter',
                           style: TextStyle(
+                            fontFamily: 'Sans',
                             color: Colors.white,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
                         ),
@@ -550,14 +554,14 @@ class _HomeState extends State<Home> {
                 children: [
                   reminder(),
                   SizedBox(
-                    width: 13,
+                    width: 16,
                   ),
                   callender(context),
                   SizedBox(
-                    width: 13,
+                    width: 16,
                   ),
                   report(),
-                  SizedBox(width: 13),
+                  SizedBox(width: 16),
                   cart(),
                 ],
               ),
@@ -607,7 +611,7 @@ class _HomeState extends State<Home> {
       ),
       Text(
         'Notification',
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
       )
     ]);
   }
@@ -652,7 +656,7 @@ class _HomeState extends State<Home> {
       ),
       Text(
         'Cart',
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
       )
     ]);
   }
@@ -697,7 +701,7 @@ class _HomeState extends State<Home> {
       ),
       Text(
         ' Accounts',
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
       )
     ]);
   }
@@ -744,7 +748,7 @@ class _HomeState extends State<Home> {
       ),
       Text(
         '  Calender',
-        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
       )
     ]);
   }

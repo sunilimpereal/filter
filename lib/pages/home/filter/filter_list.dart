@@ -19,7 +19,8 @@ class _FilterListState extends State<FilterList> {
     List<Filter> newFilters = [];
     for (var i = 0; i < filters.length; i++) {
       DateTime ndate = DateTime.parse(filters[i].date);
-      if (ndate.isAfter(widget.startDate) && ndate.isBefore(widget.endDate)) {
+      if (ndate.isAfter(widget.startDate.subtract(Duration(days: 1))) &&
+          ndate.isBefore(widget.endDate.subtract(Duration(days: 1)))) {
         newFilters.add(filters[i]);
       }
     }

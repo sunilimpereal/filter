@@ -11,8 +11,12 @@
     
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="SMART AQUA"
+        android:label="BK WATER"
         android:icon="@mipmap/ic_launcher">
+        <activity
+    android:name="com.yalantis.ucrop.UCropActivity"
+    android:screenOrientation="portrait"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

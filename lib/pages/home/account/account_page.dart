@@ -78,7 +78,7 @@ class _AccountPageState extends State<AccountPage> {
     }
 
     final purchases = Provider.of<List<Product>>(context) ?? [];
-    services.sort((a, b) => b.date.compareTo(a.date));
+    purchases.sort((a, b) => b.date.compareTo(a.date));
     List<Product> newPurchases = [];
     int purchtot = 0;
     int purchpaid = 0;
@@ -143,37 +143,45 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Number of Filter Change :',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 50),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 60,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '$filnum',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Number of Filter Change :',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 50),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 60,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '$filnum',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -187,37 +195,45 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Total Income :',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 120),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 80,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '₹ $filinc',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Total Income :',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 80,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '₹ $filinc',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -272,37 +288,45 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Number of Services :',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 90),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 60,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '$servnum',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Number of Services :',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 90),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 60,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '$servnum',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -316,37 +340,45 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Total Income :',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 120),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 80,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '₹ $servinc',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Total Income :',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 80,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '₹ $servinc',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -401,37 +433,45 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Number of Install :',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 110),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 60,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '$purinum',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Number of Install :',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 60,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '$purinum',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -445,37 +485,45 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Total Income :',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 130),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 80,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '₹ $puriinc',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Total Income :',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 80,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '₹ $puriinc',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -511,7 +559,7 @@ class _AccountPageState extends State<AccountPage> {
                                 '    Purchases',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 17,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -524,43 +572,53 @@ class _AccountPageState extends State<AccountPage> {
                       SizedBox(
                         height: 5,
                       ),
-                      Divider(),
+                      Divider(
+                        color: Colors.blue[900],
+                      ),
                       SizedBox(
                         height: 5,
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Number of purchase :',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 80),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 60,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '$purchnum',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Number of purchase :',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 60,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '$purchnum',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -574,117 +632,143 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Total Amount :',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 100),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 100,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '₹ $purchtot',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Total Amount :',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 100,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '₹ $purchtot',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
+                      Divider(),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Total Paid :   ',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 110),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 100,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '₹ $purchpaid',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Total Paid :   ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 100,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '₹ $purchpaid',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
+                      Divider(),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(),
-                            child: Text(
-                              '    Total Due :  ',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
                           Container(
-                            padding: EdgeInsets.only(left: 120),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[900],
-                              ),
-                              width: 100,
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  '₹ $purchdue',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(),
+                                  child: Text(
+                                    '    Total Due :  ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[900],
+                                    ),
+                                    width: 100,
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '₹ $purchdue',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -703,11 +787,11 @@ class _AccountPageState extends State<AccountPage> {
       floatingActionButton: Column(
         children: [
           Container(
-            color: Colors.white,
+            color: Colors.transparent,
             height: 50,
           ),
           Container(
-            color: Colors.white,
+            color: Colors.transparent,
             width: MediaQuery.of(context).size.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

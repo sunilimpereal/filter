@@ -27,6 +27,7 @@ class _ServiceEditState extends State<ServiceEdit> {
   //Form contents
   String name;
   String number;
+  String area;
   String address;
   String model;
   String price;
@@ -34,7 +35,14 @@ class _ServiceEditState extends State<ServiceEdit> {
   String paid;
   String due;
   String expDate;
+  String spare1;
+  String spare2;
+  String spare3;
+  String sparePrice1;
+  String sparePrice2;
+  String sparePrice3;
   String img;
+  String due1;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +65,12 @@ class _ServiceEditState extends State<ServiceEdit> {
           elevation: 0.0,
           backgroundColorStart: Colors.blue[300],
           backgroundColorEnd: Colors.blue[250],
-          title: Text('Service edit'),
+          title: Text(
+            'Service edit',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           actions: []),
       body: FutureBuilder(
           future: _getService(),
@@ -65,6 +78,7 @@ class _ServiceEditState extends State<ServiceEdit> {
             if (snapshot.hasData) {
               String name = snapshot.data.name;
               String number = snapshot.data.number;
+              String area = snapshot.data.area;
               String address = snapshot.data.address;
               String description = snapshot.data.description;
               String spare1 = snapshot.data.spare1;
@@ -76,7 +90,8 @@ class _ServiceEditState extends State<ServiceEdit> {
               String price = snapshot.data.price;
               String date = snapshot.data.date;
               String paid = snapshot.data.paid;
-              String due = snapshot.data.due;
+              due = snapshot.data.due;
+              due1 = snapshot.data.due;
 
               return Container(
                 decoration: BoxDecoration(color: Color(0xFFebebeb)),
@@ -117,7 +132,9 @@ class _ServiceEditState extends State<ServiceEdit> {
                                   print(name);
                                 },
                                 decoration: new InputDecoration(
-                                  hintText: "Name",
+                                  contentPadding: EdgeInsets.only(
+                                      top: -3, bottom: 7, left: -10),
+                                  labelText: "Name",
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -161,7 +178,52 @@ class _ServiceEditState extends State<ServiceEdit> {
                                   WhitelistingTextInputFormatter.digitsOnly
                                 ],
                                 decoration: new InputDecoration(
-                                  hintText: "Phone",
+                                  contentPadding: EdgeInsets.only(
+                                      top: -3, bottom: 7, left: -10),
+                                  labelText: "Phone",
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //area
+                        SizedBox(height: 10),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                                const Radius.circular(10.0)),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 3),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    const Radius.circular(10.0)),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 10.0,
+                                  )
+                                ]),
+                            child: new ListTile(
+                              leading: const Icon(Icons.location_on),
+                              selected: true,
+                              title: new TextFormField(
+                                initialValue: snapshot.data.area,
+                                validator: (value) =>
+                                    value.isEmpty ? 'Enter area' : null,
+                                onChanged: (value) {
+                                  area = value;
+                                },
+                                keyboardType: TextInputType.multiline,
+                                minLines: 1,
+                                maxLines: 4,
+                                decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      top: -3, bottom: 7, left: -10),
+                                  labelText: "Area",
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -203,7 +265,7 @@ class _ServiceEditState extends State<ServiceEdit> {
                                 minLines: 1,
                                 maxLines: 4,
                                 decoration: new InputDecoration(
-                                  hintText: "Address",
+                                  labelText: "Address",
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -246,8 +308,10 @@ class _ServiceEditState extends State<ServiceEdit> {
                                 },
                                 keyboardType: TextInputType.multiline,
                                 decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      top: -3, bottom: 7, left: -10),
                                   border: InputBorder.none,
-                                  hintText: "Discription",
+                                  labelText: "Discription",
                                 ),
                               ),
                             ),
@@ -290,8 +354,10 @@ class _ServiceEditState extends State<ServiceEdit> {
                                         });
                                       },
                                       decoration: new InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            top: -3, bottom: 7, left: 0),
                                         border: InputBorder.none,
-                                        hintText: "Spare part",
+                                        labelText: "Spare part",
                                       ),
                                     ),
                                   ),
@@ -336,7 +402,7 @@ class _ServiceEditState extends State<ServiceEdit> {
                                       ],
                                       decoration: new InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Cost",
+                                        labelText: "Cost",
                                       ),
                                     ),
                                   ),
@@ -383,8 +449,10 @@ class _ServiceEditState extends State<ServiceEdit> {
                                         });
                                       },
                                       decoration: new InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            top: -3, bottom: 7, left: 0),
                                         border: InputBorder.none,
-                                        hintText: "Spare part",
+                                        labelText: "Spare part",
                                       ),
                                     ),
                                   ),
@@ -428,8 +496,10 @@ class _ServiceEditState extends State<ServiceEdit> {
                                             .digitsOnly
                                       ],
                                       decoration: new InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            top: -3, bottom: 7, left: 0),
                                         border: InputBorder.none,
-                                        hintText: "Cost",
+                                        labelText: "Cost",
                                       ),
                                     ),
                                   ),
@@ -475,8 +545,10 @@ class _ServiceEditState extends State<ServiceEdit> {
                                         });
                                       },
                                       decoration: new InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            top: -3, bottom: 7, left: 0),
                                         border: InputBorder.none,
-                                        hintText: "Spare part",
+                                        labelText: "Spare part",
                                       ),
                                     ),
                                   ),
@@ -520,8 +592,10 @@ class _ServiceEditState extends State<ServiceEdit> {
                                             .digitsOnly
                                       ],
                                       decoration: new InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            top: -3, bottom: 7, left: 0),
                                         border: InputBorder.none,
-                                        hintText: "Cost",
+                                        labelText: "Cost",
                                       ),
                                     ),
                                   ),
@@ -557,18 +631,27 @@ class _ServiceEditState extends State<ServiceEdit> {
                                         )
                                       ]),
                                   child: new ListTile(
-                                    leading: const Icon(
-                                      Icons.attach_money,
-                                      color: Colors.amber,
+                                    dense: true,
+                                    visualDensity: VisualDensity(
+                                        horizontal: 0, vertical: -4),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 0.0, right: 0.0, top: -6),
+                                    leading: Text(
+                                      '    ₹',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.green,
+                                      ),
                                     ),
                                     title: new TextFormField(
-                                      initialValue: snapshot.data.price,
+                                      initialValue: price,
                                       validator: (value) => value.isEmpty
                                           ? 'Enter Total anount'
                                           : null,
                                       onChanged: (value) {
-                                        price = value.toString();
-                                        print(price);
+                                        setState(() {
+                                          price = value.toString();
+                                        });
                                       },
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
@@ -576,8 +659,10 @@ class _ServiceEditState extends State<ServiceEdit> {
                                             .digitsOnly
                                       ],
                                       decoration: new InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            top: -3, bottom: 7, left: -10),
                                         border: InputBorder.none,
-                                        hintText: "Total",
+                                        labelText: "Price",
                                       ),
                                     ),
                                   ),
@@ -586,106 +671,105 @@ class _ServiceEditState extends State<ServiceEdit> {
                             ),
                           ],
                         ),
-
                         SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Container(
-                              width: 180,
-                              height: 60,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0)),
-                                ),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          const Radius.circular(10.0)),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 10.0,
-                                        )
-                                      ]),
-                                  child: new ListTile(
-                                    leading: const Icon(
-                                      Icons.attach_money,
-                                      color: Colors.green,
-                                    ),
-                                    title: new TextFormField(
-                                      initialValue: snapshot.data.paid,
-                                      validator: (value) =>
-                                          value.isEmpty ? 'Enter paid' : null,
-                                      onChanged: (value) {
-                                        paid = value.toString();
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [
-                                        WhitelistingTextInputFormatter
-                                            .digitsOnly
-                                      ],
-                                      decoration: new InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Paid",
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 180,
-                              height: 60,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0)),
-                                ),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 0),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          const Radius.circular(10.0)),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 10.0,
-                                        )
-                                      ]),
-                                  child: new ListTile(
-                                    leading: const Icon(
-                                      Icons.attach_money,
-                                      color: Colors.red,
-                                    ),
-                                    title: new TextFormField(
-                                      initialValue: snapshot.data.due,
-                                      validator: (value) =>
-                                          value.isEmpty ? 'Enter Due' : null,
-                                      onChanged: (value) {
-                                        due = value.toString();
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [
-                                        WhitelistingTextInputFormatter
-                                            .digitsOnly
-                                      ],
-                                      decoration: new InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: "Due",
-                                          fillColor: Colors.red),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Container(
+                        //       width: 180,
+                        //       height: 60,
+                        //       child: Container(
+                        //         padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: const BorderRadius.all(
+                        //               const Radius.circular(10.0)),
+                        //         ),
+                        //         child: Container(
+                        //           padding: EdgeInsets.symmetric(vertical: 3),
+                        //           decoration: BoxDecoration(
+                        //               borderRadius: BorderRadius.all(
+                        //                   const Radius.circular(10.0)),
+                        //               color: Colors.white,
+                        //               boxShadow: [
+                        //                 BoxShadow(
+                        //                   color: Colors.grey,
+                        //                   blurRadius: 10.0,
+                        //                 )
+                        //               ]),
+                        //           child: new ListTile(
+                        //             leading: const Icon(
+                        //               Icons.attach_money,
+                        //               color: Colors.green,
+                        //             ),
+                        //             title: new TextFormField(
+                        //               initialValue: snapshot.data.paid,
+                        //               validator: (value) =>
+                        //                   value.isEmpty ? 'Enter paid' : null,
+                        //               onChanged: (value) {
+                        //                 paid = value.toString();
+                        //               },
+                        //               keyboardType: TextInputType.number,
+                        //               inputFormatters: [
+                        //                 WhitelistingTextInputFormatter
+                        //                     .digitsOnly
+                        //               ],
+                        //               decoration: new InputDecoration(
+                        //                 border: InputBorder.none,
+                        //                 labelText: "Paid",
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Container(
+                        //       width: 180,
+                        //       height: 60,
+                        //       child: Container(
+                        //         padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: const BorderRadius.all(
+                        //               const Radius.circular(10.0)),
+                        //         ),
+                        //         child: Container(
+                        //           padding: EdgeInsets.symmetric(vertical: 0),
+                        //           decoration: BoxDecoration(
+                        //               borderRadius: BorderRadius.all(
+                        //                   const Radius.circular(10.0)),
+                        //               color: Colors.white,
+                        //               boxShadow: [
+                        //                 BoxShadow(
+                        //                   color: Colors.grey,
+                        //                   blurRadius: 10.0,
+                        //                 )
+                        //               ]),
+                        //           child: new ListTile(
+                        //             leading: const Icon(
+                        //               Icons.attach_money,
+                        //               color: Colors.red,
+                        //             ),
+                        //             title: new TextFormField(
+                        //               initialValue: snapshot.data.due,
+                        //               validator: (value) =>
+                        //                   value.isEmpty ? 'Enter Due' : null,
+                        //               onChanged: (value) {
+                        //                 due = value.toString();
+                        //               },
+                        //               keyboardType: TextInputType.number,
+                        //               inputFormatters: [
+                        //                 WhitelistingTextInputFormatter
+                        //                     .digitsOnly
+                        //               ],
+                        //               decoration: new InputDecoration(
+                        //                   border: InputBorder.none,
+                        //                   labelText: "Due",
+                        //                   fillColor: Colors.red),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     )
+                        //   ],
+                        // ),
                         new ListTile(
                           leading: const Icon(Icons.today),
                           title: FlatButton(
@@ -751,6 +835,7 @@ class _ServiceEditState extends State<ServiceEdit> {
                                     final user = Provider.of<User>(context);
                                     print(name);
                                     print(address);
+                                    print(due);
 
                                     dynamic result =
                                         await DatabaseService(uid: user.uid)
@@ -758,6 +843,7 @@ class _ServiceEditState extends State<ServiceEdit> {
                                       widget.id,
                                       name,
                                       number,
+                                      area,
                                       address,
                                       description,
                                       _selectedDate.toString(),
@@ -769,7 +855,7 @@ class _ServiceEditState extends State<ServiceEdit> {
                                       sparePrice3,
                                       price,
                                       paid,
-                                      due,
+                                      '0',
                                     );
                                     print(result);
 
@@ -787,6 +873,9 @@ class _ServiceEditState extends State<ServiceEdit> {
                                 });
                               },
                               state: stateTextWithIcon),
+                        ),
+                        SizedBox(
+                          height: 20,
                         )
                       ],
                     ),

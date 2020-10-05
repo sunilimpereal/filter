@@ -1,17 +1,25 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filter/classes/dateremin.dart';
 import 'package:filter/classes/sms.dart';
 import 'package:filter/models/purifier.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/purifiers/purifier_edit.dart';
+import 'package:firebase_image/firebase_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/services/database.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:loading/indicator.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:loading/loading.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 
@@ -43,6 +51,36 @@ class _PurifierViewState extends State<PurifierView> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Installation',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Color(0xFFebebeb),
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        actions: [
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.edit),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PurifierEdit(
+                            id: widget.id,
+                          )));
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              showAlertDialog(context, user.uid, widget.id);
+            },
+          ),
+        ],
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -59,6 +97,7 @@ class _PurifierViewState extends State<PurifierView> {
                   child: _View(
                       snapshot.data.name,
                       snapshot.data.number,
+                      snapshot.data.area,
                       snapshot.data.address,
                       snapshot.data.model,
                       snapshot.data.membrane,
@@ -79,36 +118,6 @@ class _PurifierViewState extends State<PurifierView> {
           },
         ),
       ),
-      floatingActionButton: Column(children: [
-        Padding(
-          padding: EdgeInsets.only(top: 620, left: 270),
-          child: FloatingActionButton.extended(
-            heroTag: null,
-            icon: FaIcon(FontAwesomeIcons.edit),
-            label: Text(''),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PurifierEdit(
-                            id: widget.id,
-                          )));
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10, left: 270),
-          child: FloatingActionButton.extended(
-            backgroundColor: Colors.red[400],
-            heroTag: null,
-            icon: Icon(Icons.delete),
-            label: Text(''),
-            onPressed: () {
-              showAlertDialog(context, user.uid, widget.id);
-            },
-          ),
-        ),
-      ]),
     );
   }
 }
@@ -116,6 +125,7 @@ class _PurifierViewState extends State<PurifierView> {
 class _View extends StatelessWidget {
   final String name;
   final String number;
+  final String area;
   final String address;
   final String model;
   final String membrane;
@@ -129,6 +139,7 @@ class _View extends StatelessWidget {
   _View(
     this.name,
     this.number,
+    this.area,
     this.address,
     this.model,
     this.membrane,
@@ -145,860 +156,627 @@ class _View extends StatelessWidget {
     String nDate = DateReminder(date: date).addthreeMonths();
     String nextDate = DateFormat.yMd().format(DateTime.parse(nDate));
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 150, left: 20),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.person,
-                  color: Colors.blue,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Name : ',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    '  $name',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.phone,
-                  color: Colors.blue,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Phone : ',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    '  $number',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.home,
-                  color: Colors.blue,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Address : ',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
-                ),
-                Container(
-                  width: 180,
-                  child: Padding(
-                    padding: EdgeInsets.only(),
-                    child: Text(
-                      '$address',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey[800],
-                        fontWeight: FontWeight.w600,
+      backgroundColor: Color(0xFFebebeb),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(top: 10, left: 0),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 0, right: 10),
+                child: Column(
+                  children: [
+                    //NAME
+                    SizedBox(height: 10),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(10.0)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(10.0)),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10.0,
+                              )
+                            ]),
+                        child: new ListTile(
+                          leading: Container(
+                              padding: EdgeInsets.only(top: 0),
+                              child: const Icon(Icons.person)),
+                          selected: true,
+                          title: new TextFormField(
+                            initialValue: '$name',
+                            enabled: false,
+                            decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
+                              labelText: "Name",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Divider(),
-            SizedBox(
-              height: 15,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.view_module,
-                  color: Colors.blue,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Model : ',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    '  $model',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(
+                      height: 10,
                     ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.layers,
-                  color: Colors.blue,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Membrane : ',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    '  $membrane',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+
+                    //PHONE
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(10.0)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(10.0)),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10.0,
+                              )
+                            ]),
+                        child: new ListTile(
+                          leading: Container(
+                              padding: EdgeInsets.only(top: 0),
+                              child: const Icon(Icons.phone)),
+                          selected: true,
+                          title: new TextFormField(
+                            enabled: false,
+                            initialValue: '$number',
+                            keyboardType: TextInputType.number,
+                            decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
+                              labelText: "Phone",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.battery_full,
-                  color: Colors.blue,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Pump : ',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    '  $pump',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                    //Area
+
+                    //Area
+
+                    SizedBox(height: 10),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(10.0)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(10.0)),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10.0,
+                              )
+                            ]),
+                        child: new ListTile(
+                          leading: Container(
+                              padding: EdgeInsets.only(top: 0),
+                              child: const Icon(Icons.location_on)),
+                          selected: true,
+                          title: new TextFormField(
+                            enabled: false,
+                            initialValue: '$area',
+                            keyboardType: TextInputType.multiline,
+                            minLines: 1,
+                            maxLines: 4,
+                            decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
+                              labelText: "Area",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Divider(),
-            SizedBox(
-              height: 15,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.account_balance_wallet,
-                  color: Colors.blue,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Price  : ',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    '   ₹ $price',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+
+                    //ADDRESS
+                    SizedBox(height: 10),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(10.0)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(10.0)),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10.0,
+                              )
+                            ]),
+                        child: new ListTile(
+                          leading: Container(
+                              padding: EdgeInsets.only(top: 0),
+                              child: const Icon(Icons.home)),
+                          selected: true,
+                          title: new TextFormField(
+                            enabled: false,
+                            initialValue: '$address',
+                            keyboardType: TextInputType.multiline,
+                            minLines: 1,
+                            maxLines: 4,
+                            decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
+                              labelText: "Address",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.account_balance_wallet,
-                  color: Colors.red,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Due   : ',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                    //MODEL.
+                    SizedBox(height: 10),
+
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(10.0)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(10.0)),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10.0,
+                              )
+                            ]),
+                        child: new ListTile(
+                          selected: true,
+                          leading: Container(
+                              padding: EdgeInsets.only(top: 0),
+                              child: const Icon(Icons.description)),
+                          title: new TextFormField(
+                            enabled: false,
+                            initialValue: '$model',
+                            keyboardType: TextInputType.multiline,
+                            decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
+                              border: InputBorder.none,
+                              labelText: "Filter Model",
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    '   ₹ $due',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+
+                    //MEMBRANE
+                    SizedBox(height: 10),
+
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(10.0)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(10.0)),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10.0,
+                              )
+                            ]),
+                        child: new ListTile(
+                          selected: true,
+                          leading: Container(
+                              padding: EdgeInsets.only(top: 0),
+                              child: const Icon(Icons.layers)),
+                          title: new TextFormField(
+                            enabled: false,
+                            initialValue: '$membrane',
+                            keyboardType: TextInputType.multiline,
+                            decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
+                              labelText: "Membrane",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    'Installation Date  : ',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
+
+                    //PUMP
+                    SizedBox(height: 10),
+
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(10.0)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(10.0)),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10.0,
+                              )
+                            ]),
+                        child: new ListTile(
+                          selected: true,
+                          leading: Container(
+                              padding: EdgeInsets.only(top: 0),
+                              child: const Icon(Icons.battery_full)),
+                          title: new TextFormField(
+                            initialValue: '$pump',
+                            keyboardType: TextInputType.multiline,
+                            decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
+                              labelText: "Pump",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(),
-                  child: Text(
-                    ' $datedisp',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Container(
+                          width: 180,
+                          height: 60,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                  const Radius.circular(10.0)),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 3),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                      const Radius.circular(10.0)),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 10.0,
+                                    )
+                                  ]),
+                              child: new ListTile(
+                                dense: true,
+                                visualDensity:
+                                    VisualDensity(horizontal: 0, vertical: -4),
+                                contentPadding: EdgeInsets.only(
+                                    left: 0.0, right: 0.0, top: -6),
+                                leading: Text(
+                                  '   ₹',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                title: new TextFormField(
+                                  initialValue: '$price',
+                                  validator: (value) => value.isEmpty
+                                      ? 'Enter Total anount'
+                                      : null,
+                                  keyboardType: TextInputType.number,
+                                  decoration: new InputDecoration(
+                                    contentPadding: EdgeInsets.only(
+                                        top: -3, bottom: 7, left: -10),
+                                    border: InputBorder.none,
+                                    labelText: "Total",
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Row(children: [
+                          Container(
+                            width: 150,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Center(
+                                    child: Container(
+                                      width: 40,
+                                      height: 40,
+                                      child: GestureDetector(
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.red,
+                                          child: Icon(
+                                            Icons.call,
+                                            color: Colors.white,
+                                            size: 25,
+                                          ),
+                                          // backgroundImage:
+                                          //     AssetImage('lib/assets/icon/call.png'),
+                                        ),
+                                        onTap: () {
+                                          launch("tel:$number");
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: GestureDetector(
+                                    child: CircleAvatar(
+                                      child: Container(
+                                        width: 30,
+                                        height: 30,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          child: Icon(
+                                            Icons.message,
+                                            color: Colors.white,
+                                          ),
+                                          // backgroundImage:
+                                          //     AssetImage('lib/assets/icon/message.png'),
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      sendSms(number, date, date);
+                                      final snackBar = SnackBar(
+                                        content: Text('Message Sent to $name'),
+                                        action: SnackBarAction(
+                                          label: '',
+                                          onPressed: () {
+                                            // Some code to undo the change.
+                                          },
+                                        ),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: GestureDetector(
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.green,
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          backgroundImage: AssetImage(
+                                              'lib/assets/icon/whatsapp.png'),
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      String pdate = DateFormat('dd/MM/yyy')
+                                          .format(DateTime.parse(date ?? ''));
+                                      String pdate1 = DateFormat('dd/MM/yyy')
+                                          .format(DateTime.parse(date ?? ''));
+                                      FlutterOpenWhatsapp.sendSingleMessage(
+                                          "+91$number",
+                                          "Your Water Purifier Filter replace date is $pdate\nLast filter replace date-\n$pdate1 \nEvery three month once filter change for long life machine\n By BK WATER SOLUTION\n KANNADASAN | 9994960228");
+                                      // "Your Water Purifier Filter replace date is $pdate\nLast filter replace date-\n$pdate1 \nEvery three month once filter change for long life machine\n By SMART AQUA PURIFIER\n Balachandar | 9524989863");
+                                      final snackBar = SnackBar(
+                                        content: Text('Message Sent to $name'),
+                                        action: SnackBarAction(
+                                          label: '',
+                                          onPressed: () {},
+                                        ),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]),
+                      ],
                     ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: Column(children: [
-        SizedBox(
-          height: 60,
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 25),
-                child: FloatingActionButton.extended(
-                  label: Text(''),
-                  heroTag: null,
-                  icon: FaIcon(FontAwesomeIcons.arrowCircleLeft),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                    SizedBox(height: 18),
+                    Row(
+                      children: [
+                        Container(
+                          width: 180,
+                          height: 60,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                  const Radius.circular(10.0)),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 3),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                      const Radius.circular(10.0)),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 10.0,
+                                    )
+                                  ]),
+                              child: new ListTile(
+                                dense: true,
+                                visualDensity:
+                                    VisualDensity(horizontal: 0, vertical: -4),
+                                contentPadding: EdgeInsets.only(
+                                    left: 0.0, right: 0.0, top: -6),
+                                leading: Text(
+                                  '   ₹',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                title: new TextFormField(
+                                  initialValue: '$paid',
+                                  validator: (value) =>
+                                      value.isEmpty ? 'Enter paid' : null,
+                                  keyboardType: TextInputType.number,
+                                  decoration: new InputDecoration(
+                                    contentPadding: EdgeInsets.only(
+                                        top: -3, bottom: 7, left: -10),
+                                    border: InputBorder.none,
+                                    labelText: "Paid",
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 160,
+                          height: 60,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                  const Radius.circular(10.0)),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                      const Radius.circular(10.0)),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 10.0,
+                                    )
+                                  ]),
+                              child: new ListTile(
+                                dense: true,
+                                visualDensity:
+                                    VisualDensity(horizontal: 0, vertical: -4),
+                                contentPadding: EdgeInsets.only(
+                                    left: 0.0, right: 0.0, top: -6),
+                                leading: Padding(
+                                  padding: const EdgeInsets.all(0.0),
+                                  child: Container(
+                                    child: Text(
+                                      '   ₹ ',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                title: Container(
+                                  padding: const EdgeInsets.all(0.0),
+                                  child: new TextFormField(
+                                    initialValue: '$due',
+                                    validator: (value) =>
+                                        value.isEmpty ? 'Enter Due' : null,
+                                    keyboardType: TextInputType.number,
+                                    decoration: new InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            top: -3, bottom: 7, left: -10),
+                                        border: InputBorder.none,
+                                        labelText: "Due",
+                                        fillColor: Colors.red),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    new ListTile(
+                      leading: const Icon(Icons.image),
+                      title: const Text('Image'),
+                      subtitle: const Text('Warranty image'),
+                      onTap: () async {
+                        String imgurl = getimageView().toString();
+                        print('hi');
+                        print(imgurl);
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ImageView(name)));
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
                 ),
               ),
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: 0, left: 290),
-          child: FloatingActionButton.extended(
-            icon: Icon(Icons.call),
-            label: Text(''),
-            onPressed: () {
-              launch("tel:$number");
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10, left: 290),
-          child: FloatingActionButton.extended(
-            heroTag: null,
-            icon: Icon(Icons.message),
-            label: Text(''),
-            onPressed: () {
-              sendSms(number, nextDate, date);
-              final snackBar = SnackBar(
-                content: Text('Message Sent to $name'),
-                action: SnackBarAction(
-                  label: '',
-                  onPressed: () {
-                    // Some code to undo the change.
-                  },
-                ),
-              );
-              Scaffold.of(context).showSnackBar(snackBar);
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10, left: 290),
-          child: FloatingActionButton.extended(
-            heroTag: null,
-            icon: FaIcon(FontAwesomeIcons.whatsapp),
-            label: Text(''),
-            onPressed: () {},
-          ),
-        ),
-      ]),
+      ),
     );
+  }
 
-    //  Container(
-    //   padding: EdgeInsets.all(10),
-    //   child: Column(
-    //     children: [
-    //       //Date(s)
-    //       Container(
-    //         padding: EdgeInsets.symmetric(
-    //           horizontal: 15,
-    //         ),
-    //         height: 27,
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.end,
-    //           children: [
-    //             Text(
-    //               datedisp,
-    //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-    //             )
-    //           ],
-    //         ),
-    //       ),
+  Future<String> getimageView() async {
+    final FirebaseStorage _storage =
+        FirebaseStorage(storageBucket: 'gs://filterservice-74ce0.appspot.com');
+    print(name);
+    final url = await _storage
+        .ref()
+        .child('warrenty')
+        .child('$name.png')
+        .getDownloadURL();
+    print('url');
+    print(url.toString());
 
-    //       //  NAME
-    //       SizedBox(height: 7),
-    //       Container(
-    //         child: Container(
-    //           padding: EdgeInsets.symmetric(horizontal: 2.0),
-    //           decoration: BoxDecoration(
-    //             borderRadius:
-    //                 const BorderRadius.all(const Radius.circular(10.0)),
-    //           ),
-    //           child: Container(
-    //             alignment: Alignment.topCenter,
-    //             padding: EdgeInsets.symmetric(vertical: 0),
-    //             decoration: BoxDecoration(
-    //                 borderRadius: BorderRadius.all(const Radius.circular(10.0)),
-    //                 color: Colors.white,
-    //                 boxShadow: [
-    //                   BoxShadow(
-    //                     color: Colors.blue,
-    //                     blurRadius: 1.0,
-    //                   )
-    //                 ]),
-    //             child: Container(
-    //               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-    //               child: Column(
-    //                 children: [
-    //                   Row(
-    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                     children: [
-    //                       Padding(
-    //                         padding: EdgeInsets.only(left: 10, top: 10),
-    //                         child: Text(
-    //                           '$name',
-    //                           style: TextStyle(
-    //                               fontSize: 23, fontWeight: FontWeight.w900),
-    //                         ),
-    //                       ),
-    //                       Row(children: [
-    //                         Padding(
-    //                           padding: EdgeInsets.only(),
-    //                           child: Container(
-    //                             height: 40,
-    //                             width: 40,
-    //                             decoration: BoxDecoration(
-    //                                 color: Color(0xFF3bceac),
-    //                                 borderRadius: BorderRadius.circular(50.0)),
-    //                             child: IconButton(
-    //                               icon: Icon(
-    //                                 Icons.message,
-    //                                 color: Colors.white,
-    //                                 size: 25,
-    //                               ),
-    //                               onPressed: () {
-    //                                 sendSms(number, '');
-    //                                 final snackBar = SnackBar(
-    //                                   content: Text('Message Sent to $name'),
-    //                                   action: SnackBarAction(
-    //                                     label: '',
-    //                                     onPressed: () {
-    //                                       // Some code to undo the change.
-    //                                     },
-    //                                   ),
-    //                                 );
-    //                                 Scaffold.of(context).showSnackBar(snackBar);
-    //                               },
-    //                             ),
-    //                           ),
-    //                         ),
-    //                         Padding(
-    //                           padding: EdgeInsets.only(left: 10),
-    //                           child: Container(
-    //                             height: 40,
-    //                             width: 40,
-    //                             decoration: BoxDecoration(
-    //                                 color: Color(0xFF55a630),
-    //                                 borderRadius: BorderRadius.circular(50.0)),
-    //                             child: IconButton(
-    //                               icon: Icon(
-    //                                 Icons.call,
-    //                                 color: Colors.white,
-    //                                 size: 25,
-    //                               ),
-    //                               onPressed: () {
-    //                                 launch("tel:$number");
-    //                               },
-    //                             ),
-    //                           ),
-    //                         ),
-    //                       ])
-    //                     ],
-    //                   ),
-    //                   Row(
-    //                     children: [
-    //                       Padding(
-    //                         padding: EdgeInsets.only(
-    //                           top: 4,
-    //                           left: 10,
-    //                         ),
-    //                         child: Text(
-    //                           number,
-    //                           style: TextStyle(
-    //                               fontSize: 18, fontWeight: FontWeight.w500),
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                   Row(
-    //                     children: [
-    //                       Padding(
-    //                         padding: EdgeInsets.only(
-    //                           top: 5,
-    //                           left: 10,
-    //                           bottom: 10,
-    //                           right: 10,
-    //                         ),
-    //                         child: Text(
-    //                           address,
-    //                           style: TextStyle(
-    //                               fontSize: 17, fontWeight: FontWeight.w400),
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   )
-    //                 ],
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ),
+    return url.toString();
+  }
 
-    // //NUMBER
-    // SizedBox(height: 10),
-    // Container(
-    //   child: Container(
-    //     padding: EdgeInsets.symmetric(horizontal: 2.0),
-    //     decoration: BoxDecoration(
-    //       borderRadius:
-    //           const BorderRadius.all(const Radius.circular(10.0)),
-    //     ),
-    //     child: Container(
-    //       padding: EdgeInsets.symmetric(vertical: 0),
-    //       decoration: BoxDecoration(
-    //           borderRadius: BorderRadius.all(const Radius.circular(10.0)),
-    //           // color: Color(0xFF35393c),
-    //           color: Colors.white,
-    //           boxShadow: [
-    //             BoxShadow(
-    //               color: Colors.blue,
-    //               blurRadius: 1.0,
-    //             )
-    //           ]),
-    //       child: ListTile(
-    //         leading: Icon(
-    //           Icons.contact_phone,
-    //           color: Colors.blue,
-    //           size: 30,
-    //         ),
-    //         title: Text(
-    //           number,
-    //           style: TextStyle(fontSize: 15.0, color: Colors.black),
-    //         ),
-    //         trailing: Container(
-    //             child: Icon(
-    //           Icons.phone,
-    //           color: Colors.green,
-    //           size: 29,
-    //         )),
-    //       ),
-    //     ),
-    //   ),
-    // ),
-
-    // //Address
-
-    // SizedBox(height: 10),
-    // Container(
-    //   child: Container(
-    //     padding: EdgeInsets.symmetric(horizontal: 2.0),
-    //     decoration: BoxDecoration(
-    //       borderRadius:
-    //           const BorderRadius.all(const Radius.circular(10.0)),
-    //     ),
-    //     child: Container(
-    //       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-    //       decoration: BoxDecoration(
-    //           borderRadius: BorderRadius.all(const Radius.circular(10.0)),
-    //           color: Colors.white,
-    //           boxShadow: [
-    //             BoxShadow(
-    //               color: Colors.blue,
-    //               blurRadius: 1.0,
-    //             )
-    //           ]),
-    //       child: ListTile(
-    //         leading: Icon(
-    //           Icons.home,
-    //           color: Color(0xFF72efdd),
-    //           size: 35,
-    //         ),
-    //         visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-    //         contentPadding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-    //         title: Text(
-    //           address,
-    //           style: TextStyle(
-    //             fontSize: 18.0,
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // ),
-
-// MODEL
-
-//           SizedBox(height: 10),
-//           Container(
-//             child: Container(
-//               padding: EdgeInsets.symmetric(horizontal: 2.0),
-//               decoration: BoxDecoration(
-//                 borderRadius:
-//                     const BorderRadius.all(const Radius.circular(10.0)),
-//               ),
-//               child: Container(
-//                   padding: EdgeInsets.symmetric(vertical: 0),
-//                   decoration: BoxDecoration(
-//                       borderRadius:
-//                           BorderRadius.all(const Radius.circular(10.0)),
-//                       color: Colors.white,
-//                       boxShadow: [
-//                         BoxShadow(
-//                           color: Colors.blue,
-//                           blurRadius: 1.0,
-//                         )
-//                       ]),
-//                   child: Row(children: [
-//                     Column(
-//                       children: [
-//                         // Padding(
-//                         //   padding: EdgeInsets.only(),
-//                         //   child: Container(
-//                         //       height: 54,
-//                         //       width: 50,
-//                         //       decoration: BoxDecoration(
-//                         //           borderRadius: BorderRadius.circular(10.0),
-//                         //           color: Colors.blueGrey),
-//                         //       child: Icon(
-//                         //         Icons.build,
-//                         //         size: 35,
-//                         //       )),
-//                         // ),
-//                         Row(children: [
-//                           Padding(
-//                             padding: EdgeInsets.only(),
-//                             child: Container(
-//                               padding:
-//                                   EdgeInsets.only(top: 2, left: 3, bottom: 5),
-//                               child: Text(
-//                                 'Model:',
-//                                 style:
-//                                     TextStyle(fontSize: 14, color: Colors.grey),
-//                               ),
-//                             ),
-//                           ),
-//                         ]),
-
-//                         Padding(
-//                           padding: EdgeInsets.only(top: 1, left: 5, bottom: 10),
-//                           child: Container(
-//                             child: Text(
-//                               '  $model',
-//                               style: TextStyle(
-//                                   fontSize: 19, fontWeight: FontWeight.w500),
-//                             ),
-//                           ),
-//                         )
-//                       ],
-//                     ),
-//                   ])),
-//             ),
-//           ),
-
-// //COST
-
-//           SizedBox(height: 15),
-//           Row(children: [
-//             Container(
-//               height: 150,
-//               width: 300,
-//               child: Container(
-//                 padding: EdgeInsets.symmetric(horizontal: 3.0),
-//                 decoration: BoxDecoration(
-//                   borderRadius:
-//                       const BorderRadius.all(const Radius.circular(10.0)),
-//                 ),
-//                 child: Container(
-//                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 1),
-//                   decoration: BoxDecoration(
-//                       borderRadius:
-//                           BorderRadius.all(const Radius.circular(10.0)),
-//                       color: Colors.white,
-//                       boxShadow: [
-//                         BoxShadow(
-//                           color: Colors.blue,
-//                           blurRadius: 3.0,
-//                         )
-//                       ]),
-//                   child: Column(
-//                     children: [
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Padding(
-//                             padding: EdgeInsets.only(left: 20, top: 13),
-//                             child: Text(
-//                               'Price',
-//                               style: TextStyle(
-//                                   fontSize: 20, fontWeight: FontWeight.w700),
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding:
-//                                 EdgeInsets.only(left: 70, top: 13, right: 10),
-//                             child: Text(
-//                               '₹ $price',
-//                               style: TextStyle(
-//                                   fontSize: 20,
-//                                   fontWeight: FontWeight.w600,
-//                                   color: Colors.purple[900]),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-
-//                       //paid
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Padding(
-//                             padding:
-//                                 EdgeInsets.only(left: 20, top: 13, right: 10),
-//                             child: Text(
-//                               'Paid',
-//                               style: TextStyle(
-//                                   fontSize: 20,
-//                                   fontWeight: FontWeight.w600,
-//                                   color: Colors.green),
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding:
-//                                 EdgeInsets.only(left: 50, top: 13, right: 10),
-//                             child: Text(
-//                               '₹ $paid',
-//                               style: TextStyle(
-//                                   fontSize: 20,
-//                                   fontWeight: FontWeight.w600,
-//                                   color: Colors.green[600]),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-
-// //Due
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Padding(
-//                             padding:
-//                                 EdgeInsets.only(left: 20, top: 13, right: 10),
-//                             child: Text(
-//                               'Due',
-//                               style: TextStyle(
-//                                   fontSize: 20,
-//                                   fontWeight: FontWeight.w600,
-//                                   color: due == '0'
-//                                       ? Colors.green
-//                                       : Colors.redAccent),
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding:
-//                                 EdgeInsets.only(left: 30, top: 13, right: 10),
-//                             child: Text(
-//                               '₹ $due',
-//                               style: TextStyle(
-//                                   fontSize: 20,
-//                                   fontWeight: FontWeight.w600,
-//                                   color: due == '0'
-//                                       ? Colors.green[600]
-//                                       : Colors.red[600]),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ]),
-
-//           // Upcomin service date
-//           SizedBox(height: 10),
-//           Container(
-//             child: Container(
-//               padding: EdgeInsets.symmetric(horizontal: 2.0),
-//               decoration: BoxDecoration(
-//                 borderRadius:
-//                     const BorderRadius.all(const Radius.circular(10.0)),
-//               ),
-//               child: Container(
-//                   padding: EdgeInsets.symmetric(vertical: 0),
-//                   decoration: BoxDecoration(
-//                       borderRadius:
-//                           BorderRadius.all(const Radius.circular(10.0)),
-//                       color: Colors.white,
-//                       boxShadow: [
-//                         BoxShadow(
-//                           color: Colors.blue,
-//                           blurRadius: 1.0,
-//                         )
-//                       ]),
-//                   child: Row(
-//                     children: [
-//                       Container(
-//                         padding:
-//                             EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-//                         child: Icon(
-//                           Icons.notification_important,
-//                           size: 25,
-//                           color: Colors.red[500],
-//                         ),
-//                       ),
-//                       Container(
-//                         child: Text('Filter(exp) :'),
-//                       ),
-//                       Container(
-//                         child: Text(
-//                           nextDate,
-//                           style: TextStyle(
-//                               fontSize: 16, fontWeight: FontWeight.w500),
-//                         ),
-//                       )
-//                     ],
-//                   )),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
+  Widget imageViewWidget(String imgurl) {
+    return Scaffold(body: Container());
   }
 }
 
@@ -1040,4 +818,66 @@ showAlertDialog(BuildContext context, String uid, String id) {
       return alert;
     },
   );
+}
+
+class ImageView extends StatefulWidget {
+  String name;
+  ImageView(this.name);
+  @override
+  _ImageViewState createState() => _ImageViewState();
+}
+
+class _ImageViewState extends State<ImageView> {
+  String imgurl = '';
+  Future<ImageProvider> getimageView() async {
+    final FirebaseStorage _storage =
+        FirebaseStorage(storageBucket: 'gs://filterservice-74ce0.appspot.com');
+    print(widget.name);
+    final url = await _storage
+        .ref()
+        .child('warrenty')
+        .child('${widget.name}.png')
+        .getDownloadURL();
+    print('url');
+
+    print(url.toString());
+    return NetworkImage(url.toString());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    getimageView();
+    print('in img');
+    print(imgurl);
+
+    return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.white),
+          elevation: 0,
+          backgroundColor: Colors.black.withAlpha(255),
+          title: Text(
+            'Warrenty Image',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: FutureBuilder(
+            future: getimageView(),
+            builder: (BuildContext context,
+                AsyncSnapshot<ImageProvider<dynamic>> snapshot) {
+              if (snapshot.hasData) {
+                return PhotoView(
+                  imageProvider: snapshot.data,
+                );
+              } else {
+                return Center(
+                  child: Loading(
+                    indicator: BallSpinFadeLoaderIndicator(),
+                    size: 100,
+                    color: Colors.blue,
+                  ),
+                );
+              }
+            }));
+  }
 }

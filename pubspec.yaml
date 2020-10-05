@@ -48,8 +48,15 @@ dependencies:
   flutter_rounded_date_picker: ^1.0.0
   hexcolor: ^1.0.4
   splashscreen:
-
-
+  image_picker: ^0.6.7+11
+  firebase_core: ^0.4.5
+  firebase_storage: ^3.1.6
+  permission_handler: ^5.0.1+1
+  image_cropper: 
+  photo_view: ^0.10.2
+  firebase_image: ^0.1.6
+  google_fonts: ^1.1.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,18 +72,26 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
-      - family: Monaco
-        fonts:
+    - family: Monaco
+      fonts:
           - asset: lib/assets/fonts/monaco.ttf
           - style: italic
-      - family: Roboto
-        fonts:
+    - family: Roboto
+      fonts:
           - asset: lib/assets/fonts/Roboto-Light.ttf
           - style: italic
-      - family: Sans
-        fonts:
-          - asset: lib/assets/fonts/OpenSans-Regular.ttf
-          - style: italic
+    - family: Sans
+      fonts:
+        - asset: lib/assets/fonts/OpenSans-Regular.ttf
+        - style: italic
+    - family: Bree_Serif
+      fonts:
+        - asset: lib/assets/fonts/BreeSerif-Regular.ttf
+        - style: italic 
+    - family: Gabriela
+      fonts:
+       - asset: lib/assets/fonts/Gabriela-Regular.ttf
+       - style: italic
   assets:
      - lib/assets/img/se.png
      - lib/assets/img/purifier.png
@@ -93,6 +108,9 @@ flutter:
      - lib/assets/icon/purchase.png
      - lib/assets/img/flash.png
      - lib/assets/icon/purchasehome.png
+     - lib/assets/icon/call.png
+     - lib/assets/icon/message.png
+     - lib/assets/icon/whatsapp.png
 
 
   

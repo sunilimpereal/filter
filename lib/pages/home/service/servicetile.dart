@@ -28,7 +28,7 @@ class ServiceTile extends StatelessWidget {
               filterCard(
                   service.date,
                   service.name,
-                  service.address,
+                  service.area,
                   service.description,
                   service.number,
                   service.price,
@@ -61,7 +61,7 @@ class ServiceTile extends StatelessWidget {
   );
 
   //Building filter card
-  filterCard(String date, String name, String address, String description,
+  filterCard(String date, String name, String area, String description,
       String number, String price, String due, String id) {
     print(DateTime.now().toString());
     print(date);
@@ -77,9 +77,9 @@ class ServiceTile extends StatelessWidget {
           borderRadius: new BorderRadius.circular(8.0),
           boxShadow: <BoxShadow>[
             new BoxShadow(
-                color: Colors.black12,
-                blurRadius: 100.0,
-                offset: new Offset(0.0, 10.0))
+                color: Colors.black38,
+                blurRadius: 0.5,
+                offset: new Offset(2.0, 4.0))
           ]),
       child: Container(
         padding: EdgeInsets.only(left: 46.0),
@@ -90,87 +90,75 @@ class ServiceTile extends StatelessWidget {
               height: 100,
               child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.0, top: 7.0, bottom: 7.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          name,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: 25.0, top: 7.0, bottom: 0.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              '',
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              '$name',
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          '$date',
                           style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 12.0,
                               fontWeight: FontWeight.w800,
                               color: Colors.white),
                         ),
-                        Text(
-                          date ?? '',
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ),
-                  Flexible(
-                    child: Container(
-                      padding: EdgeInsets.only(left: 16.0),
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: Container(
-                              width: 190,
-                              child: Text(
-                                '$address',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
-                    ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: EdgeInsets.symmetric(horizontal: 24.0),
                       child: Row(children: [
                         Text(
-                          'Des : $description',
+                          '$number',
                           overflow: TextOverflow.fade,
                           style: TextStyle(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w900,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                       ])),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Padding(
-                      padding: EdgeInsets.only(left: 16.0, top: 12),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Price : $price',
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white,
-                              ),
-                            ),
-                            // Text(
-                            //   due != '0' ? 'Due : $due' : '',
-                            //   overflow: TextOverflow.fade,
-                            //   style: TextStyle(
-                            //     fontSize: 15.0,
-                            //     fontWeight: FontWeight.w900,
-                            //     color: Colors.red[500],
-                            //   ),
-                            // ),
-                          ])),
+                      padding: EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Row(children: [
+                        Text(
+                          '$area',
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ])),
                 ],
               ),
             ),

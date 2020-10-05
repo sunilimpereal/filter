@@ -28,6 +28,7 @@ class _FilterEditState extends State<FilterEdit> {
   //Form contents
   String name;
   String number;
+  String area;
   String address;
   String model;
   String price;
@@ -122,6 +123,8 @@ class _FilterEditState extends State<FilterEdit> {
                                 print(name);
                               },
                               decoration: new InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                    top: -3, bottom: 7, left: -10),
                                 labelText: "Name",
                                 border: InputBorder.none,
                               ),
@@ -167,7 +170,54 @@ class _FilterEditState extends State<FilterEdit> {
                                 WhitelistingTextInputFormatter.digitsOnly
                               ],
                               decoration: new InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                    top: -3, bottom: 7, left: -10),
                                 labelText: "Phone",
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      //area
+                      SizedBox(height: 10),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0)),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 3),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(const Radius.circular(10.0)),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 10.0,
+                                )
+                              ]),
+                          child: new ListTile(
+                            leading: Container(
+                                padding: EdgeInsets.only(top: 7),
+                                child: const Icon(Icons.location_on)),
+                            selected: true,
+                            title: new TextFormField(
+                              initialValue: snapshot.data.area,
+                              validator: (value) =>
+                                  value.isEmpty ? 'Enter area' : null,
+                              onChanged: (value) {
+                                area = value;
+                              },
+                              keyboardType: TextInputType.multiline,
+                              minLines: 1,
+                              maxLines: 4,
+                              decoration: new InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                    top: -3, bottom: 7, left: -10),
+                                labelText: "Area",
                                 border: InputBorder.none,
                               ),
                             ),
@@ -211,6 +261,8 @@ class _FilterEditState extends State<FilterEdit> {
                               minLines: 1,
                               maxLines: 4,
                               decoration: new InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                    top: -3, bottom: 7, left: -10),
                                 labelText: "Address",
                                 border: InputBorder.none,
                               ),
@@ -288,10 +340,13 @@ class _FilterEditState extends State<FilterEdit> {
                                     ]),
                                 child: new ListTile(
                                   leading: Container(
-                                    padding: EdgeInsets.only(top: 7),
-                                    child: const Icon(
-                                      Icons.attach_money,
-                                      color: Colors.amber,
+                                    padding: EdgeInsets.only(top: 0),
+                                    child: Text(
+                                      '    ₹',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.green,
+                                      ),
                                     ),
                                   ),
                                   title: new TextFormField(
@@ -308,6 +363,8 @@ class _FilterEditState extends State<FilterEdit> {
                                       WhitelistingTextInputFormatter.digitsOnly
                                     ],
                                     decoration: new InputDecoration(
+                                      contentPadding: EdgeInsets.only(
+                                          top: -3, bottom: 7, left: -10),
                                       border: InputBorder.none,
                                       labelText: "Total",
                                     ),
@@ -526,6 +583,7 @@ class _FilterEditState extends State<FilterEdit> {
                                               widget.id,
                                               name,
                                               number,
+                                              area,
                                               address,
                                               model,
                                               date1,

@@ -12,12 +12,16 @@ import 'package:provider/provider.dart';
 class InsFilterForm extends StatefulWidget {
   String name;
   String number;
+  String area;
   String address;
+  String model;
 
   InsFilterForm({
     this.name,
     this.number,
+    this.area,
     this.address,
+    this.model,
   });
   @override
   _InsFilterFormState createState() => _InsFilterFormState();
@@ -30,6 +34,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
   //Form contents
   String name = '';
   String number = '';
+  String area = '';
   String address = '';
   String model = '';
   String price = '';
@@ -46,7 +51,9 @@ class _InsFilterFormState extends State<InsFilterForm> {
   Widget build(BuildContext context) {
     name = widget.name;
     number = widget.number;
+    area = widget.area;
     address = widget.address;
+    model = widget.model;
     date = _selectedDate.toString();
     fexpDate = expDate.toString();
 
@@ -153,6 +160,51 @@ class _InsFilterFormState extends State<InsFilterForm> {
                   ),
                 ),
               ),
+              //area
+
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(10.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: new ListTile(
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.location_on)),
+                    selected: true,
+                    title: new TextFormField(
+                      initialValue: widget.area,
+                      validator: (value) => value.isEmpty ? 'Enter area' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          area = value;
+                        });
+                      },
+                      keyboardType: TextInputType.multiline,
+                      minLines: 1,
+                      maxLines: 4,
+                      decoration: new InputDecoration(
+                        labelText: "Area",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
 
               //address
               SizedBox(height: 10),
@@ -227,6 +279,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
                         padding: EdgeInsets.only(top: 7),
                         child: const Icon(Icons.description)),
                     title: new TextFormField(
+                      initialValue: model,
                       validator: (value) =>
                           value.isEmpty ? 'Enter Filter model' : null,
                       onChanged: (value) {
@@ -244,70 +297,70 @@ class _InsFilterFormState extends State<InsFilterForm> {
                 ),
               ),
               //Price
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Container(
-                    width: 180,
-                    height: 60,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(const Radius.circular(10.0)),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 3),
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(const Radius.circular(10.0)),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 10.0,
-                              )
-                            ]),
-                        child: new ListTile(
-                          dense: true,
-                          visualDensity:
-                              VisualDensity(horizontal: 0, vertical: -4),
-                          contentPadding:
-                              EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
-                          leading: const Text(
-                            '    ₹',
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          title: new TextFormField(
-                            // validator: (value) =>
-                            //     value.isEmpty ? 'Enter Total anount' : null,
-                            onChanged: (value) {
-                              setState(() {
-                                if (value.isEmpty) {
-                                  price = '0';
-                                } else {
-                                  price = value.toString();
-                                }
-                              });
-                            },
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              WhitelistingTextInputFormatter.digitsOnly
-                            ],
-                            decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              labelText: "Price",
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              // SizedBox(height: 20),
+              // Row(
+              //   children: [
+              //     Container(
+              //       width: 180,
+              //       height: 60,
+              //       child: Container(
+              //         padding: EdgeInsets.symmetric(horizontal: 10.0),
+              //         decoration: BoxDecoration(
+              //           borderRadius:
+              //               const BorderRadius.all(const Radius.circular(10.0)),
+              //         ),
+              //         child: Container(
+              //           padding: EdgeInsets.symmetric(vertical: 3),
+              //           decoration: BoxDecoration(
+              //               borderRadius:
+              //                   BorderRadius.all(const Radius.circular(10.0)),
+              //               color: Colors.white,
+              //               boxShadow: [
+              //                 BoxShadow(
+              //                   color: Colors.grey,
+              //                   blurRadius: 10.0,
+              //                 )
+              //               ]),
+              //           child: new ListTile(
+              //             dense: true,
+              //             visualDensity:
+              //                 VisualDensity(horizontal: 0, vertical: -4),
+              //             contentPadding:
+              //                 EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
+              //             leading: const Text(
+              //               '    ₹',
+              //               style: TextStyle(
+              //                 fontSize: 25,
+              //                 color: Colors.blue,
+              //               ),
+              //             ),
+              //             title: new TextFormField(
+              //               // validator: (value) =>
+              //               //     value.isEmpty ? 'Enter Total anount' : null,
+              //               onChanged: (value) {
+              //                 setState(() {
+              //                   if (value.isEmpty) {
+              //                     price = '0';
+              //                   } else {
+              //                     price = value.toString();
+              //                   }
+              //                 });
+              //               },
+              //               keyboardType: TextInputType.number,
+              //               inputFormatters: [
+              //                 WhitelistingTextInputFormatter.digitsOnly
+              //               ],
+              //               decoration: new InputDecoration(
+              //                 border: InputBorder.none,
+              //                 labelText: "Price",
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
 
               new ListTile(
                 leading: const Icon(Icons.today),
@@ -405,8 +458,18 @@ class _InsFilterFormState extends State<InsFilterForm> {
                         if (_formKey.currentState.validate()) {
                           print(fexpDate);
                           dynamic result = await DatabaseService(uid: user.uid)
-                              .createFilter(id, name, number, address, date,
-                                  model, price, paid, due, expDate.toString());
+                              .createFilter(
+                                  id,
+                                  name,
+                                  number,
+                                  area,
+                                  address,
+                                  date,
+                                  model,
+                                  price,
+                                  paid,
+                                  due,
+                                  expDate.toString());
                           print(result);
 
                           Future.delayed(Duration(seconds: 1), () {

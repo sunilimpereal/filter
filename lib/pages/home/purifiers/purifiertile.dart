@@ -1,6 +1,7 @@
 import 'package:filter/models/purifier.dart';
 import 'package:filter/pages/home/purifiers/purifier_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class PurifierTile extends StatelessWidget {
@@ -13,6 +14,7 @@ class PurifierTile extends StatelessWidget {
       width: double.infinity,
       child: GestureDetector(
         onTap: () {
+          HapticFeedback.mediumImpact();
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -28,7 +30,7 @@ class PurifierTile extends StatelessWidget {
               filterCard(
                   purifier.date,
                   purifier.name,
-                  purifier.address,
+                  purifier.area,
                   purifier.model,
                   purifier.number,
                   purifier.price,
@@ -61,8 +63,8 @@ class PurifierTile extends StatelessWidget {
   );
 
   //Building filter card
-  filterCard(String date, String name, String address, String model,
-      String number, String price, String due, String id) {
+  filterCard(String date, String name, String area, String model, String number,
+      String price, String due, String id) {
     print(DateTime.now().toString());
     print(date);
     print(name);
@@ -72,16 +74,17 @@ class PurifierTile extends StatelessWidget {
       width: double.infinity,
       margin: new EdgeInsets.only(left: 40.0),
       decoration: new BoxDecoration(
-          color: new Color(0xFF153243),
+          color: new Color(0xFF6c757d),
           // image: DecorationImage(
           //     image: AssetImage("lib/assets/img/tile3.png"), fit: BoxFit.cover),
           shape: BoxShape.rectangle,
           borderRadius: new BorderRadius.circular(8.0),
           boxShadow: <BoxShadow>[
             new BoxShadow(
-                color: Colors.black38,
-                blurRadius: 0.2,
-                offset: Offset(1.2, 1.3))
+              color: Colors.grey,
+              blurRadius: 0.2,
+              offset: Offset(2.2, 3.0),
+            )
           ]),
       child: Container(
         padding: EdgeInsets.only(left: 46.0),
@@ -93,87 +96,74 @@ class PurifierTile extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: 25.0, top: 7.0, bottom: 0.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              '',
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              '$name',
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Text(
-                          'Date :$date',
+                          '$date',
                           style: TextStyle(
-                              fontSize: 14.0,
+                              fontSize: 12.0,
                               fontWeight: FontWeight.w800,
                               color: Colors.white),
                         ),
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.0, top: 7.0, bottom: 0.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Name     :   ',
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white),
-                        ),
-                        Text(
-                          '$name',
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
                       child: Row(children: [
                         Text(
-                          'Phone    :   $number',
+                          '$number',
                           overflow: TextOverflow.fade,
                           style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w900,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                       ])),
-                  Flexible(
-                    child: Container(
-                      padding: EdgeInsets.only(left: 16.0),
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: Container(
-                              child: Text(
-                                'Address :  ',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            child: Container(
-                              child: Text(
-                                '$address',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SizedBox(
+                    height: 10,
                   ),
+                  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(children: [
+                        Text(
+                          '$area',
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ])),
                 ],
               ),
             ),

@@ -154,6 +154,7 @@ class _ReminderListState extends State<ReminderList> {
       floatingActionButton: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 40, top: 70),
@@ -214,6 +215,7 @@ class _ReminderListState extends State<ReminderList> {
       floatingActionButton: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 40, top: 70),

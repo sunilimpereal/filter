@@ -1,6 +1,6 @@
 import 'package:filter/models/user.dart';
 import 'package:filter/services/database.dart';
-import 'package:filter/widgets/spring_button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -381,187 +381,196 @@ class _NewOrderState extends State<NewOrder> {
           )
         ],
       ),
-      body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: [
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    order = value;
-                  });
-                },
-                decoration: new InputDecoration(
-                    fillColor: Colors.red,
-                    // focusedBorder:InputBorder(borderSide: bottom),
-                    labelText: "Order",
-                    hoverColor: Colors.black),
-              ),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    contact = value;
-                  });
-                },
-                decoration: new InputDecoration(
-                    fillColor: Colors.red,
-                    // focusedBorder:InputBorder(borderSide: bottom),
-                    labelText: "Contact",
-                    hoverColor: Colors.black),
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.all(0),
-                title: Align(
-                  alignment: Alignment(-8.2, 0),
-                  child: GestureDetector(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.today,
-                          color: Colors.grey,
-                          size: 25,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          DateFormat('dd MMM yyyy').format(date),
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.black54,
-                        ),
-                      ],
-                    ),
-                    onTap: () async {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      DateTime _pickerDate = await _selectDate(date);
-                      setState(() {
-                        date = _pickerDate;
-
-                        print(date);
-                      });
-                    },
-                  ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              children: [
+                TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      contact = value;
+                    });
+                  },
+                  decoration: new InputDecoration(
+                      fillColor: Colors.red,
+                      // focusedBorder:InputBorder(borderSide: bottom),
+                      labelText: "Contact",
+                      hoverColor: Colors.black),
                 ),
-              ),
-              Divider(
-                thickness: 0.8,
-              ),
-              //Total
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                    ),
-                  ),
-                  Text(
-                    (() {
-                      return sum1(itemlist);
-                    }()),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  )
-                ],
-              ),
-              //PAID DUE
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 150,
-                    child: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          paid = value;
-                        });
-                      },
-                      decoration: new InputDecoration(
-                          fillColor: Colors.red,
-                          // focusedBorder:InputBorder(borderSide: bottom),
-                          labelText: "Paid",
-                          hoverColor: Colors.black),
-                    ),
-                  ),
-                  Container(
-                    width: 150,
-                    child: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          due = value;
-                        });
-                      },
-                      decoration: new InputDecoration(
-                          fillColor: Colors.red,
-                          // focusedBorder:InputBorder(borderSide: bottom),
-                          labelText: "Due",
-                          hoverColor: Colors.black),
-                    ),
-                  ),
-                ],
-              ),
+                TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      order = value;
+                    });
+                  },
+                  decoration: new InputDecoration(
+                      fillColor: Colors.red,
+                      // focusedBorder:InputBorder(borderSide: bottom),
+                      labelText: "Order",
+                      hoverColor: Colors.black),
+                ),
 
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Items in Order',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[800]),
-                  ),
-                  GestureDetector(
-                    child: Container(
-                      width: 70,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.blue,
-                      ),
+                ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  title: Align(
+                    alignment: Alignment(-8.2, 0),
+                    child: GestureDetector(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: <Widget>[
+                          Icon(
+                            Icons.today,
+                            color: Colors.grey,
+                            size: 25,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Text(
-                            'Add',
+                            DateFormat('dd MMM yyyy').format(date),
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 17),
-                          )
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black54,
+                          ),
                         ],
                       ),
+                      onTap: () async {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        DateTime _pickerDate = await _selectDate(date);
+                        setState(() {
+                          date = _pickerDate;
+
+                          print(date);
+                        });
+                      },
                     ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => itemView()));
-                    },
-                  )
-                ],
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: itemsList(itemlist),
+                  ),
                 ),
-              )
-            ],
-          )),
+                Divider(
+                  thickness: 0.8,
+                ),
+                //Total
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17,
+                      ),
+                    ),
+                    Text(
+                      (() {
+                        String a = sum1(itemlist);
+                        return '₹ $a';
+                      }()),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    )
+                  ],
+                ),
+                //PAID DUE
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 150,
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            paid = value;
+                          });
+                        },
+                        decoration: new InputDecoration(
+                            fillColor: Colors.red,
+                            // focusedBorder:InputBorder(borderSide: bottom),
+                            labelText: "Paid",
+                            hoverColor: Colors.black),
+                      ),
+                    ),
+                    Container(
+                      width: 150,
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            due = value;
+                          });
+                        },
+                        decoration: new InputDecoration(
+                            fillColor: Colors.red,
+                            // focusedBorder:InputBorder(borderSide: bottom),
+                            labelText: "Due",
+                            hoverColor: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Items in Order',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue[800]),
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        width: 70,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.blue,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Add',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 17),
+                            )
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => itemView()));
+                      },
+                    )
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: itemsList(itemlist),
+                  ),
+                )
+              ],
+            )),
+      ),
     );
   }
 
@@ -1233,6 +1242,12 @@ class _NewOrderState extends State<NewOrder> {
               child: ListTile(
                 title: Text('CLAMP'),
                 trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => clamp(context)),
+                  );
+                },
               ),
             ),
             Container(
@@ -1244,6 +1259,32 @@ class _NewOrderState extends State<NewOrder> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => cover(context)),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('PRE FILTER'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => prefilter(context)),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WRENCH'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => wrench(context)),
                   );
                 },
               ),
@@ -1304,6 +1345,32 @@ class _NewOrderState extends State<NewOrder> {
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
+                title: Text('FRAME'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => frame(context)),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('STAND'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => stand(context)),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
                 title: Text('POWER SUPPLY'),
                 trailing: Icon(Icons.navigate_next),
                 onTap: () {
@@ -1321,10 +1388,10 @@ class _NewOrderState extends State<NewOrder> {
                 title: Text('PRE FILTER SET'),
                 trailing: Icon(Icons.navigate_next),
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => floa()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => prefilter(context)),
+                  );
                 },
               ),
             ),
@@ -1334,10 +1401,10 @@ class _NewOrderState extends State<NewOrder> {
                 title: Text('PUMP'),
                 trailing: Icon(Icons.navigate_next),
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => Float()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => pump(context)),
+                  );
                 },
               ),
             ),
@@ -1347,10 +1414,11 @@ class _NewOrderState extends State<NewOrder> {
                 title: Text('SOLINOID VALVE'),
                 trailing: Icon(Icons.navigate_next),
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => Float()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => solenoidvalve(context)),
+                  );
                 },
               ),
             ),
@@ -1629,7 +1697,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('SWAN(12LPH)'),
-                subtitle: Text('₹13,900'),
+                subtitle: Text('₹3,575'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1639,7 +1707,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SWAN(12LPH)', '13900', '1')),
+                            customItem(context, 'SWAN(12LPH)', '3575', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1659,7 +1727,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('TAGO'),
-                subtitle: Text('₹11,500'),
+                subtitle: Text('₹3,575'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1669,7 +1737,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'TAGO', '11500', '1')),
+                            customItem(context, 'TAGO', '3575', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1689,7 +1757,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('PURE H20'),
-                subtitle: Text('₹8,750'),
+                subtitle: Text('₹3,525'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1699,7 +1767,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'PURE H20', '8750', '1')),
+                            customItem(context, 'PURE H20', '3525', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1719,7 +1787,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('PURE WATER'),
-                subtitle: Text('₹8,750'),
+                subtitle: Text('₹3,525'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1729,7 +1797,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'PURE WATER', '8750', '1')),
+                            customItem(context, 'PURE WATER', '3525', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1749,7 +1817,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('M PURE'),
-                subtitle: Text('₹14,999'),
+                subtitle: Text('₹4,200'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1759,7 +1827,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'M PURE', '14999', '1')),
+                            customItem(context, 'M PURE', '4200', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1779,7 +1847,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('I PURE'),
-                subtitle: Text('₹12,000'),
+                subtitle: Text('₹4,050'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1789,7 +1857,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'I PURE', '12000', '1')),
+                            customItem(context, 'I PURE', '4050', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1809,7 +1877,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ALIVE'),
-                subtitle: Text('₹14,999'),
+                subtitle: Text('₹4,200'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1819,7 +1887,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'ALIVE', '14999', '1')),
+                            customItem(context, 'ALIVE', '4200', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1839,7 +1907,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('CLUO'),
-                subtitle: Text('₹11,700'),
+                subtitle: Text('₹3,950'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1849,7 +1917,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'CULO', '11700', '1')),
+                            customItem(context, 'CULO', '3950', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1869,7 +1937,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('GLORY'),
-                subtitle: Text('₹12,450'),
+                subtitle: Text('₹4,200'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1879,7 +1947,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'ALIVE', '12450', '1')),
+                            customItem(context, 'ALIVE', '4200', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1899,7 +1967,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('GLANCE'),
-                subtitle: Text('₹10,500'),
+                subtitle: Text('₹4,050'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1909,7 +1977,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'GLANCE', '10500', '1')),
+                            customItem(context, 'GLANCE', '4050', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1929,7 +1997,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('MINTO'),
-                subtitle: Text('₹11,880'),
+                subtitle: Text('₹3,540'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1939,7 +2007,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'MINTO', '11880', '1')),
+                            customItem(context, 'MINTO', '3540', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1959,7 +2027,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('MISTY PURE  WHITE'),
-                subtitle: Text('₹12,450'),
+                subtitle: Text('₹4,200'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1969,7 +2037,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MISTY PURE WHITE', '12450', '1')),
+                            context, 'MISTY PURE WHITE', '4200', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -1989,7 +2057,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('OVAL'),
-                subtitle: Text('₹14,999'),
+                subtitle: Text('₹4,200'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -1999,7 +2067,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'OVAL', '14999', '1')),
+                            customItem(context, 'OVAL', '4200', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -2019,7 +2087,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('SWIFT'),
-                subtitle: Text('₹1,700'),
+                subtitle: Text('₹3,950'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2029,7 +2097,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SWIFT', '11700', '1')),
+                            customItem(context, 'SWIFT', '3950', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -2049,7 +2117,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WALL MOUNT'),
-                subtitle: Text('₹11,900'),
+                subtitle: Text('₹3,000'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2059,7 +2127,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'WALL MOUNT', '11900', '1')),
+                            customItem(context, 'WALL MOUNT', '3000', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -2079,7 +2147,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('AQUA DIGI'),
-                subtitle: Text('₹14,999'),
+                subtitle: Text('₹4,200'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2109,7 +2177,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('HOOL 5G'),
-                subtitle: Text('₹23,999'),
+                subtitle: Text('₹11,075'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2119,7 +2187,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'HOOL 5G', '23999', '1')),
+                            customItem(context, 'HOOL 5G', '11075', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -2139,7 +2207,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('SWAN DIGITAL'),
-                subtitle: Text('₹14,000'),
+                subtitle: Text('₹5,000'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2149,7 +2217,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SWAN DIGITAL', '14000', '1')),
+                            customItem(context, 'SWAN DIGITAL', '5000', '1')),
                   );
                 },
               ),
@@ -2158,7 +2226,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WAVE KRYSTAL TRANSPARENT'),
-                subtitle: Text('₹14,500'),
+                subtitle: Text('₹6,100'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2168,7 +2236,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'WAVE KRYSTAL TRANSPARENT', '14500', '1')),
+                            context, 'WAVE KRYSTAL TRANSPARENT', '6100', '1')),
                   );
                 },
               ),
@@ -2177,7 +2245,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WAVE KOMBO RO+UV'),
-                subtitle: Text('₹22,950'),
+                subtitle: Text('₹6,600'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2187,7 +2255,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'WAVE KOMBO RO UV', '14500', '1')),
+                            context, 'WAVE KOMBO RO UV', '6600', '1')),
                   );
                 },
               ),
@@ -2196,7 +2264,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WAVE PRIME ALKALI'),
-                subtitle: Text('₹15,300'),
+                subtitle: Text('₹6,500'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2206,7 +2274,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'WAVE PRIME (ALKALI)', '15300', '1')),
+                            context, 'WAVE PRIME (ALKALI)', '6500', '1')),
                   );
                 },
               ),
@@ -2215,7 +2283,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WAVE 5G PRO'),
-                subtitle: Text('₹22,950'),
+                subtitle: Text('₹13,950'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2225,7 +2293,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'WAVE 5G PRO', '22950', '1')),
+                            customItem(context, 'WAVE 5G PRO', '13950', '1')),
                   );
                 },
               ),
@@ -2234,7 +2302,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('GENPURE OPTIMA'),
-                subtitle: Text('₹12,000'),
+                subtitle: Text('₹4,925'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2243,8 +2311,8 @@ class _NewOrderState extends State<NewOrder> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => customItem(
-                            context, 'GENPURE OPTIMA', '12000', '1')),
+                        builder: (context) =>
+                            customItem(context, 'GENPURE OPTIMA', '4925', '1')),
                   );
                 },
               ),
@@ -2253,7 +2321,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WALL MOUNT WITH UNDERSINK'),
-                subtitle: Text('₹11,900'),
+                subtitle: Text('₹5,100'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2263,7 +2331,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'WAVE PRIME', '11900', '1')),
+                            customItem(context, 'WAVE PRIME', '5100', '1')),
                   );
                 },
               ),
@@ -2272,7 +2340,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('NO BACT'),
-                subtitle: Text('₹13,900'),
+                subtitle: Text('₹4,025'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2282,7 +2350,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'NO BACT', '13900', '1')),
+                            customItem(context, 'NO BACT', '4025', '1')),
                   );
                 },
               ),
@@ -2291,7 +2359,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ALPHA RO UV'),
-                subtitle: Text('₹14,999'),
+                subtitle: Text('₹4,385'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2301,7 +2369,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'ALPHA RO UV', '14999', '1')),
+                            customItem(context, 'ALPHA RO UV', '4385', '1')),
                   );
                 },
               ),
@@ -2310,7 +2378,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('MISTY PURE-BLACK'),
-                subtitle: Text('₹12,450'),
+                subtitle: Text('₹4,200'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2320,7 +2388,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MISTY PURE -BLACK', '12450', '1')),
+                            context, 'MISTY PURE -BLACK', '4200', '1')),
                   );
                 },
               ),
@@ -2329,26 +2397,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('TEKLEEN RO UV(PLASTIC)'),
-                subtitle: Text('₹15,500'),
-                trailing: Text(
-                  'ADD',
-                  style: TextStyle(color: Colors.green),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'WAVE PRIME', '15500', '1')),
-                  );
-                },
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              child: ListTile(
-                title: Text('TEKLEEN RO UV(WHITE)'),
-                subtitle: Text('₹15,500'),
+                subtitle: Text('₹5,325'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2358,7 +2407,26 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'TEKLEEN RO UV(WHITE)', '15500', '1')),
+                            context, 'TEKLEEN RO UV(PLASTIC)', '5325', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('TEKLEEN RO UV(WHITE)'),
+                subtitle: Text('₹5,325'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'TEKLEEN RO UV(WHITE)', '5325', '1')),
                   );
                 },
               ),
@@ -2387,7 +2455,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WHALE 25 LPH'),
-                subtitle: Text('₹19,950'),
+                subtitle: Text('₹6,650'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2397,7 +2465,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'WHALE 25 LPH', '19950', '1')),
+                            customItem(context, 'WHALE 25 LPH', '6650', '1')),
                   );
                 },
               ),
@@ -2406,7 +2474,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('SKID 25 LPH'),
-                subtitle: Text('₹18,499'),
+                subtitle: Text('₹4,950'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2416,7 +2484,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SKID 25 LPH', '18499', '1')),
+                            customItem(context, 'SKID 25 LPH', '4950', '1')),
                   );
                 },
               ),
@@ -2425,7 +2493,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('OPEN 25 LPH'),
-                subtitle: Text('₹14,999'),
+                subtitle: Text('₹4,550'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2435,7 +2503,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'OPEN 25 LPH', '14999', '1')),
+                            customItem(context, 'OPEN 25 LPH', '4550', '1')),
                   );
                 },
               ),
@@ -2464,7 +2532,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WHALE-E CHEN 300 HEALTHY300'),
-                subtitle: Text('₹24,750'),
+                subtitle: Text('₹8,900'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2474,7 +2542,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(context,
-                            'WHALE-E CHEN 300 HEALTHY300', '24750', '1')),
+                            'WHALE-E CHEN 300 HEALTHY300', '8900', '1')),
                   );
                 },
               ),
@@ -2503,7 +2571,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WHALE 50 LPH'),
-                subtitle: Text('₹32,700'),
+                subtitle: Text('₹11,100'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2513,7 +2581,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'WHALE 50LPH', '32700', '1')),
+                            customItem(context, 'WHALE 50LPH', '11100', '1')),
                   );
                 },
               ),
@@ -2522,7 +2590,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('OPEN SS SKID 50 LPH'),
-                subtitle: Text('₹29,400'),
+                subtitle: Text('₹10,000'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2532,7 +2600,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'OPEN SS SKID 50LPH', '29400', '1')),
+                            context, 'OPEN SS SKID 50LPH', '10000', '1')),
                   );
                 },
               ),
@@ -2541,7 +2609,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('CLOSED MS SKID 50 LPH'),
-                subtitle: Text('₹39,900'),
+                subtitle: Text('₹13,500'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2551,7 +2619,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'CLOSED MS SKID 50 LPH', '39900', '1')),
+                            context, 'CLOSED MS SKID 50 LPH', '13500', '1')),
                   );
                 },
               ),
@@ -2580,7 +2648,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ANTISCALANT BALLS'),
-                subtitle: Text('₹200'),
+                subtitle: Text('₹375'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2590,7 +2658,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'ANTISCALANT BALLS', '200', '1')),
+                            context, 'ANTISCALANT BALLS', '375', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -2610,7 +2678,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ANTISCALANT SlIM'),
-                subtitle: Text('₹300'),
+                subtitle: Text('₹75'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2619,11 +2687,40 @@ class _NewOrderState extends State<NewOrder> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => customItem(
-                            context, 'ANTISCALANT SlIM', '300', '1')),
+                        builder: (context) =>
+                            customItem(context, 'ANTISCALANT SlIM', '75', '1')),
                   );
                   final snackBar = SnackBar(
                     content: Text('ANTISCALANT SLIM added to cart'),
+                    action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('ANTISCALANT MEMBRANE BOOSTER'),
+                subtitle: Text('₹75'),
+                trailing: Text(
+                  'ADD',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'ANTISCALANT SlIM', '75', '1')),
+                  );
+                  final snackBar = SnackBar(
+                    content: Text('ANTISCALANT MEM BOOSTER added to cart'),
                     action: SnackBarAction(
                       label: '',
                       onPressed: () {
@@ -2658,8 +2755,8 @@ class _NewOrderState extends State<NewOrder> {
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
-                title: Text('MEMBRELLA-ALPHA'),
-                subtitle: Text('₹2,360'),
+                title: Text('LEXPURE SILVER 100 GBD'),
+                subtitle: Text('₹750'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -2669,7 +2766,64 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MEMBRELLA-ALPHA', '2360', '1')),
+                            context, 'LEXPURE SILVER 100 GBD', '750', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('LEXPURE SILVER 80 GBD'),
+                subtitle: Text('₹650'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'LEXPURE SILVER 80 GBD', '650', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('CRUZE 100 GBD'),
+                subtitle: Text('₹750'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'CRUZE 100 GBD', '750', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MEMBRELLA-ALPHA'),
+                subtitle: Text('₹600'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'MEMBRELLA-ALPHA', '600', '1')),
                   );
                 },
               ),
@@ -2678,7 +2832,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('MEMBRELLA-BETA-1812-80GPD'),
-                subtitle: Text('₹2,360'),
+                subtitle: Text('₹575'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -2688,7 +2842,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MEMBRELLA-BETA-1812-80GPD', '2360', '1')),
+                            context, 'MEMBRELLA-BETA-1812-80GPD', '575', '1')),
                   );
                 },
               ),
@@ -2697,6 +2851,157 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('HEALTHY BW-1812-80GPD'),
+                subtitle: Text('₹500'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'HEALTHY BW-1812-80GPD', '500', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                  title: Text('FILMTEC BW60-1812-75GPD'),
+                  subtitle: Text('₹925'),
+                  trailing: Text(
+                    'Add',
+                    style: TextStyle(color: Colors.green),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => customItem(
+                              context, 'FILMTEC BW-812-75GPD', '925', '1')),
+                    );
+                  }),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('VONTRON-1812-80GPD'),
+                subtitle: Text('₹500'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'VONTRON-1812-80', '500', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('CSM 100GPD'),
+                subtitle: Text('₹950'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'CSM 100GPD', '950', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('TFC-1812-80GPD'),
+                subtitle: Text('₹700'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'TFC-812-80GPD', '700', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HEALTHY BW-3012-300GPD'),
+                subtitle: Text('₹1,600'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'HEALTHY BW-302-300GPD', '1600', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HEALTHY BW-4021'),
+                subtitle: Text('₹4,350'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'HEALTHY BW- 4021', '4350', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('TAPTEC-1812-75GPD'),
+                subtitle: Text('₹450'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'TAPTEC-1812-75GPD', '450', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('PRESTUDIO-1812-75GPD'),
                 subtitle: Text('₹300'),
                 trailing: Text(
                   'Add',
@@ -2707,7 +3012,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'HEALTHY BW-1812-80GPD', '300', '1')),
+                            context, 'PRESTUDIO-1812-75GPD', '300', '1')),
                   );
                 },
               ),
@@ -2715,26 +3020,8 @@ class _NewOrderState extends State<NewOrder> {
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
-                  title: Text('FILMTEC BW-812-75GPD'),
-                  subtitle: Text('₹2800'),
-                  trailing: Text(
-                    'Add',
-                    style: TextStyle(color: Colors.green),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => customItem(
-                              context, 'FILMTEC BW-812-75GPD', '2800', '1')),
-                    );
-                  }),
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              child: ListTile(
-                title: Text('VONTRON-1812-80'),
-                subtitle: Text('₹1600'),
+                title: Text('TAPTEC-1812-75 GPD'),
+                subtitle: Text('₹450'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -2744,7 +3031,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'VONTRON-1812-80', '1600', '1')),
+                            context, 'TAPTEC-1812-75GPD', '450', '1')),
                   );
                 },
               ),
@@ -2752,46 +3039,8 @@ class _NewOrderState extends State<NewOrder> {
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
-                title: Text('CSM 100GPD'),
-                subtitle: Text('₹2,200'),
-                trailing: Text(
-                  'Add',
-                  style: TextStyle(color: Colors.green),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'CSM 100GPD', '2200', '1')),
-                  );
-                },
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              child: ListTile(
-                title: Text('TFC-812-80GPD'),
-                subtitle: Text('₹1750'),
-                trailing: Text(
-                  'Add',
-                  style: TextStyle(color: Colors.green),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'TFC-812-80GPD', '1750', '1')),
-                  );
-                },
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              child: ListTile(
-                title: Text('HEALTHY BW-302-300GPD'),
-                subtitle: Text('₹4125'),
+                title: Text('PURE STUDIO-1812-75 GPD'),
+                subtitle: Text('₹300'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -2801,7 +3050,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'HEALTHY BW-302-300GPD', '4125', '1')),
+                            context, 'PURE STUDIO-1812-75GPD', '300', '1')),
                   );
                 },
               ),
@@ -2809,8 +3058,8 @@ class _NewOrderState extends State<NewOrder> {
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
-                title: Text('TAOTEC-812-75GPD'),
-                subtitle: Text('₹2,050'),
+                title: Text('FILMTEC TW 30 -3012-500 GPD'),
+                subtitle: Text('₹300'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -2819,8 +3068,8 @@ class _NewOrderState extends State<NewOrder> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => customItem(
-                            context, 'TAOTEC-812-75GPD', '2050', '1')),
+                        builder: (context) => customItem(context,
+                            'FILMTEC TW 30 -3012-500 GPD', '300', '1')),
                   );
                 },
               ),
@@ -2829,7 +3078,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('HI-FLOW-1812-75G'),
-                subtitle: Text('₹1600'),
+                subtitle: Text('₹400'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -2839,7 +3088,83 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'HI-FLOW-1812-75G', '1600', '1')),
+                            context, 'HI-FLOW-1812-75G', '400', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('FILMTEC AQUALAST -1812 HR 75GPD'),
+                subtitle: Text('₹1170'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(context,
+                            'FILMTEC AQUALAST -1812 HR 75GPD', '1170', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HJC SW -4021'),
+                subtitle: Text('₹6500'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'HJC SW -4021', '6500', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MEMBRELLA-BETA 1812-80GPD'),
+                subtitle: Text('₹575'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MEMBRELLA-BETA 1812-80GPD', '575', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('CSM-RE-1812-80GPD'),
+                subtitle: Text('₹625'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'CSM-RE-1812-80GPD', '625', '1')),
                   );
                 },
               ),
@@ -2867,8 +3192,8 @@ class _NewOrderState extends State<NewOrder> {
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
-                title: Text('SWAN,PURE H20'),
-                subtitle: Text('₹150'),
+                title: Text('SWAN/PURE H20'),
+                subtitle: Text('₹50'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -2878,7 +3203,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SWAN,PURE H20', '150', '1')),
+                            customItem(context, 'SWAN,PURE H20', '50', '1')),
                   );
                 },
               ),
@@ -2887,6 +3212,251 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('WALL MOUNT COVER'),
+                subtitle: Text('₹60'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'WALL MOUNT COVER', '60', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MINTO COVER'),
+                subtitle: Text('₹50'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'BRIZO COVER', '50', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('25 LPHSKID COVER'),
+                subtitle: Text('₹100'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, '25 LPHSKID COVER', '100', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('50 LPH COVER'),
+                subtitle: Text('₹115'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, '50 LPH COVER', '115', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('BRIZO COVER'),
+                subtitle: Text('₹60'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'BRIZO COVER', '60', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('50 LPH OPEN COVER'),
+                subtitle: Text('₹115'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, '50 LPH OPEN COVER', '115', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WHALE COVER'),
+                subtitle: Text('₹80'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'WHALE COVER', '80', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('M PURE/ROYAL COVER'),
+                subtitle: Text('₹50'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MPURE/ROYAL COVER', '50', '1')),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget wrench(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(
+            'WRENCH',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: SingleChildScrollView(
+            child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('10\" HOUSING WRENCH'),
+              subtitle: Text('₹15'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, '10\" HOUSING WRENCH', '15', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('20\" HOUSING WRENCH'),
+              subtitle: Text('₹20'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, '10\" HOUSING WRENCH', '20', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('HOUSING WRENCH WITH MEMBRANE'),
+              subtitle: Text('₹20'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, '10\" HOUSING WRENCH', '20', '1')),
+                );
+              },
+            ),
+          ),
+        ])));
+  }
+
+  Widget prefilter(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          'PREFILTER SET',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MEMBRELLA PRE FILTER'),
                 subtitle: Text('₹150'),
                 trailing: Text(
                   'Add',
@@ -2897,7 +3467,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'WALL MOUNT COVER', '150', '1')),
+                            context, 'MEMBRELLA PRE FILTER', '150', '1')),
                   );
                 },
               ),
@@ -2905,27 +3475,8 @@ class _NewOrderState extends State<NewOrder> {
             Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
-                title: Text('BRIZO COVER'),
-                subtitle: Text('₹200'),
-                trailing: Text(
-                  'Add',
-                  style: TextStyle(color: Colors.green),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            customItem(context, 'BRIZO COVER', '200', '1')),
-                  );
-                },
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              child: ListTile(
-                title: Text('50 LPH OPEN COVER'),
-                subtitle: Text('₹300'),
+                title: Text('PREFILTER SET WITH HOUSING'),
+                subtitle: Text('₹100'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -2935,7 +3486,579 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, '50 LPH OPEN COVER', '300', '1')),
+                            context, 'PREFILTER SET WITH HOUSING', '100', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('UF SET'),
+                subtitle: Text('₹900'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'UF SET', '900', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('PURIFIER SET HEAVY REGULAR '),
+                subtitle: Text('₹140'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(context,
+                            'PURIFIER SET HEAVY REGULAR ', '140', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('PURIFIER SET CLEAR (IMPORTED)'),
+                subtitle: Text('₹250'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'PURIFIER SET (IMPORTED)', '250', '1')),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget solenoidvalve(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          'SOLENOID VALVE',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MEMBRELLA SV -24V'),
+                subtitle: Text('₹135'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MEMBRELLA SV -24V', '135', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MEMBRELLA SV -36V'),
+                subtitle: Text('₹135'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MEMBRELLA SV -36V', '135', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SLX SV -24V'),
+                subtitle: Text('₹135'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SLX SV -24V', '135', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SLX SV -36V'),
+                subtitle: Text('₹135'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SLX SV -24V', '135', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SV -48V HIGH FLOW'),
+                subtitle: Text('₹175'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'SV-48V HIGH FLOW', '175', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HERO SV -24V'),
+                subtitle: Text('₹85'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'HERO SV-36V', '85', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HERO SV -24V'),
+                subtitle: Text('₹85'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'HERO SV-36V', '85', '1')),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget pump(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          'PUMP',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('LEXPURE PUMP - 100 GPD'),
+                subtitle: Text('₹1050'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'LEXPURE PUMP - 100 GPD', '1050', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('CRUZE 100 GPD'),
+                subtitle: Text('₹1050'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'CRUZE 100 GPD', '1050', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MEMBRELLA PUMP - 75 GPD'),
+                subtitle: Text('₹1050'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MEMBRELLA PUMP - 75 GPD', '1050', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MEMBRELLA PUMP - 75 GPD'),
+                subtitle: Text('₹1050'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MEMBRELLA PUMP - 75 GPD', '1050', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('E CHEN 75 -103 MODEL(REGULAR)'),
+                subtitle: Text('₹1250'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(context,
+                            'E CHEN 75 -103 MODEL(REGULAR)', '1250', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('KEMFLO PUMP -48 V'),
+                subtitle: Text('₹1,400'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'KEMFLO PUMP -48', '1400', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('CCK PUMP - 75 GPD'),
+                subtitle: Text('₹1,000'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'CCK PUMP - 75 GPD', '1000', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('E CHEN 75 -204 MODEL'),
+                subtitle: Text('₹1,400'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'E CHEN 75 -204 MODEL', '1400', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('E CHEN 75 -300 GPD'),
+                subtitle: Text('₹2,550'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'E CHEN 75 -204 GPD', '2550', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HEAD E CHEN'),
+                subtitle: Text('₹425'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'HEAD E CHEN', '425', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HEAD KEMFLO'),
+                subtitle: Text('₹425'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'HEAD KEMFLO', '425', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('PUMP PAD/SEAL(DOMESTIC)'),
+                subtitle: Text('₹40'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'PUMP PAD/SEAL(DOMESTIC)', '40', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('M-FOS PUMP - 75 GPD'),
+                subtitle: Text('₹780'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'M-FOS PUMP -75 GPD', '780', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('B.N.Q.S -PUMP 300'),
+                subtitle: Text('2,100'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'PUMP PAD/SEAL(DOMESTIC)', '2100', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('BUCKET PUMP'),
+                subtitle: Text('₹325'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'BUCKET PUMP', '325', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('HEAD MEMBREALLA PUMP'),
+                subtitle: Text('₹425'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'HEAD MEMBREALLA PUMP', '425', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('B.N.Q.S -PUMP 150 GPD'),
+                subtitle: Text('1,450'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'B.N.Q.S -PUMP 150 GPD', '1450', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('WHITE HEAD - INDIAN'),
+                subtitle: Text('250'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'WHITE HEAD - INDIAN', '250', '1')),
                   );
                 },
               ),
@@ -3156,8 +4279,8 @@ class _NewOrderState extends State<NewOrder> {
           Container(
             padding: EdgeInsets.all(5),
             child: ListTile(
-              title: Text('INLINE PRECARBON'),
-              subtitle: Text('₹590'),
+              title: Text('INLINE SEDEMENT MEMBRELLA'),
+              subtitle: Text('₹80'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3166,8 +4289,27 @@ class _NewOrderState extends State<NewOrder> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'INLINE PRECARBON', '590', '1')),
+                      builder: (context) => customItem(
+                          context, 'INLINE SEDEMENT MEMBRELLA', '80', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE PRECARBON MEMBRELLA'),
+              subtitle: Text('₹80'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE PRECARBON MEMBRELLA', '80', '1')),
                 );
               },
             ),
@@ -3176,7 +4318,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('INLINE POST CARBON'),
-              subtitle: Text('₹590'),
+              subtitle: Text('₹80'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3185,8 +4327,8 @@ class _NewOrderState extends State<NewOrder> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => customItem(
-                          context, 'INLINE POST CARBON', '590', '1')),
+                      builder: (context) =>
+                          customItem(context, 'INLINE POST CARBON', '80', '1')),
                 );
               },
             ),
@@ -3195,7 +4337,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('INLINE SET MEMBARNE'),
-              subtitle: Text('₹1,415'),
+              subtitle: Text('₹240'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3205,7 +4347,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'INLINE SET MEMBARNE', '1415', '1')),
+                          context, 'INLINE SET MEMBARNE', '240', '1')),
                 );
               },
             ),
@@ -3214,7 +4356,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('MINERAL CARTRIDGE'),
-              subtitle: Text('₹1,415'),
+              subtitle: Text('₹150'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3223,8 +4365,8 @@ class _NewOrderState extends State<NewOrder> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => customItem(
-                          context, 'MINERAL CARTRIDGE', '1415', '1')),
+                      builder: (context) =>
+                          customItem(context, 'MINERAL CARTRIDGE', '150', '1')),
                 );
               },
             ),
@@ -3232,8 +4374,8 @@ class _NewOrderState extends State<NewOrder> {
           Container(
             padding: EdgeInsets.all(5),
             child: ListTile(
-              title: Text('PH BOOSTER MEMBRANEPH BOOSTER MEMBRANE'),
-              subtitle: Text('₹1,415'),
+              title: Text(''),
+              subtitle: Text('₹150'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3243,7 +4385,121 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'PH BOOSTER MEMBRANE', '1415', '1')),
+                          context, 'PH BOOSTER MEMBRANE', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE SEDEMENT HEALTHY'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE SEDEMENT HEALTHY', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE PRECARBON HEALTHY'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE PRECARBON HEALTHY', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE POST CARBON HEALTHY'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE POST CARBON HEALTHY', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE SEDEMENT GENPURE'),
+              subtitle: Text('₹125'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE SEDEMENT GENPURE', '125', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE PRECARBON GENPURE'),
+              subtitle: Text('₹125'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE PRECARBON GENPURE', '125', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE POST CARBON GENPURE'),
+              subtitle: Text('₹125'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE POST CARBON GENPURE', '125', '1')),
                 );
               },
             ),
@@ -3252,7 +4508,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('INLINE SET HERO'),
-              subtitle: Text('₹1,300'),
+              subtitle: Text('₹225'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3262,7 +4518,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'INLINE SET HERO', '1300', '1')),
+                          customItem(context, 'INLINE SET HERO', '225', '1')),
                 );
               },
             ),
@@ -3271,7 +4527,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('SPUN 10 MEMBRELLA'),
-              subtitle: Text('₹235'),
+              subtitle: Text('₹35'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3281,7 +4537,197 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'SPUN 10 MEMBRELLA', '235', '1')),
+                          customItem(context, 'SPUN 10 MEMBRELLA', '35', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('SPUN 10 HEALTHY'),
+              subtitle: Text('₹30'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'SPUN 10 MEMBRELLA', '30', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('SPUN 10 KEMFLO'),
+              subtitle: Text('₹40'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'SPUN 10 KEMFLO', '40', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('SPUN 10 PLASMA'),
+              subtitle: Text('₹35'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'SPUN 10 PLASMA', '35', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('SPUN 10 PP'),
+              subtitle: Text('₹25'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'SPUN 10 PP', '25', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('GAC 10'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'GAC 10', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('SPUN 20 PLASMA'),
+              subtitle: Text('₹60'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'SPUN 20 PLASMA', '60', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('WOUND 20'),
+              subtitle: Text('₹120'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'WOUND 20', '120', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('GAC 20'),
+              subtitle: Text('₹200'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'GAC 20', '200', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('9 CANDLE'),
+              subtitle: Text('₹50'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, '9 CANDLE', '50', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('ANTIOXIDENT'),
+              subtitle: Text('₹125'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'ANTIOXIDENT', '125', '1')),
                 );
               },
             ),
@@ -3290,7 +4736,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('UF'),
-              subtitle: Text('₹370'),
+              subtitle: Text('₹150'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3300,7 +4746,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'UF', '370', '1')),
+                          customItem(context, 'UF', '150', '1')),
                 );
               },
             ),
@@ -3309,7 +4755,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('WALLMOUNT POST CARBON'),
-              subtitle: Text('₹460'),
+              subtitle: Text('₹75'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3319,7 +4765,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'WALLMOUNT POST CARBON', '460', '1')),
+                          context, 'WALLMOUNT POST CARBON', '75', '1')),
                 );
               },
             ),
@@ -3327,8 +4773,8 @@ class _NewOrderState extends State<NewOrder> {
           Container(
             padding: EdgeInsets.all(5),
             child: ListTile(
-              title: Text('H2AAA COPPER FILTER'),
-              subtitle: Text('₹2,500'),
+              title: Text('HEALTHY COMBO BOX'),
+              subtitle: Text('₹2,925'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3338,26 +4784,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'H2AAA COPPER FILTER', '2500', '1')),
-                );
-              },
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(5),
-            child: ListTile(
-              title: Text('TASTEIMPROVER'),
-              subtitle: Text('₹1,415'),
-              trailing: Text(
-                'Add',
-                style: TextStyle(color: Colors.green),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          customItem(context, 'TASTEIMPROVER', '1415', '1')),
+                          context, 'WALLMOUNT POST CARBON', '2925', '1')),
                 );
               },
             ),
@@ -3384,7 +4811,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('MEMBRELLA FLOAT(Lower connection)'),
-              subtitle: Text('₹295'),
+              subtitle: Text('₹60'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3394,7 +4821,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(context,
-                          'MEMBRELLA FLOAT(Lower connection)', '295', '1')),
+                          'MEMBRELLA FLOAT(Lower connection)', '60', '1')),
                 );
               },
             ),
@@ -3403,7 +4830,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('FLOAT SIDE CONNECTION'),
-              subtitle: Text('₹250'),
+              subtitle: Text('₹55'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3413,7 +4840,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'FLOAT SIDE CONNECTION', '250', '1')),
+                          context, 'FLOAT SIDE CONNECTION', '55', '1')),
                 );
               },
             ),
@@ -3422,7 +4849,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('FLOAT LOWER CONNECTIONS'),
-              subtitle: Text('₹250'),
+              subtitle: Text('₹55'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3432,7 +4859,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'FLOAT LOWER CONNECTIONS', '250', '1')),
+                          context, 'FLOAT LOWER CONNECTIONS', '55', '1')),
                 );
               },
             ),
@@ -3441,7 +4868,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('MEMBRELLA FLOAT SIDE CONNECTION'),
-              subtitle: Text('₹295'),
+              subtitle: Text('₹60'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3451,7 +4878,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(context,
-                          'MEMBRELLA FLOAT SIDE CONNECTION', '295', '1')),
+                          'MEMBRELLA FLOAT SIDE CONNECTION', '60', '1')),
                 );
               },
             ),
@@ -3478,7 +4905,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('MEMBRELLA FR -450'),
-              subtitle: Text('₹235'),
+              subtitle: Text('₹40'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3488,7 +4915,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(context,
-                          'MEMBRELLA FLOAT SIDE CONNECTION', '295', '1')),
+                          'MEMBRELLA FLOAT SIDE CONNECTION', '40', '1')),
                 );
               },
             ),
@@ -3497,7 +4924,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('FR -350 ML KFL'),
-              subtitle: Text('₹190'),
+              subtitle: Text('₹40'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3507,7 +4934,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'FR -350 ML KFL', '190', '1')),
+                          customItem(context, 'FR -350 ML KFL', '40', '1')),
                 );
               },
             ),
@@ -3516,7 +4943,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('FR -450 ML KFL'),
-              subtitle: Text('₹190'),
+              subtitle: Text('₹40'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3526,7 +4953,45 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'FR -450 ML KFL', '190', '1')),
+                          customItem(context, 'FR -450 ML KFL', '40', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('FR -550 ML KFL'),
+              subtitle: Text('₹40'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'FR -550 ML KFL', '40', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('FR -650 ML KFL'),
+              subtitle: Text('₹40'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'FR -460 ML KFL', '40', '1')),
                 );
               },
             ),
@@ -3535,7 +5000,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('MEMBRELLA -550 ML KFL'),
-              subtitle: Text('₹190'),
+              subtitle: Text('₹40'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3545,7 +5010,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'MEMBRELLA -550 ML KFL', '190', '1')),
+                          context, 'MEMBRELLA -550 ML KFL', '40', '1')),
                 );
               },
             ),
@@ -3554,7 +5019,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('FR-800'),
-              subtitle: Text('₹190'),
+              subtitle: Text('₹50'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3564,7 +5029,140 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          customItem(context, 'FR-800', '190', '1')),
+                          customItem(context, 'FR-800', '50', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE PRECARBON HERO-JACCO'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE PRECARBON HERO-JACCO', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE SEDEMENT HERO-JACCO'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE SEDEMENT HERO-JACCO', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE POST CARBON HERO-JACCO'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE POST CARBON HERO-JACCO', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE PRE CARBON HERO-QC'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE PRE CARBON HERO-QC', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE PRE CARBON HERO-QC'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE SEDIMENT HERO-QC', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE POST CARBON HERO-QC'),
+              subtitle: Text('₹75'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE POST CARBON HERO-QC', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('INLINE SET HERO-QC'),
+              subtitle: Text('₹225'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'INLINE SET HERO-QC', '225', '1')),
                 );
               },
             ),
@@ -3588,8 +5186,27 @@ class _NewOrderState extends State<NewOrder> {
           Container(
             padding: EdgeInsets.all(5),
             child: ListTile(
-              title: Text('20\" FILTER HOUSING 1/2\"/3/4\" SLIM'),
-              subtitle: Text('₹800'),
+              title: Text('FILTER HOUSING 10\" HEAVY'),
+              subtitle: Text('₹100'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'FILTER HOUSING 10\" HEAVY', '100', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('FILTER HOUSING 10\" WITH CLAMP'),
+              subtitle: Text('₹75'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -3599,7 +5216,758 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(context,
-                          '20\" FILTER HOUSING 1/2\"/3/4\" SLIM', '800', '1')),
+                          'FILTER HOUSING 10\" WITH CLAMP', '75', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('20\" FILTER HOUSING 1/2\"/3/4\" SLIM'),
+              subtitle: Text('₹325'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(context,
+                          '20\" FILTER HOUSING 1/2\"/3/4\" SLIM', '325', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('10\" FILTER HOUSING 3/4\" SLIM'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(context,
+                          '20\" FILTER HOUSING 1/2\"/3/4\" SLIM', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('FILTER HOUSING 9\" HANDLE'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'FILTER HOUSING 9\" HANDLE', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('MEMBRANE HOUSING 300/500 GPD'),
+              subtitle: Text('₹350'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'MEMBRANE HOUSING 300/500 GPD', '350', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('MEMBRANE HOUSING IMPORTED'),
+              subtitle: Text('₹80'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'MEMBRANE HOUSING IMPORTED', '80', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('FILTER HOUSING CLEAR 10\"'),
+              subtitle: Text('₹200'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'FILTER HOUSING CLEAR 10\"', '200', '1')),
+                );
+              },
+            ),
+          ),
+        ])));
+  }
+
+  Widget frame(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(
+            'FRAME',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: SingleChildScrollView(
+            child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('10 LPH WALL MOUNT'),
+              subtitle: Text('₹170'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, '10 LPH WALL MOUNT', '170', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('25 LPH SKID MOUNT'),
+              subtitle: Text('₹750'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, '25 LPH SKID MOUNT', '750', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('50 LPH SS OPEN FRAME'),
+              subtitle: Text('₹1,200'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, '50 LPH SS OPEN FRAME', '1200', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('10\" FILTER HOUSING 3/4\" SLIM'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(context,
+                          '20\" FILTER HOUSING 1/2\"/3/4\" SLIM', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('FILTER HOUSING 9\" HANDLE'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'FILTER HOUSING 9\" HANDLE', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('MEMBRANE HOUSING 300/500 GPD'),
+              subtitle: Text('₹350'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'MEMBRANE HOUSING 300/500 GPD', '350', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('MEMBRANE HOUSING IMPORTED'),
+              subtitle: Text('₹80'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'MEMBRANE HOUSING IMPORTED', '80', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('FILTER HOUSING CLEAR 10\"'),
+              subtitle: Text('₹200'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'FILTER HOUSING CLEAR 10\"', '200', '1')),
+                );
+              },
+            ),
+          ),
+        ])));
+  }
+
+  Widget stand(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(
+            'STAND',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: SingleChildScrollView(
+            child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('DOLPHIN BLACK STAND'),
+              subtitle: Text('₹100'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'DOLPHIN BLACK STAND', '100', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('DOLPHIN WHITE STAND'),
+              subtitle: Text('₹100'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'DOLPHIN WHITE STAND', '100', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('M PURE STAND'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'M PURE STAND', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('ROYAL STAND'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'ROYAL  STAND', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('WHALE STAND'),
+              subtitle: Text('₹250'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'WHALE  STAND', '250', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('CLUO STAND'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'CLUO  STAND', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('MINTO STAND'),
+              subtitle: Text('₹125'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'MINTO  STAND', '125', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('NOVO STAND'),
+              subtitle: Text('₹125'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'NOVO  STAND', '125', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('OTHER STAND'),
+              subtitle: Text('₹250'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'OTHER  STAND', '250', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('PUTUS STAND'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'PUTUS  STAND', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('WHALE CHAIR STAND'),
+              subtitle: Text('₹650'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'WHALE CHAIR  STAND', '650', '1')),
+                );
+              },
+            ),
+          ),
+        ])));
+  }
+
+  Widget clamp(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(
+            'CLAMP',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: SingleChildScrollView(
+            child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('C CLAMP 2.5'),
+              subtitle: Text('₹5'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'C CLAMP 2.5', '5', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('FAUCET CLAMP'),
+              subtitle: Text('₹40'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'FAUCET CLAMP', '40', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('X CLAMP 2.5X2'),
+              subtitle: Text('₹6'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'X CLAMP 2.5X 2', '6', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('X CLAMP 2.5X2.5'),
+              subtitle: Text('₹6'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'X CLAMP 2.5X 2.5', '6', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('10\" HOUSING CLAMP'),
+              subtitle: Text('₹10'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, '10\" HOUSING CLAMP', '10', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('20\" HOUSING CLAMP'),
+              subtitle: Text('₹100'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, '20\" HOUSING CLAMP', '100', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('CLUO STAND'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'CLUO  STAND', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('MINTO STAND'),
+              subtitle: Text('₹125'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'MINTO  STAND', '125', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('NOVO STAND'),
+              subtitle: Text('₹125'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'NOVO  STAND', '125', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('OTHER STAND'),
+              subtitle: Text('₹250'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'OTHER  STAND', '250', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('PUTUS STAND'),
+              subtitle: Text('₹150'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          customItem(context, 'PUTUS  STAND', '150', '1')),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              title: Text('WHALE CHAIR STAND'),
+              subtitle: Text('₹650'),
+              trailing: Text(
+                'Add',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customItem(
+                          context, 'WHALE CHAIR  STAND', '650', '1')),
                 );
               },
             ),
@@ -3625,7 +5993,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('MEMBERELLA SMPS 24V 1.5A'),
-                subtitle: Text('₹885'),
+                subtitle: Text('₹275'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -3635,7 +6003,26 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MEMBERELLA SMPS 24V 1.5A', '885', '1')),
+                            context, 'MEMBERELLA SMPS 24V 1.5A', '275', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('MEMBERELLA SMPS 36V 1.2A'),
+                subtitle: Text('₹295'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customItem(
+                            context, 'MEMBERELLA SMPS 36V 1.2A', '295', '1')),
                   );
                 },
               ),
@@ -3644,7 +6031,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('SMPS 24V 5A'),
-                subtitle: Text('₹1500'),
+                subtitle: Text('₹650'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -3654,7 +6041,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SMPS 24V 5A', '1500', '1')),
+                            customItem(context, 'SMPS 24V 5A', '650', '1')),
                   );
                 },
               ),
@@ -3663,7 +6050,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ADAPTER 24V FCW'),
-                subtitle: Text('₹600'),
+                subtitle: Text('₹210'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -3673,7 +6060,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'ADAPTER 24V FCW', '600', '1')),
+                            customItem(context, 'ADAPTER 24V FCW', '210', '1')),
                   );
                 },
               ),
@@ -3682,7 +6069,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ADAPTER  36 V FCW'),
-                subtitle: Text('₹600'),
+                subtitle: Text('₹200'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -3692,7 +6079,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'ADAPTER  36 V FCW', '600', '1')),
+                            context, 'ADAPTER  36 V FCW', '200', '1')),
                   );
                 },
               ),
@@ -3701,7 +6088,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ADAPTER 48V FCW'),
-                subtitle: Text('₹1,150'),
+                subtitle: Text('₹475'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -3710,8 +6097,84 @@ class _NewOrderState extends State<NewOrder> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => customItem(
-                            context, 'ADAPTER 48V FCW', '1150', '1')),
+                        builder: (context) =>
+                            customItem(context, 'ADAPTER 48V FCW', '475', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SMPS 24V 3A'),
+                subtitle: Text('₹425'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SMPS 24V 3A', '425', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SMPS 24V 3A FCW'),
+                subtitle: Text('₹450'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SMPS 24V 3A FCW', '450', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('ADAPTER DIGITAL'),
+                subtitle: Text('₹350'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'ADAPTER DIGITAL', '350', '1')),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(
+                title: Text('SMPS 24V 2.5A '),
+                subtitle: Text('₹385'),
+                trailing: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            customItem(context, 'SMPS 24V 2.5A', '385', '1')),
                   );
                 },
               ),

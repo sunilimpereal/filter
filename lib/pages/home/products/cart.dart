@@ -1,8 +1,10 @@
 import 'package:filter/models/product.dart';
 import 'package:filter/models/user.dart';
+import 'package:filter/pages/home/products/oder_view.dart';
 import 'package:filter/pages/home/products/productupdate.dart';
 import 'package:filter/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +21,17 @@ class _CartHomeState extends State<CartHome> {
       value: DatabaseService(uid: user.uid).productList,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Purchases'),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text('Purchases',
+              style: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
         ),
         body: Cart(),
       ),
@@ -39,36 +51,222 @@ class _CartState extends State<Cart> {
     final products = Provider.of<List<Product>>(context) ?? [];
     products.sort((a, b) => b.date.compareTo(a.date));
     print(products);
-    return ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          String date = DateFormat('dd/MM/yyyy')
-              .format(DateTime.parse(products[index].date ?? ''));
-          return ListTile(
-            title: Text(
-              products[index].description,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            trailing: (() {
-              if (products[index].due != '0') {
-                return Icon(
-                  Icons.info,
-                  color: Colors.red,
+    return Container(
+      child: Scaffold(
+        body: Container(
+          color: Colors.transparent,
+          child: ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                String date = DateFormat('dd/mm/yyyy')
+                    .format(DateTime.parse(products[index].date ?? ''));
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * (0.94),
+                            decoration: BoxDecoration(
+                                color: Colors.blue[900],
+                                borderRadius: BorderRadius.circular(18)),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 8.0,
+                                        left: 24.0,
+                                        bottom: 4.0,
+                                        right: 8.0,
+                                      ),
+                                      child: Text(
+                                          toBeginningOfSentenceCase(
+                                              products[index].contact),
+                                          style: GoogleFonts.lato(
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 8.0,
+                                        left: 8.0,
+                                        bottom: 4.0,
+                                        right: 8.0,
+                                      ),
+                                      child: Text(
+                                        (() {
+                                          return DateFormat('dd/MM/yyyy')
+                                              .format(DateTime.parse(
+                                                  products[index].date));
+                                        }()),
+                                        style: GoogleFonts.getFont('Roboto',
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 24.0),
+                                      child: Text(
+                                          toBeginningOfSentenceCase(
+                                              products[index].description),
+                                          style: TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 17,
+                                            fontFamily: 'ZillaSlab-SemiBold',
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ),
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: (() {
+                                          if (products[index].due != '0') {
+                                            return Icon(
+                                              Icons.info,
+                                              color: Colors.red,
+                                            );
+                                          } else {
+                                            return SizedBox();
+                                          }
+                                        }())),
+                                  ],
+                                ),
+                                //second ror
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ViewOderHome(prod: products[index])),
+                      );
+                    },
+                  ),
                 );
-              } else {
-                return SizedBox();
-              }
-            }()),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        cartItems(context, products[index], user)),
-              );
-            },
-          );
-        });
+                // return ListTile(
+                //   title: ((){
+                //     return
+
+                //   }()),
+                //   // Text(
+                //   //   products[index].description,
+                //   //   style: TextStyle(fontWeight: FontWeight.bold),
+                //   // ),
+                //   trailing: (() {
+                //     if (products[index].due != '0') {
+                //       return Icon(
+                //         Icons.info,
+                //         color: Colors.red,
+                //       );
+                //     } else {
+                //       return SizedBox();
+                //     }
+                //   }()),
+                //   onTap: () {
+                //     // Navigator.push(
+                //     //   context,
+                //     //   MaterialPageRoute(
+                //     //       builder: (context) =>
+                //     //           cartItems(context, products[index], user)),
+                //     // );
+                //   },
+                // );
+              }),
+        ),
+      ),
+    );
+    // return ListView.builder(
+    //     itemCount: products.length,
+    //     itemBuilder: (context, index) {
+    //       String date = DateFormat('dd/MM/yyyy')
+    //           .format(DateTime.parse(products[index].date ?? ''));
+    //       return ListTile(
+    //         leading: Container(
+    //           child: Text(
+    //             '${(index + 1).toString()}.',
+    //             style: TextStyle(
+    //               fontWeight: FontWeight.bold,
+    //               color: Colors.blue,
+    //             ),
+    //           ),
+    //         ),
+    //         title: Transform(
+    //           transform: Matrix4.translationValues(-24, 0.0, 0.0),
+    //           child: Text(
+    //             products[index].description,
+    //             style: TextStyle(fontWeight: FontWeight.bold),
+    //           ),
+    //         ),
+    //         trailing: (() {
+    //           if (products[index].due != '0') {
+    //             return Container(
+    //               width: 100,
+    //               child: Row(
+    //                 children: [
+    //                   Text(
+    //                     date,
+    //                     style: TextStyle(
+    //                         color: Colors.black54, fontWeight: FontWeight.bold),
+    //                   ),
+    //                   Icon(
+    //                     Icons.info,
+    //                     color: Colors.red,
+    //                   ),
+    //                 ],
+    //               ),
+    //             );
+    //           } else {
+    //             return Container(
+    //               width: 50,
+    //               child: Row(
+    //                 children: [
+    //                   Text(
+    //                     date,
+    //                     style: TextStyle(
+    //                         color: Colors.black54, fontWeight: FontWeight.bold),
+    //                   ),
+    //                 ],
+    //               ),
+    //             );
+    //           }
+    //         }()),
+    //         onTap: () {
+    //           Navigator.push(
+    //             context,
+    //             MaterialPageRoute(
+    //                 builder: (context) =>
+    //                     cartItems(context, products[index], user)),
+    //           );
+    //         },
+    //       );
+    //     });
   }
 }
 

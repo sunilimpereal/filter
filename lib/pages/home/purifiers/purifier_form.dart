@@ -1,11 +1,16 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:filter/models/user.dart';
+import 'package:filter/pages/home/purifiers/imageCaptureState.dart';
 import 'package:filter/pages/home/purifiers/ins_filterform.dart';
 import 'package:filter/services/database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:provider/provider.dart';
@@ -22,19 +27,23 @@ class _PurifierFormState extends State<PurifierForm> {
   //Form contents
   String name = '';
   String number = '';
+  String area = '';
   String address = '';
   String model = '';
   String membrane = '';
   String pump = '';
   String price = '';
   String date = '';
-  String paid = '';
-  String due = '';
+  String paid = '0';
+  String due = '0';
   String img = '';
   String id = '';
 
   @override
   Widget build(BuildContext context) {
+    int due1;
+    String imgStatus = 'Image';
+    String imageUrl;
     date = _selectedDate.toString();
     final user = Provider.of<User>(context);
     return new Scaffold(
@@ -129,6 +138,49 @@ class _PurifierFormState extends State<PurifierForm> {
                       ],
                       decoration: new InputDecoration(
                         labelText: "Phone",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              //area
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(10.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: new ListTile(
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.location_on)),
+                    selected: true,
+                    title: new TextFormField(
+                      validator: (value) => value.isEmpty ? 'Enter area' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          area = value;
+                        });
+                      },
+                      keyboardType: TextInputType.multiline,
+                      minLines: 1,
+                      maxLines: 4,
+                      decoration: new InputDecoration(
+                        labelText: "Area",
                         border: InputBorder.none,
                       ),
                     ),
@@ -295,7 +347,6 @@ class _PurifierFormState extends State<PurifierForm> {
                         padding: EdgeInsets.only(top: 6),
                         child: const Icon(Icons.battery_full)),
                     title: new TextFormField(
-                      validator: (value) => value.isEmpty ? 'Enter pump' : null,
                       onChanged: (value) {
                         setState(() {
                           pump = value;
@@ -349,8 +400,6 @@ class _PurifierFormState extends State<PurifierForm> {
                             ),
                           ),
                           title: new TextFormField(
-                            validator: (value) =>
-                                value.isEmpty ? 'Enter Total anount' : null,
                             onChanged: (value) {
                               price = value.toString();
                               print(price);
@@ -409,10 +458,9 @@ class _PurifierFormState extends State<PurifierForm> {
                             ),
                           ),
                           title: new TextFormField(
-                            validator: (value) =>
-                                value.isEmpty ? 'Enter paid' : null,
                             onChanged: (value) {
                               paid = value.toString();
+                              due1 = int.parse(price) - int.parse(paid);
                             },
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -469,8 +517,7 @@ class _PurifierFormState extends State<PurifierForm> {
                           title: Container(
                             padding: const EdgeInsets.all(0.0),
                             child: new TextFormField(
-                              validator: (value) =>
-                                  value.isEmpty ? 'Enter Due' : null,
+                              initialValue: due1.toString(),
                               onChanged: (value) {
                                 due = value.toString();
                               },
@@ -518,10 +565,27 @@ class _PurifierFormState extends State<PurifierForm> {
                   },
                 ),
               ),
-              new ListTile(
+              SizedBox(
+                height: 20,
+              ),
+              ListTile(
                 leading: const Icon(Icons.image),
-                title: const Text('Image'),
+                title: Text('$imgStatus'),
                 subtitle: const Text('Warranty image'),
+                onTap: () {
+                  imgStatus = 'Uploaded';
+                  print('Going to navigator');
+                  print(name);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImageCapture(
+                                name: '$name',
+                              )));
+                },
+              ),
+              SizedBox(
+                height: 20,
               ),
               Container(
                 child: ProgressButton.icon(
@@ -545,13 +609,26 @@ class _PurifierFormState extends State<PurifierForm> {
                           color: Colors.green.shade400)
                     },
                     onPressed: () async {
+                      HapticFeedback.mediumImpact();
                       if (stateTextWithIcon == ButtonState.idle) {
                         stateTextWithIcon = ButtonState.loading;
                         Future.delayed(Duration(seconds: 1), () {});
                         if (_formKey.currentState.validate()) {
                           dynamic result = await DatabaseService(uid: user.uid)
-                              .createPurifer(id, name, number, address, model,
-                                  membrane, pump, price, date, paid, due, img);
+                              .createPurifer(
+                                  id,
+                                  name,
+                                  number,
+                                  area,
+                                  address,
+                                  model,
+                                  membrane,
+                                  pump,
+                                  price,
+                                  date,
+                                  paid,
+                                  due,
+                                  img);
                           print(result);
 
                           Future.delayed(Duration(seconds: 1), () {
@@ -566,7 +643,9 @@ class _PurifierFormState extends State<PurifierForm> {
                                     builder: (context) => InsFilterForm(
                                         name: name,
                                         number: number,
-                                        address: address)));
+                                        area: area,
+                                        address: address,
+                                        model: model)));
                           });
                         }
                       }
@@ -584,6 +663,37 @@ class _PurifierFormState extends State<PurifierForm> {
         ),
       ),
     );
+  }
+
+  uploadImage() async {
+    final _storage = FirebaseStorage.instance;
+    final _picker = ImagePicker();
+    PickedFile image;
+    //check for permission
+    await Permission.photos.request();
+
+    var permissionStatus = await Permission.photos.status;
+
+    if (permissionStatus.isGranted) {
+      //select image
+      image = await _picker.getImage(source: ImageSource.gallery);
+      var file = File(image.path);
+
+      if (image != null) {
+        //upload to firebase
+        var snapshot = await _storage
+            .ref()
+            .child('warrenty/$name')
+            .putFile(file)
+            .onComplete;
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+        print(downloadUrl);
+      } else {
+        print('no path received');
+      }
+    } else {
+      print('Grant Permission');
+    }
   }
 
   Widget progressBtn(User user) {
@@ -615,6 +725,7 @@ class _PurifierFormState extends State<PurifierForm> {
         dynamic result = await DatabaseService(uid: user.uid).createPurifer(
             name,
             number,
+            area,
             address,
             model,
             membrane,
@@ -648,8 +759,8 @@ class _PurifierFormState extends State<PurifierForm> {
     final DateTime _pickedDate = await showDatePicker(
       context: context,
       initialDate: _initialDate,
-      firstDate: DateTime.now().subtract(Duration(days: 365)),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      firstDate: DateTime.now().subtract(Duration(days: 365 * 50)),
+      lastDate: DateTime.now().add(Duration(days: 365 * 50)),
     );
     if (_pickedDate != null) {
       selectedDate = DateTime(
