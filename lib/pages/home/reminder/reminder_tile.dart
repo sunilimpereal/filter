@@ -24,7 +24,7 @@ class ReminderTile extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 5.0),
           child: Stack(
             children: [
-              filterCard(filter.date, filter.name, filter.area, filter.model,
+              filterCard(filter.expDate, filter.name, filter.area, filter.model,
                   filter.number, filter.price, filter.due, filter.id),
               filterThumbnail,
             ],

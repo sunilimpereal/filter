@@ -73,7 +73,7 @@ class _ServiceFormState extends State<ServiceForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.person)),
                     selected: true,
                     title: new TextFormField(
@@ -84,6 +84,8 @@ class _ServiceFormState extends State<ServiceForm> {
                         });
                       },
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Name",
                         border: InputBorder.none,
                       ),
@@ -114,7 +116,7 @@ class _ServiceFormState extends State<ServiceForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.phone)),
                     selected: true,
                     title: new TextFormField(
@@ -130,6 +132,8 @@ class _ServiceFormState extends State<ServiceForm> {
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Phone",
                         border: InputBorder.none,
                       ),
@@ -159,7 +163,7 @@ class _ServiceFormState extends State<ServiceForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.location_on)),
                     selected: true,
                     title: new TextFormField(
@@ -173,6 +177,8 @@ class _ServiceFormState extends State<ServiceForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Area",
                         border: InputBorder.none,
                       ),
@@ -218,6 +224,8 @@ class _ServiceFormState extends State<ServiceForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Address",
                         border: InputBorder.none,
                       ),
@@ -250,7 +258,7 @@ class _ServiceFormState extends State<ServiceForm> {
                   child: new ListTile(
                     selected: true,
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.description)),
                     title: new TextFormField(
                       validator: (value) =>
@@ -262,6 +270,8 @@ class _ServiceFormState extends State<ServiceForm> {
                       },
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         border: InputBorder.none,
                         labelText: "Discription",
                       ),
@@ -305,6 +315,8 @@ class _ServiceFormState extends State<ServiceForm> {
                               });
                             },
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Spare part",
                             ),
@@ -348,6 +360,8 @@ class _ServiceFormState extends State<ServiceForm> {
                               WhitelistingTextInputFormatter.digitsOnly
                             ],
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Cost",
                             ),
@@ -395,6 +409,8 @@ class _ServiceFormState extends State<ServiceForm> {
                               });
                             },
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Spare part",
                             ),
@@ -438,6 +454,8 @@ class _ServiceFormState extends State<ServiceForm> {
                               WhitelistingTextInputFormatter.digitsOnly
                             ],
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Cost",
                             ),
@@ -484,6 +502,8 @@ class _ServiceFormState extends State<ServiceForm> {
                               });
                             },
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Spare part",
                             ),
@@ -527,6 +547,8 @@ class _ServiceFormState extends State<ServiceForm> {
                               WhitelistingTextInputFormatter.digitsOnly
                             ],
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Cost",
                             ),
@@ -568,7 +590,7 @@ class _ServiceFormState extends State<ServiceForm> {
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding:
-                              EdgeInsets.only(left: 0.0, right: 0.0, top: -6),
+                              EdgeInsets.only(left: -20.0, right: 0.0, top: -6),
                           leading: Text(
                             '    ₹',
                             style: TextStyle(
@@ -589,6 +611,8 @@ class _ServiceFormState extends State<ServiceForm> {
                               WhitelistingTextInputFormatter.digitsOnly
                             ],
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Price",
                             ),

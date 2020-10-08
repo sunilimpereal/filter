@@ -555,7 +555,7 @@ class _View extends StatelessWidget {
                               FlutterOpenWhatsapp.sendSingleMessage(
                                   "+91$number",
                                   "Your Water Purifier Filter replace date is $pdate\nLast filter replace date-\n$pdate1 \nEvery three month once filter change for long life machine\n By BK WATER SOLUTION\n KANNADASAN | 9994960228");
-                              // "Your Water Purifier Filter replace date is $pdate\nLast filter replace date-\n$pdate1 \nEvery three month once filter change for long life machine\n By BK WATER SOLUTION\n KANNADASAN | 9994960228");
+                              // "Your Water Purifier Filter replace date is $pdate\nLast filter replace date-\n$pdate1 \nEvery three month once filter change for long life machine\n By SMART AQUA PURIFIER\n BALACHANDAR | 9524989863");
                               final snackBar = SnackBar(
                                 content: Text('Message Sent to $name'),
                                 action: SnackBarAction(

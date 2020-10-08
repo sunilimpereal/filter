@@ -137,7 +137,6 @@ class ViewOrder extends StatefulWidget {
 
 class _ViewOrderState extends State<ViewOrder> {
   var selectedNumber;
-  List<String> itemlist1 = [];
   int itemnum(List<String> list) {
     double len = (list.length) / 3;
     return len.round();
@@ -165,9 +164,10 @@ class _ViewOrderState extends State<ViewOrder> {
       due = widget.due;
       ndate = DateTime.parse(widget.date);
       id = widget.id;
+      itemlist = widget.list;
     }
     final user = Provider.of<User>(context);
-    List<String> itemlist = widget.list;
+
     total = sum1(itemlist);
     return Scaffold(
       appBar: AppBar(
@@ -533,202 +533,214 @@ class _ViewOrderState extends State<ViewOrder> {
         ],
       ),
       body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: [
-              TextFormField(
-                initialValue: contact,
-                onChanged: (value) {
-                  setState(() {
-                    contact = value;
-                  });
-                },
-                decoration: new InputDecoration(
-                    fillColor: Colors.red,
-                    // focusedBorder:InputBorder(borderSide: bottom),
-                    labelText: "Contact",
-                    hoverColor: Colors.black),
-              ),
-              TextFormField(
-                initialValue: order,
-                onChanged: (value) {
-                  setState(() {
-                    order = value;
-                    print('changed');
-                    print(order);
-                  });
-                },
-                decoration: new InputDecoration(
-                    fillColor: Colors.red,
-                    // focusedBorder:InputBorder(borderSide: bottom),
-                    labelText: "Order",
-                    hoverColor: Colors.black),
-              ),
+        // padding: EdgeInsets.symmetric(horizontal: 20.0),
 
-              ListTile(
-                contentPadding: EdgeInsets.all(0),
-                title: Align(
-                  alignment: Alignment(-8.2, 0),
-                  child: GestureDetector(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.today,
-                          color: Colors.grey,
-                          size: 25,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          DateFormat('dd MMM yyyy').format(ndate),
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.black54,
-                        ),
-                      ],
-                    ),
-                    onTap: () async {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      DateTime _pickerDate = await _selectDate(DateTime.now());
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    initialValue: contact,
+                    onChanged: (value) {
                       setState(() {
-                        ndate = _pickerDate;
-
-                        print(ndate);
+                        contact = value;
                       });
                     },
+                    decoration: new InputDecoration(
+                        fillColor: Colors.red,
+                        // focusedBorder:InputBorder(borderSide: bottom),
+                        labelText: "Contact",
+                        hoverColor: Colors.black),
                   ),
-                ),
-              ),
-              Divider(
-                thickness: 0.8,
-              ),
-              //Total
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                    ),
-                  ),
-                  Text(
-                    (() {
-                      String sum = sum1(itemlist);
-                      return '₹ $sum';
-                    }()),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  )
-                ],
-              ),
-              //PAID DUE
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 150,
-                    child: TextFormField(
-                      initialValue: paid,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          paid = value;
-                        });
-                      },
-                      decoration: new InputDecoration(
-                          fillColor: Colors.red,
-                          // focusedBorder:InputBorder(borderSide: bottom),
-                          labelText: "Paid",
-                          hoverColor: Colors.black),
-                    ),
-                  ),
-                  Container(
-                    width: 150,
-                    child: TextFormField(
-                      initialValue: due,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          due = value;
-                        });
-                      },
-                      decoration: new InputDecoration(
-                          fillColor: Colors.red,
-                          // focusedBorder:InputBorder(borderSide: bottom),
-                          labelText: "Due",
-                          hoverColor: Colors.black),
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Items in Order',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[800]),
-                  ),
-                  GestureDetector(
-                    child: Container(
-                      width: 70,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.blue,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Add',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 17),
-                          )
-                        ],
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => itemView()));
+                  TextFormField(
+                    initialValue: order,
+                    onChanged: (value) {
+                      setState(() {
+                        order = value;
+                        print('changed');
+                        print(order);
+                      });
                     },
-                  )
+                    decoration: new InputDecoration(
+                        fillColor: Colors.red,
+                        // focusedBorder:InputBorder(borderSide: bottom),
+                        labelText: "Order",
+                        hoverColor: Colors.black),
+                  ),
+
+                  ListTile(
+                    contentPadding: EdgeInsets.all(0),
+                    title: Align(
+                      alignment: Alignment(-8.2, 0),
+                      child: GestureDetector(
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.today,
+                              color: Colors.grey,
+                              size: 25,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              DateFormat('dd MMM yyyy').format(ndate),
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.black54,
+                            ),
+                          ],
+                        ),
+                        onTap: () async {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          DateTime _pickerDate =
+                              await _selectDate(DateTime.now());
+                          setState(() {
+                            ndate = _pickerDate;
+
+                            print(ndate);
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    thickness: 0.8,
+                  ),
+                  //Total
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                      ),
+                      Text(
+                        (() {
+                          String sum = sum1(itemlist);
+                          return '₹ $sum';
+                        }()),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      )
+                    ],
+                  ),
+                  //PAID DUE
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 150,
+                        child: TextFormField(
+                          initialValue: paid,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly
+                          ],
+                          onChanged: (value) {
+                            setState(() {
+                              paid = value;
+                            });
+                          },
+                          decoration: new InputDecoration(
+                              fillColor: Colors.red,
+                              // focusedBorder:InputBorder(borderSide: bottom),
+                              labelText: "Paid",
+                              hoverColor: Colors.black),
+                        ),
+                      ),
+                      Container(
+                        width: 150,
+                        child: TextFormField(
+                          initialValue: due,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly
+                          ],
+                          onChanged: (value) {
+                            setState(() {
+                              due = value;
+                            });
+                          },
+                          decoration: new InputDecoration(
+                              fillColor: Colors.red,
+                              // focusedBorder:InputBorder(borderSide: bottom),
+                              labelText: "Due",
+                              hoverColor: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Items in Order',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[800]),
+                      ),
+                      GestureDetector(
+                        child: Container(
+                          width: 70,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.blue,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Add',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 17),
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => itemView()));
+                        },
+                      )
+                    ],
+                  ),
                 ],
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: itemsList(itemlist),
-                ),
-              )
-            ],
-          )),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 0.0),
+                child: itemsList(itemlist),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -736,514 +748,519 @@ class _ViewOrderState extends State<ViewOrder> {
   Widget itemsList(List<String> itemlist) {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 0),
-      child: Column(children: [
-        (() {
-          try {
-            if (itemlist[0] != '') {
-              String name = itemlist[0];
-              String qn = itemlist[1];
-              String price = itemlist[2];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name  ( $qn )',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[3] != '') {
-              String name = itemlist[3];
-              String qn = itemlist[4];
-              String price = itemlist[5];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[6] != '') {
-              String name = itemlist[6];
-              String qn = itemlist[7];
-              String price = itemlist[8];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[9] != '') {
-              String name = itemlist[9];
-              String qn = itemlist[10];
-              String price = itemlist[11];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[12] != '') {
-              String name = itemlist[12];
-              String qn = itemlist[13];
-              String price = itemlist[14];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[15] != '') {
-              String name = itemlist[15];
-              String qn = itemlist[16];
-              String price = itemlist[17];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[18] != '') {
-              String name = itemlist[18];
-              String qn = itemlist[19];
-              String price = itemlist[20];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[15] != '') {
-              String name = itemlist[15];
-              String qn = itemlist[16];
-              String price = itemlist[17];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[18] != '') {
-              String name = itemlist[18];
-              String qn = itemlist[19];
-              String price = itemlist[20];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[21] != '') {
-              String name = itemlist[21];
-              String qn = itemlist[22];
-              String price = itemlist[23];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[24] != '') {
-              String name = itemlist[24];
-              String qn = itemlist[25];
-              String price = itemlist[26];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[27] != '') {
-              String name = itemlist[27];
-              String qn = itemlist[28];
-              String price = itemlist[29];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[30] != '') {
-              String name = itemlist[30];
-              String qn = itemlist[31];
-              String price = itemlist[32];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[330] != '') {
-              String name = itemlist[33];
-              String qn = itemlist[34];
-              String price = itemlist[35];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[36] != '') {
-              String name = itemlist[36];
-              String qn = itemlist[37];
-              String price = itemlist[38];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[39] != '') {
-              String name = itemlist[39];
-              String qn = itemlist[40];
-              String price = itemlist[41];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[42] != '') {
-              String name = itemlist[42];
-              String qn = itemlist[43];
-              String price = itemlist[44];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[45] != '') {
-              String name = itemlist[45];
-              String qn = itemlist[46];
-              String price = itemlist[47];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[48] != '') {
-              String name = itemlist[48];
-              String qn = itemlist[49];
-              String price = itemlist[50];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[51] != '') {
-              String name = itemlist[51];
-              String qn = itemlist[52];
-              String price = itemlist[53];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[54] != '') {
-              String name = itemlist[54];
-              String qn = itemlist[55];
-              String price = itemlist[56];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-        (() {
-          try {
-            if (itemlist[57] != '') {
-              String name = itemlist[57];
-              String qn = itemlist[58];
-              String price = itemlist[59];
-              return Column(children: [
-                ListTile(
-                  title: Text(
-                    '$name ($qn)',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Text(
-                    '₹ $price',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]);
-            }
-          } catch (e) {
-            return SizedBox();
-          }
-        }()),
-      ]),
+      child: SingleChildScrollView(
+        child: Container(
+          color: Colors.transparent,
+          child: Column(children: [
+            (() {
+              try {
+                if (itemlist[0] != '') {
+                  String name = itemlist[0];
+                  String qn = itemlist[1];
+                  String price = itemlist[2];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name  ( $qn )',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[3] != '') {
+                  String name = itemlist[3];
+                  String qn = itemlist[4];
+                  String price = itemlist[5];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[6] != '') {
+                  String name = itemlist[6];
+                  String qn = itemlist[7];
+                  String price = itemlist[8];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[9] != '') {
+                  String name = itemlist[9];
+                  String qn = itemlist[10];
+                  String price = itemlist[11];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[12] != '') {
+                  String name = itemlist[12];
+                  String qn = itemlist[13];
+                  String price = itemlist[14];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[15] != '') {
+                  String name = itemlist[15];
+                  String qn = itemlist[16];
+                  String price = itemlist[17];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[18] != '') {
+                  String name = itemlist[18];
+                  String qn = itemlist[19];
+                  String price = itemlist[20];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[15] != '') {
+                  String name = itemlist[15];
+                  String qn = itemlist[16];
+                  String price = itemlist[17];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[18] != '') {
+                  String name = itemlist[18];
+                  String qn = itemlist[19];
+                  String price = itemlist[20];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[21] != '') {
+                  String name = itemlist[21];
+                  String qn = itemlist[22];
+                  String price = itemlist[23];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[24] != '') {
+                  String name = itemlist[24];
+                  String qn = itemlist[25];
+                  String price = itemlist[26];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[27] != '') {
+                  String name = itemlist[27];
+                  String qn = itemlist[28];
+                  String price = itemlist[29];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[30] != '') {
+                  String name = itemlist[30];
+                  String qn = itemlist[31];
+                  String price = itemlist[32];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[330] != '') {
+                  String name = itemlist[33];
+                  String qn = itemlist[34];
+                  String price = itemlist[35];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[36] != '') {
+                  String name = itemlist[36];
+                  String qn = itemlist[37];
+                  String price = itemlist[38];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[39] != '') {
+                  String name = itemlist[39];
+                  String qn = itemlist[40];
+                  String price = itemlist[41];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[42] != '') {
+                  String name = itemlist[42];
+                  String qn = itemlist[43];
+                  String price = itemlist[44];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[45] != '') {
+                  String name = itemlist[45];
+                  String qn = itemlist[46];
+                  String price = itemlist[47];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[48] != '') {
+                  String name = itemlist[48];
+                  String qn = itemlist[49];
+                  String price = itemlist[50];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[51] != '') {
+                  String name = itemlist[51];
+                  String qn = itemlist[52];
+                  String price = itemlist[53];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[54] != '') {
+                  String name = itemlist[54];
+                  String qn = itemlist[55];
+                  String price = itemlist[56];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+            (() {
+              try {
+                if (itemlist[57] != '') {
+                  String name = itemlist[57];
+                  String qn = itemlist[58];
+                  String price = itemlist[59];
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        '$name ($qn)',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text(
+                        '₹ $price',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ]);
+                }
+              } catch (e) {
+                return SizedBox();
+              }
+            }()),
+          ]),
+        ),
+      ),
     );
   }
 
@@ -1337,7 +1354,7 @@ class _ViewOrderState extends State<ViewOrder> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                customItem(context, '', '', '1')),
+                                customItem(context, '', '0', '1')),
                       );
                       // Add your onPressed code here!
                     },
@@ -4252,11 +4269,12 @@ class _ViewOrderState extends State<ViewOrder> {
               if (_formKey.currentState.validate()) {
                 setState(() {
                   nu = itemnum(itemlist);
+                  itemlist.add(item);
+                  itemlist.add(q);
+                  itemlist.add(price);
+                  print(itemlist);
                 });
-                itemlist.add(item);
-                itemlist.add(q);
-                itemlist.add(price);
-                print(itemlist);
+
                 Fluttertoast.showToast(
                     msg: "$item added to cart",
                     toastLength: Toast.LENGTH_SHORT,
@@ -4374,45 +4392,6 @@ class _ViewOrderState extends State<ViewOrder> {
               SizedBox(
                 height: 20,
               ),
-              // Row(
-              //   children: [
-              //     Text(
-              //       'Details',
-              //       style: TextStyle(
-              //           color: Colors.black,
-              //           fontWeight: FontWeight.bold,
-              //           fontSize: 18),
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(height: 10),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text(
-              //       'Number Of Units',
-              //       style: TextStyle(color: Colors.black, fontSize: 16),
-              //     ),
-              //     Text(
-              //       '$q',
-              //       style: TextStyle(color: Colors.black, fontSize: 16),
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(height: 10),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text(
-              //       'Total Aount',
-              //       style: TextStyle(color: Colors.black, fontSize: 16),
-              //     ),
-              //     Text(
-              //       '$total',
-              //       style: TextStyle(color: Colors.black, fontSize: 16),
-              //     ),
-              //   ],
-              // )
             ],
           ),
         ),

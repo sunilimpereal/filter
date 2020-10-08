@@ -162,7 +162,7 @@ class _AccountPageState extends State<AccountPage> {
                                   height: 15,
                                 ),
                                 Container(
-                                  padding: EdgeInsets.only(left: 50),
+                                  padding: EdgeInsets.only(left: 0),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
@@ -307,7 +307,7 @@ class _AccountPageState extends State<AccountPage> {
                                   height: 15,
                                 ),
                                 Container(
-                                  padding: EdgeInsets.only(left: 90),
+                                  padding: EdgeInsets.only(left: 0),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),

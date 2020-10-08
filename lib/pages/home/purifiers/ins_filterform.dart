@@ -37,10 +37,10 @@ class _InsFilterFormState extends State<InsFilterForm> {
   String area = '';
   String address = '';
   String model = '';
-  String price = '';
+  String price = '0';
   String date = '';
-  String paid = '';
-  String due = '';
+  String paid = '0';
+  String due = '0';
   String fexpDate = '';
   DateTime expDate = DateTime.parse(
       DateReminder(date: (DateTime.now().toString())).addthreeMonths());
@@ -94,7 +94,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.person)),
                     selected: true,
                     title: new TextFormField(
@@ -106,6 +106,8 @@ class _InsFilterFormState extends State<InsFilterForm> {
                         });
                       },
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Name",
                         border: InputBorder.none,
                       ),
@@ -136,7 +138,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.phone)),
                     selected: true,
                     title: new TextFormField(
@@ -153,6 +155,8 @@ class _InsFilterFormState extends State<InsFilterForm> {
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Phone",
                         border: InputBorder.none,
                       ),
@@ -183,7 +187,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.location_on)),
                     selected: true,
                     title: new TextFormField(
@@ -198,6 +202,8 @@ class _InsFilterFormState extends State<InsFilterForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Area",
                         border: InputBorder.none,
                       ),
@@ -228,7 +234,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.home)),
                     selected: true,
                     title: new TextFormField(
@@ -244,6 +250,8 @@ class _InsFilterFormState extends State<InsFilterForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Address",
                         border: InputBorder.none,
                       ),
@@ -276,7 +284,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
                   child: new ListTile(
                     selected: true,
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.description)),
                     title: new TextFormField(
                       initialValue: model,
@@ -289,6 +297,8 @@ class _InsFilterFormState extends State<InsFilterForm> {
                       },
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         border: InputBorder.none,
                         labelText: "Filter Model",
                       ),

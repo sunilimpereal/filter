@@ -494,6 +494,10 @@ class _NewOrderState extends State<NewOrder> {
                             paid = value;
                           });
                         },
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
                         decoration: new InputDecoration(
                             fillColor: Colors.red,
                             // focusedBorder:InputBorder(borderSide: bottom),
@@ -509,6 +513,10 @@ class _NewOrderState extends State<NewOrder> {
                             due = value;
                           });
                         },
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
                         decoration: new InputDecoration(
                             fillColor: Colors.red,
                             // focusedBorder:InputBorder(borderSide: bottom),
@@ -1180,7 +1188,7 @@ class _NewOrderState extends State<NewOrder> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                customItem(context, '', '', '1')),
+                                customItem(context, '', '0', '1')),
                       );
                       // Add your onPressed code here!
                     },

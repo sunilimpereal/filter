@@ -45,29 +45,6 @@ class _FilterHomeState extends State<FilterHome> {
     return StreamProvider<List<Filter>>.value(
       value: DatabaseService(uid: user.uid).filterList,
       child: Scaffold(
-        // appBar: GradientAppBar(
-        //   elevation: 0.0,
-        //   backgroundColorStart: Color(0xFF153243),
-        //   backgroundColorEnd: Color(0xFF153243),
-        //   title: Text('Filters'),
-        //   actions: [
-        //     IconButton(
-        //       icon: Icon(Icons.insert_invitation),
-        //       iconSize: 30.0,
-        //       onPressed: () {
-        //         dispalyDateRangePicker(context);
-        //       },
-        //     ),
-        //     IconButton(
-        //       icon: Icon(Icons.add),
-        //       iconSize: 30.0,
-        //       onPressed: () {
-        //         Navigator.push(context,
-        //             MaterialPageRoute(builder: (context) => FilterForm()));
-        //       },
-        //     )
-        //   ],
-        // ),
         body: Column(children: [
           SizedBox(
             height: 70,

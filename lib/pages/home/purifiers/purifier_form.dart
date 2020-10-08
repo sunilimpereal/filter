@@ -80,7 +80,7 @@ class _PurifierFormState extends State<PurifierForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.person)),
                     selected: true,
                     title: new TextFormField(
@@ -91,6 +91,8 @@ class _PurifierFormState extends State<PurifierForm> {
                         });
                       },
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Name",
                         border: InputBorder.none,
                       ),
@@ -121,7 +123,7 @@ class _PurifierFormState extends State<PurifierForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.phone)),
                     selected: true,
                     title: new TextFormField(
@@ -137,6 +139,8 @@ class _PurifierFormState extends State<PurifierForm> {
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Phone",
                         border: InputBorder.none,
                       ),
@@ -166,7 +170,7 @@ class _PurifierFormState extends State<PurifierForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.location_on)),
                     selected: true,
                     title: new TextFormField(
@@ -180,6 +184,8 @@ class _PurifierFormState extends State<PurifierForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Area",
                         border: InputBorder.none,
                       ),
@@ -210,7 +216,7 @@ class _PurifierFormState extends State<PurifierForm> {
                       ]),
                   child: new ListTile(
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.home)),
                     selected: true,
                     title: new TextFormField(
@@ -225,6 +231,8 @@ class _PurifierFormState extends State<PurifierForm> {
                       minLines: 1,
                       maxLines: 4,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         labelText: "Address",
                         border: InputBorder.none,
                       ),
@@ -257,7 +265,7 @@ class _PurifierFormState extends State<PurifierForm> {
                   child: new ListTile(
                     selected: true,
                     leading: Container(
-                        padding: EdgeInsets.only(top: 5),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.description)),
                     title: new TextFormField(
                       validator: (value) =>
@@ -269,6 +277,8 @@ class _PurifierFormState extends State<PurifierForm> {
                       },
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         border: InputBorder.none,
                         labelText: "Model",
                       ),
@@ -301,7 +311,7 @@ class _PurifierFormState extends State<PurifierForm> {
                   child: new ListTile(
                     selected: true,
                     leading: Container(
-                        padding: EdgeInsets.only(top: 7),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.layers)),
                     title: new TextFormField(
                       validator: (value) =>
@@ -313,6 +323,8 @@ class _PurifierFormState extends State<PurifierForm> {
                       },
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         border: InputBorder.none,
                         labelText: "Membrane",
                       ),
@@ -344,7 +356,7 @@ class _PurifierFormState extends State<PurifierForm> {
                   child: new ListTile(
                     selected: true,
                     leading: Container(
-                        padding: EdgeInsets.only(top: 6),
+                        padding: EdgeInsets.only(top: 0),
                         child: const Icon(Icons.battery_full)),
                     title: new TextFormField(
                       onChanged: (value) {
@@ -354,6 +366,8 @@ class _PurifierFormState extends State<PurifierForm> {
                       },
                       keyboardType: TextInputType.multiline,
                       decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
                         border: InputBorder.none,
                         labelText: "Pump",
                       ),
@@ -409,6 +423,8 @@ class _PurifierFormState extends State<PurifierForm> {
                               WhitelistingTextInputFormatter.digitsOnly
                             ],
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Total",
                             ),
@@ -467,6 +483,8 @@ class _PurifierFormState extends State<PurifierForm> {
                               WhitelistingTextInputFormatter.digitsOnly
                             ],
                             decoration: new InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.only(top: -3, bottom: 7, left: 0),
                               border: InputBorder.none,
                               labelText: "Paid",
                             ),
@@ -526,6 +544,8 @@ class _PurifierFormState extends State<PurifierForm> {
                                 WhitelistingTextInputFormatter.digitsOnly
                               ],
                               decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      top: -3, bottom: 7, left: 0),
                                   border: InputBorder.none,
                                   labelText: "Due",
                                   fillColor: Colors.red),
