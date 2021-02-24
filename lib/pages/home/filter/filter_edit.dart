@@ -39,6 +39,7 @@ class _FilterEditState extends State<FilterEdit> {
   String img;
   String date1 = '';
   String fexpDate;
+  String idNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +69,11 @@ class _FilterEditState extends State<FilterEdit> {
           future: _getFilter(),
           builder: (BuildContext context, AsyncSnapshot<Filter> snapshot) {
             if (snapshot.hasData) {
+              String idNumber = snapshot.data.idNumber;
               String name = snapshot.data.name;
               String number = snapshot.data.number;
               String address = snapshot.data.address;
+              String area = snapshot.data.area;
               String model = snapshot.data.model;
               String price = snapshot.data.price;
               String date = snapshot.data.date;
@@ -89,6 +92,50 @@ class _FilterEditState extends State<FilterEdit> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
+                      //idNumber
+                      SizedBox(height: 10),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0)),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 3),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(const Radius.circular(10.0)),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 10.0,
+                                )
+                              ]),
+                          child: new ListTile(
+                            leading: Container(
+                                padding: EdgeInsets.only(top: 7),
+                                child: const Icon(Icons.person)),
+                            selected: true,
+                            title: new TextFormField(
+                              keyboardType: TextInputType.number,
+                              initialValue: snapshot.data.idNumber,
+                              validator: (value) =>
+                                  value.isEmpty ? 'Enter ID' : null,
+                              onChanged: (value) {
+                                idNumber = value;
+                                print(idNumber);
+                              },
+                              decoration: new InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                    top: -3, bottom: 7, left: -10),
+                                labelText: "ID",
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       // name
                       SizedBox(height: 10),
                       Container(
@@ -580,17 +627,19 @@ class _FilterEditState extends State<FilterEdit> {
                                   dynamic result =
                                       await DatabaseService(uid: user.uid)
                                           .updateFilter(
-                                              widget.id,
-                                              name,
-                                              number,
-                                              area,
-                                              address,
-                                              model,
-                                              date1,
-                                              price,
-                                              paid,
-                                              due,
-                                              fexpDate);
+                                    idNumber,
+                                    widget.id,
+                                    name,
+                                    number,
+                                    area,
+                                    address,
+                                    model,
+                                    date1,
+                                    price,
+                                    paid,
+                                    due,
+                                    fexpDate,
+                                  );
                                   print(result);
 
                                   Future.delayed(Duration(seconds: 1), () {

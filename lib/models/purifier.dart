@@ -1,4 +1,5 @@
 class Purifier {
+  String idNumber;
   String id;
   final String name;
   final String number;
@@ -14,6 +15,7 @@ class Purifier {
   final String img;
 
   Purifier({
+    this.idNumber,
     this.id,
     this.name,
     this.number,

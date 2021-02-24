@@ -28,6 +28,7 @@ class _FilterFormState extends State<FilterForm> {
   String date = '';
   String paid = '';
   String due = '';
+  String idNumber = '';
   String fexpDate = '';
   DateTime expDate = DateTime.parse(
       DateReminder(date: (DateTime.now().toString())).addthreeMonths());
@@ -54,6 +55,49 @@ class _FilterFormState extends State<FilterForm> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              //idNumber
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(10.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: new ListTile(
+                    leading: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: const Icon(Icons.person)),
+                    selected: true,
+                    title: new TextFormField(
+                      keyboardType: TextInputType.number,
+                      validator: (value) => value.isEmpty ? 'Enter ID' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          idNumber = value.toString();
+                        });
+                      },
+                      decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: -10),
+                        labelText: "ID",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               // name
               SizedBox(height: 10),
               Container(
@@ -443,6 +487,7 @@ class _FilterFormState extends State<FilterForm> {
                           print(fexpDate);
                           dynamic result = await DatabaseService(uid: user.uid)
                               .createFilter(
+                                  idNumber,
                                   id,
                                   name,
                                   number,

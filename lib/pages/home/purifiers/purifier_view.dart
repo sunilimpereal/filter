@@ -95,6 +95,7 @@ class _PurifierViewState extends State<PurifierView> {
             if (snapshot.hasData) {
               return Container(
                   child: _View(
+                      snapshot.data.idNumber,
                       snapshot.data.name,
                       snapshot.data.number,
                       snapshot.data.area,
@@ -123,6 +124,7 @@ class _PurifierViewState extends State<PurifierView> {
 }
 
 class _View extends StatelessWidget {
+  final String idNumber;
   final String name;
   final String number;
   final String area;
@@ -137,6 +139,7 @@ class _View extends StatelessWidget {
   final String img;
 
   _View(
+    this.idNumber,
     this.name,
     this.number,
     this.area,
@@ -166,6 +169,48 @@ class _View extends StatelessWidget {
                 padding: EdgeInsets.only(left: 0, right: 10),
                 child: Column(
                   children: [
+                    //Id Number
+                    SizedBox(height: 10),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(const Radius.circular(10.0)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(10.0)),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10.0,
+                              )
+                            ]),
+                        child: new ListTile(
+                          leading: Container(
+                              padding: EdgeInsets.only(top: 0),
+                              child: const Icon(Icons.qr_code)),
+                          selected: true,
+                          title: new TextFormField(
+                            initialValue: '$idNumber',
+                            enabled: false,
+                            decoration: new InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  top: -3, bottom: 7, left: -10),
+                              labelText: "ID",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
                     //NAME
                     SizedBox(height: 10),
                     Container(

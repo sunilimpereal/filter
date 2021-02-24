@@ -1,13 +1,11 @@
 import 'package:filter/models/product.dart';
 import 'package:filter/models/user.dart';
 import 'package:filter/pages/home/products/newOder.dart';
-import 'package:filter/pages/home/products/oder_view.dart';
-import 'package:filter/pages/home/products/productview.dart';
+
 import 'package:filter/services/database.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+
 import 'package:provider/provider.dart';
 
 class ProducthomeBloc extends StatefulWidget {
@@ -98,493 +96,328 @@ class _ProductHomeState extends State<ProductHome> {
                 ),
               ],
             ),
-            Column(
-              children: [
-                Container(
-                  height: 350,
-                  padding: const EdgeInsets.only(top: 0.0),
-                  child: Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.orange),
-                      width: MediaQuery.of(context).size.width * (0.9),
-                      height: 290,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 300,
-                            height: 180,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "lib/assets/icon/purchasehome.png"),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20, bottom: 20, left: 30, right: 30),
-                            child: GestureDetector(
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                    color: Colors.white),
-                                child: Center(
-                                    child: Text(
-                                  'Create New Order',
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.orange[400]),
-                                )),
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 350,
+                      padding: const EdgeInsets.only(top: 0.0),
+                      child: Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.orange),
+                          width: MediaQuery.of(context).size.width * (0.9),
+                          height: 290,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
                               ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => NewOrder()));
-                              },
-                            ),
+                              Container(
+                                width: 300,
+                                height: 180,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "lib/assets/icon/purchasehome.png"),
+                                      fit: BoxFit.cover),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20, bottom: 20, left: 30, right: 30),
+                                child: GestureDetector(
+                                  child: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(40),
+                                        color: Colors.white),
+                                    child: Center(
+                                        child: Text(
+                                      'Create New Order',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.orange[400]),
+                                    )),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NewOrder()));
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    width: 400,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.blue),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Row(
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                        width: 400,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.blue),
+                        child: Container(
+                          child: Column(
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(),
-                                child: Center(
-                                  child: Text(
-                                    '    Purchases',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(),
+                                    child: Center(
+                                      child: Text(
+                                        '    Purchases',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Divider(
+                                color: Colors.blue[900],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(),
+                                          child: Text(
+                                            '    Number of purchase :',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(left: 0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Colors.blue[900],
+                                            ),
+                                            width: 60,
+                                            height: 30,
+                                            child: Center(
+                                              child: Text(
+                                                '$purchnum',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Divider(),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(),
+                                          child: Text(
+                                            '    Total Amount :',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(left: 0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Colors.blue[900],
+                                            ),
+                                            width: 100,
+                                            height: 30,
+                                            child: Center(
+                                              child: Text(
+                                                '₹ $purchtot',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 15,
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Divider(
-                            color: Colors.blue[900],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(),
-                                      child: Text(
-                                        '    Number of purchase :',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(left: 0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.blue[900],
-                                        ),
-                                        width: 60,
-                                        height: 30,
-                                        child: Center(
+                              Divider(),
+                              Row(
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(),
                                           child: Text(
-                                            '$purchnum',
+                                            '    Total Paid :   ',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 17,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Divider(),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(),
-                                      child: Text(
-                                        '    Total Amount :',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(left: 0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.blue[900],
+                                        SizedBox(
+                                          height: 15,
                                         ),
-                                        width: 100,
-                                        height: 30,
-                                        child: Center(
+                                        Container(
+                                          padding: EdgeInsets.only(left: 0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Colors.blue[900],
+                                            ),
+                                            width: 100,
+                                            height: 30,
+                                            child: Center(
+                                              child: Text(
+                                                '₹ $purchpaid',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Divider(),
+                              Row(
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(),
                                           child: Text(
-                                            '₹ $purchtot',
+                                            '    Total Due :  ',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 17,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Divider(),
-                          Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(),
-                                      child: Text(
-                                        '    Total Paid :   ',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(left: 0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.blue[900],
+                                        SizedBox(
+                                          height: 15,
                                         ),
-                                        width: 100,
-                                        height: 30,
-                                        child: Center(
-                                          child: Text(
-                                            '₹ $purchpaid',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold),
+                                        Container(
+                                          padding: EdgeInsets.only(left: 0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Colors.blue[900],
+                                            ),
+                                            width: 100,
+                                            height: 30,
+                                            child: Center(
+                                              child: Text(
+                                                '₹ $purchdue',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Divider(),
-                          Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(),
-                                      child: Text(
-                                        '    Total Due :  ',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(left: 0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.blue[900],
-                                        ),
-                                        width: 100,
-                                        height: 30,
-                                        child: Center(
-                                          child: Text(
-                                            '₹ $purchdue',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-
-                // Expanded(
-                //   child: Container(
-                //       color: Colors.transparent,
-                //       child: (() {
-                //         return ListView.builder(
-                //             itemCount: products.length,
-                //             itemBuilder: (context, index) {
-                //               String date = DateFormat('dd/mm/yyyy').format(
-                //                   DateTime.parse(products[index].date ?? ''));
-                //               return Padding(
-                //                 padding: const EdgeInsets.all(8.0),
-                //                 child: GestureDetector(
-                //                   child: Container(
-                //                     width: MediaQuery.of(context).size.width,
-                //                     height: 80,
-                //                     child: Row(
-                //                       mainAxisAlignment:
-                //                           MainAxisAlignment.center,
-                //                       children: [
-                //                         Container(
-                //                           width: MediaQuery.of(context)
-                //                                   .size
-                //                                   .width *
-                //                               (0.94),
-                //                           decoration: BoxDecoration(
-                //                               color: Colors.blue[900],
-                //                               borderRadius:
-                //                                   BorderRadius.circular(18)),
-                //                           child: Column(
-                //                             children: [
-                //                               Row(
-                //                                 mainAxisAlignment:
-                //                                     MainAxisAlignment
-                //                                         .spaceBetween,
-                //                                 children: [
-                //                                   Padding(
-                //                                     padding:
-                //                                         const EdgeInsets.only(
-                //                                       top: 8.0,
-                //                                       left: 24.0,
-                //                                       bottom: 4.0,
-                //                                       right: 8.0,
-                //                                     ),
-                //                                     child: Text(
-                //                                         toBeginningOfSentenceCase(
-                //                                             products[index]
-                //                                                 .contact),
-                //                                         style: GoogleFonts.lato(
-                //                                           textStyle: TextStyle(
-                //                                             color: Colors.white,
-                //                                             fontSize: 20,
-                //                                             fontWeight:
-                //                                                 FontWeight.bold,
-                //                                           ),
-                //                                         )),
-                //                                   ),
-                //                                   Padding(
-                //                                     padding:
-                //                                         const EdgeInsets.only(
-                //                                       top: 8.0,
-                //                                       left: 8.0,
-                //                                       bottom: 4.0,
-                //                                       right: 8.0,
-                //                                     ),
-                //                                     child: Text(
-                //                                       (() {
-                //                                         return DateFormat(
-                //                                                 'dd/MM/yyyy')
-                //                                             .format(DateTime
-                //                                                 .parse(products[
-                //                                                         index]
-                //                                                     .date));
-                //                                       }()),
-                //                                       style:
-                //                                           GoogleFonts.getFont(
-                //                                               'Bangers',
-                //                                               textStyle:
-                //                                                   TextStyle(
-                //                                                 color: Colors
-                //                                                     .white,
-                //                                                 fontSize: 15,
-                //                                                 fontWeight:
-                //                                                     FontWeight
-                //                                                         .bold,
-                //                                               )),
-                //                                     ),
-                //                                   ),
-                //                                 ],
-                //                               ),
-                //                               Row(
-                //                                 mainAxisAlignment:
-                //                                     MainAxisAlignment
-                //                                         .spaceBetween,
-                //                                 children: [
-                //                                   Padding(
-                //                                     padding:
-                //                                         const EdgeInsets.only(
-                //                                             left: 24.0),
-                //                                     child: Text(
-                //                                         toBeginningOfSentenceCase(
-                //                                             products[index]
-                //                                                 .description),
-                //                                         style: TextStyle(
-                //                                           color: Colors.white70,
-                //                                           fontSize: 17,
-                //                                           fontFamily:
-                //                                               'ZillaSlab-SemiBold',
-                //                                           fontWeight:
-                //                                               FontWeight.bold,
-                //                                         )),
-                //                                   ),
-                //                                   Padding(
-                //                                       padding:
-                //                                           const EdgeInsets.only(
-                //                                               right: 8.0),
-                //                                       child: (() {
-                //                                         if (products[index]
-                //                                                 .due !=
-                //                                             '0') {
-                //                                           return Icon(
-                //                                             Icons.info,
-                //                                             color: Colors.red,
-                //                                           );
-                //                                         } else {
-                //                                           return SizedBox();
-                //                                         }
-                //                                       }())),
-                //                                 ],
-                //                               ),
-                //                               //second ror
-                //                             ],
-                //                           ),
-                //                         ),
-                //                       ],
-                //                     ),
-                //                   ),
-                //                   onTap: () {
-                //                     Navigator.push(
-                //                       context,
-                //                       MaterialPageRoute(
-                //                           builder: (context) => ViewOderHome(
-                //                               prod: products[index])),
-                //                     );
-                //                   },
-                //                 ),
-                //               );
-                //               // return ListTile(
-                //               //   title: ((){
-                //               //     return
-
-                //               //   }()),
-                //               //   // Text(
-                //               //   //   products[index].description,
-                //               //   //   style: TextStyle(fontWeight: FontWeight.bold),
-                //               //   // ),
-                //               //   trailing: (() {
-                //               //     if (products[index].due != '0') {
-                //               //       return Icon(
-                //               //         Icons.info,
-                //               //         color: Colors.red,
-                //               //       );
-                //               //     } else {
-                //               //       return SizedBox();
-                //               //     }
-                //               //   }()),
-                //               //   onTap: () {
-                //               //     // Navigator.push(
-                //               //     //   context,
-                //               //     //   MaterialPageRoute(
-                //               //     //       builder: (context) =>
-                //               //     //           cartItems(context, products[index], user)),
-                //               //     // );
-                //               //   },
-                //               // );
-                //             });
-                //       }())),
-                // ),
-              ],
+              ),
             ),
           ],
         ));

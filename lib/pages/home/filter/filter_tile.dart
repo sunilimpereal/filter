@@ -26,8 +26,16 @@ class FilterTile extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 5.0),
           child: Stack(
             children: [
-              filterCard(filter.date, filter.name, filter.area, filter.model,
-                  filter.number, filter.price, filter.due, filter.id),
+              filterCard(
+                  filter.date,
+                  filter.name,
+                  filter.area,
+                  filter.model,
+                  filter.number,
+                  filter.price,
+                  filter.due,
+                  filter.id,
+                  filter.idNumber),
               filterThumbnail,
             ],
           ),
@@ -56,7 +64,7 @@ class FilterTile extends StatelessWidget {
 
   //Building filter card
   filterCard(String date, String name, String area, String model, String number,
-      String price, String due, String id) {
+      String price, String due, String id, String idNumber) {
     print(DateTime.now().toString());
     print(date);
     print(name);
@@ -114,12 +122,16 @@ class FilterTile extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          '$date',
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white),
+                        child: Row(
+                          children: [
+                            Text(
+                              '$date',
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -129,17 +141,28 @@ class FilterTile extends StatelessWidget {
                   ),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(children: [
-                        Text(
-                          '$number',
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ])),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '$number',
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              'ID :$idNumber',
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ])),
                   SizedBox(
                     height: 10,
                   ),

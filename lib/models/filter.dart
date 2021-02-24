@@ -1,4 +1,5 @@
 class Filter {
+  final String idNumber;
   final String id;
   final String name;
   final String number;
@@ -12,6 +13,7 @@ class Filter {
   final String expDate;
 
   Filter({
+    this.idNumber,
     this.id,
     this.name,
     this.number,

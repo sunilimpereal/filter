@@ -15,8 +15,10 @@ class InsFilterForm extends StatefulWidget {
   String area;
   String address;
   String model;
+  final String idNumber;
 
   InsFilterForm({
+    this.idNumber,
     this.name,
     this.number,
     this.area,
@@ -46,7 +48,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
       DateReminder(date: (DateTime.now().toString())).addthreeMonths());
   String id = '';
   String img = '';
-
+  String idNumber = '';
   @override
   Widget build(BuildContext context) {
     name = widget.name;
@@ -56,6 +58,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
     model = widget.model;
     date = _selectedDate.toString();
     fexpDate = expDate.toString();
+    idNumber = widget.idNumber;
 
     fexpDate = DateReminder(date: (DateTime.now().toString())).addthreeMonths();
     final user = Provider.of<User>(context);
@@ -469,6 +472,7 @@ class _InsFilterFormState extends State<InsFilterForm> {
                           print(fexpDate);
                           dynamic result = await DatabaseService(uid: user.uid)
                               .createFilter(
+                                  idNumber,
                                   id,
                                   name,
                                   number,

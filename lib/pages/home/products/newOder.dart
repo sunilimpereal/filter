@@ -2656,7 +2656,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('ANTISCALANT BALLS'),
-                subtitle: Text('₹375'),
+                subtitle: Text('₹5'),
                 trailing: Text(
                   'ADD',
                   style: TextStyle(color: Colors.green),
@@ -2665,8 +2665,8 @@ class _NewOrderState extends State<NewOrder> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => customItem(
-                            context, 'ANTISCALANT BALLS', '375', '1')),
+                        builder: (context) =>
+                            customItem(context, 'ANTISCALANT BALLS', '5', '1')),
                   );
 
                   final snackBar = SnackBar(
@@ -3465,7 +3465,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('MEMBRELLA PRE FILTER'),
-                subtitle: Text('₹150'),
+                subtitle: Text('₹80'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -3475,7 +3475,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MEMBRELLA PRE FILTER', '150', '1')),
+                            context, 'MEMBRELLA PRE FILTER', '80', '1')),
                   );
                 },
               ),
@@ -3618,7 +3618,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('SLX SV -24V'),
-                subtitle: Text('₹135'),
+                subtitle: Text('₹110'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -3628,7 +3628,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            customItem(context, 'SLX SV -24V', '135', '1')),
+                            customItem(context, 'SLX SV -24V', '110', '1')),
                   );
                 },
               ),
@@ -4838,7 +4838,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('FLOAT SIDE CONNECTION'),
-              subtitle: Text('₹55'),
+              subtitle: Text('₹50'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -4848,7 +4848,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'FLOAT SIDE CONNECTION', '55', '1')),
+                          context, 'FLOAT SIDE CONNECTION', '50', '1')),
                 );
               },
             ),
@@ -5309,7 +5309,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('MEMBRANE HOUSING IMPORTED'),
-              subtitle: Text('₹80'),
+              subtitle: Text('₹90'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -5319,7 +5319,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'MEMBRANE HOUSING IMPORTED', '80', '1')),
+                          context, 'MEMBRANE HOUSING IMPORTED', '90', '1')),
                 );
               },
             ),
@@ -5477,7 +5477,7 @@ class _NewOrderState extends State<NewOrder> {
             padding: EdgeInsets.all(5),
             child: ListTile(
               title: Text('MEMBRANE HOUSING IMPORTED'),
-              subtitle: Text('₹80'),
+              subtitle: Text('₹90'),
               trailing: Text(
                 'Add',
                 style: TextStyle(color: Colors.green),
@@ -5487,7 +5487,7 @@ class _NewOrderState extends State<NewOrder> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => customItem(
-                          context, 'MEMBRANE HOUSING IMPORTED', '80', '1')),
+                          context, 'MEMBRANE HOUSING IMPORTED', '90', '1')),
                 );
               },
             ),
@@ -6001,7 +6001,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('MEMBERELLA SMPS 24V 1.5A'),
-                subtitle: Text('₹275'),
+                subtitle: Text('₹250'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -6011,7 +6011,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MEMBERELLA SMPS 24V 1.5A', '275', '1')),
+                            context, 'MEMBERELLA SMPS 24V 1.5A', '250', '1')),
                   );
                 },
               ),
@@ -6020,7 +6020,7 @@ class _NewOrderState extends State<NewOrder> {
               padding: EdgeInsets.all(5),
               child: ListTile(
                 title: Text('MEMBERELLA SMPS 36V 1.2A'),
-                subtitle: Text('₹295'),
+                subtitle: Text('₹250'),
                 trailing: Text(
                   'Add',
                   style: TextStyle(color: Colors.green),
@@ -6030,7 +6030,7 @@ class _NewOrderState extends State<NewOrder> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => customItem(
-                            context, 'MEMBERELLA SMPS 36V 1.2A', '295', '1')),
+                            context, 'MEMBERELLA SMPS 36V 1.2A', '250', '1')),
                   );
                 },
               ),

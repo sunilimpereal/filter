@@ -36,6 +36,7 @@ class _PurifierEditState extends State<PurifierEdit> {
   String due;
   String expDate;
   String img;
+  String idNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +88,50 @@ class _PurifierEditState extends State<PurifierEdit> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
+                        //idnumber
+                        SizedBox(height: 10),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                                const Radius.circular(10.0)),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 3),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    const Radius.circular(10.0)),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 10.0,
+                                  )
+                                ]),
+                            child: new ListTile(
+                              leading: Container(
+                                  padding: EdgeInsets.only(top: 0),
+                                  child: const Icon(Icons.qr_code_rounded)),
+                              selected: true,
+                              title: new TextFormField(
+                                initialValue: snapshot.data.idNumber,
+                                enabled: true,
+                                validator: (value) =>
+                                    value.isEmpty ? 'Enter ID' : null,
+                                onChanged: (value) {
+                                  idNumber = value.toString();
+                                  print(name);
+                                },
+                                decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      top: -3, bottom: 7, left: -10),
+                                  labelText: "ID",
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         // name
                         SizedBox(height: 10),
                         Container(
@@ -667,6 +712,7 @@ class _PurifierEditState extends State<PurifierEdit> {
                                     dynamic result =
                                         await DatabaseService(uid: user.uid)
                                             .updatePurifier(
+                                                idNumber,
                                                 widget.id,
                                                 name,
                                                 number,

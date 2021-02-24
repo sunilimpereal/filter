@@ -41,6 +41,7 @@ class SearchResult extends StatelessWidget {
     List<Purifier> purifiername = [];
     List<Purifier> purifierNum = [];
     List<Purifier> purifierAddress = [];
+    List<Purifier> purifiersId = [];
     for (var i = 0; i < purifiers.length; i++) {
       if (type == 'Type' || type == 'Installation') {
         if (name == purifiers[i].name) {
@@ -48,6 +49,9 @@ class SearchResult extends StatelessWidget {
         }
         if (name == purifiers[i].number) {
           purifierNum.add(purifiers[i]);
+        }
+        if (name == purifiers[i].idNumber) {
+          purifiersId.add(purifiers[i]);
         }
         if (purifiers[i].address.contains(name)) {
           purifierAddress.add(purifiers[i]);
@@ -60,6 +64,8 @@ class SearchResult extends StatelessWidget {
     List<Filter> filtername = [];
     List<Filter> filterNum = [];
     List<Filter> filterAddress = [];
+    List<Filter> filterID = [];
+
     for (var i = 0; i < filters.length; i++) {
       if (type == 'Type' || type == 'Filter') {
         if (name == filters[i].name) {
@@ -67,6 +73,9 @@ class SearchResult extends StatelessWidget {
         }
         if (name == filters[i].number) {
           filterNum.add(filters[i]);
+        }
+        if (name == filters[i].idNumber) {
+          filterID.add(filters[i]);
         }
         if (filters[i].address.contains(name)) {
           filterAddress.add(filters[i]);
@@ -92,6 +101,10 @@ class SearchResult extends StatelessWidget {
                 children: [
                   for (var item in filterNum) FilterTile(filter: item)
                 ],
+              );
+            } else if (filterID.length > 0) {
+              return Column(
+                children: [for (var item in filterID) FilterTile(filter: item)],
               );
             } else if (filterAddress.length > 0) {
               return Column(
@@ -137,6 +150,12 @@ class SearchResult extends StatelessWidget {
               return Column(
                 children: [
                   for (var item in purifierNum) PurifierTile(purifier: item)
+                ],
+              );
+            } else if (purifiersId.length > 0) {
+              return Column(
+                children: [
+                  for (var item in purifiersId) PurifierTile(purifier: item)
                 ],
               );
             } else if (purifierAddress.length > 0) {

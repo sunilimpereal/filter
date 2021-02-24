@@ -13,6 +13,7 @@ class DatabaseService {
       Firestore.instance.collection('Purifiers');
 
   Future createPurifer(
+    String idNumber,
     String id,
     String name,
     String number,
@@ -32,6 +33,7 @@ class DatabaseService {
         .collection('PurifierList')
         .document()
         .setData({
+      'idNumber': idNumber,
       'id': id,
       'name': name,
       'number': number,
@@ -57,6 +59,7 @@ class DatabaseService {
   }
 
   Future updatePurifier(
+    String idNumber,
     String id,
     String name,
     String number,
@@ -76,6 +79,7 @@ class DatabaseService {
         .collection('PurifierList')
         .document(id)
         .updateData({
+      'idNumber': idNumber,
       'id': id,
       'name': name,
       'number': number,
@@ -94,6 +98,8 @@ class DatabaseService {
 
   Purifier purifierFromSnapshot(DocumentSnapshot snapshot) {
     return Purifier(
+      idNumber:
+          snapshot.data['idNumber'] == null ? '' : snapshot.data['idNumber'],
       id: snapshot.documentID,
       name: snapshot.data['name'],
       number: snapshot.data['number'],
@@ -114,6 +120,7 @@ class DatabaseService {
   List<Purifier> _purifierListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Purifier(
+        idNumber: doc.data['idNumber'],
         id: doc.documentID,
         name: doc.data['name'],
         number: doc.data['number'],
@@ -309,6 +316,7 @@ class DatabaseService {
   //Create filter
 
   Future createFilter(
+    String idNumber,
     String id,
     String name,
     String number,
@@ -326,6 +334,7 @@ class DatabaseService {
         .collection('FilterList')
         .document()
         .setData({
+      'idNumber': idNumber,
       'id': id,
       'name': name,
       'number': number,
@@ -351,6 +360,7 @@ class DatabaseService {
   //Update Filter
 
   Future updateFilter(
+    String idNumber,
     String id,
     String name,
     String number,
@@ -368,6 +378,7 @@ class DatabaseService {
         .collection('FilterList')
         .document(id)
         .updateData({
+      'idNumber': idNumber,
       'id': id,
       'name': name,
       'number': number,
@@ -385,6 +396,7 @@ class DatabaseService {
   //filter from document
   Filter filterFromSnapshot(DocumentSnapshot snapshot) {
     return Filter(
+        idNumber: snapshot.data['idNumber'],
         id: snapshot.data['id'],
         name: snapshot.data['name'],
         number: snapshot.data['number'],
@@ -402,6 +414,7 @@ class DatabaseService {
   List<Filter> _filterListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Filter(
+        idNumber: doc.data['idNumber'],
         id: doc.documentID,
         name: doc.data['name'],
         number: doc.data['number'],

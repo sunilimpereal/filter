@@ -6,7 +6,11 @@ class DataSearch extends SearchDelegate<String> {
 
   DataSearch(this.names);
   List<String> recentNames = [];
-  List<String> items = ['Filter', 'Service', 'Installation'];
+  List<String> items = [
+    'Filter',
+    'Service',
+    'Installation',
+  ];
   String type = 'Type';
   @override
   List<Widget> buildActions(BuildContext context) {

@@ -28,14 +28,16 @@ class PurifierTile extends StatelessWidget {
           child: Stack(
             children: [
               filterCard(
-                  purifier.date,
-                  purifier.name,
-                  purifier.area,
-                  purifier.model,
-                  purifier.number,
-                  purifier.price,
-                  purifier.due,
-                  purifier.id),
+                purifier.date,
+                purifier.name,
+                purifier.area,
+                purifier.model,
+                purifier.number,
+                purifier.price,
+                purifier.due,
+                purifier.id,
+                purifier.idNumber,
+              ),
               filterThumbnail,
             ],
           ),
@@ -64,7 +66,7 @@ class PurifierTile extends StatelessWidget {
 
   //Building filter card
   filterCard(String date, String name, String area, String model, String number,
-      String price, String due, String id) {
+      String price, String due, String id, String idNumber) {
     print(DateTime.now().toString());
     print(date);
     print(name);
@@ -137,17 +139,28 @@ class PurifierTile extends StatelessWidget {
                   ),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(children: [
-                        Text(
-                          '$number',
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ])),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '$number',
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              'ID: $number',
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ])),
                   SizedBox(
                     height: 10,
                   ),

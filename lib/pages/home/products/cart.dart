@@ -170,103 +170,10 @@ class _CartState extends State<Cart> {
                     },
                   ),
                 );
-                // return ListTile(
-                //   title: ((){
-                //     return
-
-                //   }()),
-                //   // Text(
-                //   //   products[index].description,
-                //   //   style: TextStyle(fontWeight: FontWeight.bold),
-                //   // ),
-                //   trailing: (() {
-                //     if (products[index].due != '0') {
-                //       return Icon(
-                //         Icons.info,
-                //         color: Colors.red,
-                //       );
-                //     } else {
-                //       return SizedBox();
-                //     }
-                //   }()),
-                //   onTap: () {
-                //     // Navigator.push(
-                //     //   context,
-                //     //   MaterialPageRoute(
-                //     //       builder: (context) =>
-                //     //           cartItems(context, products[index], user)),
-                //     // );
-                //   },
-                // );
               }),
         ),
       ),
     );
-    // return ListView.builder(
-    //     itemCount: products.length,
-    //     itemBuilder: (context, index) {
-    //       String date = DateFormat('dd/MM/yyyy')
-    //           .format(DateTime.parse(products[index].date ?? ''));
-    //       return ListTile(
-    //         leading: Container(
-    //           child: Text(
-    //             '${(index + 1).toString()}.',
-    //             style: TextStyle(
-    //               fontWeight: FontWeight.bold,
-    //               color: Colors.blue,
-    //             ),
-    //           ),
-    //         ),
-    //         title: Transform(
-    //           transform: Matrix4.translationValues(-24, 0.0, 0.0),
-    //           child: Text(
-    //             products[index].description,
-    //             style: TextStyle(fontWeight: FontWeight.bold),
-    //           ),
-    //         ),
-    //         trailing: (() {
-    //           if (products[index].due != '0') {
-    //             return Container(
-    //               width: 100,
-    //               child: Row(
-    //                 children: [
-    //                   Text(
-    //                     date,
-    //                     style: TextStyle(
-    //                         color: Colors.black54, fontWeight: FontWeight.bold),
-    //                   ),
-    //                   Icon(
-    //                     Icons.info,
-    //                     color: Colors.red,
-    //                   ),
-    //                 ],
-    //               ),
-    //             );
-    //           } else {
-    //             return Container(
-    //               width: 50,
-    //               child: Row(
-    //                 children: [
-    //                   Text(
-    //                     date,
-    //                     style: TextStyle(
-    //                         color: Colors.black54, fontWeight: FontWeight.bold),
-    //                   ),
-    //                 ],
-    //               ),
-    //             );
-    //           }
-    //         }()),
-    //         onTap: () {
-    //           Navigator.push(
-    //             context,
-    //             MaterialPageRoute(
-    //                 builder: (context) =>
-    //                     cartItems(context, products[index], user)),
-    //           );
-    //         },
-    //       );
-    //     });
   }
 }
 

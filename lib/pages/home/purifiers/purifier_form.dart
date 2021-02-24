@@ -38,6 +38,7 @@ class _PurifierFormState extends State<PurifierForm> {
   String due = '0';
   String img = '';
   String id = '';
+  String idNumber = '';
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,50 @@ class _PurifierFormState extends State<PurifierForm> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              //idNumber
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(10.0)),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(10.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: new ListTile(
+                    leading: Container(
+                      padding: EdgeInsets.only(top: 0),
+                      child: const Icon(Icons.qr_code_rounded),
+                    ),
+                    selected: true,
+                    title: new TextFormField(
+                      keyboardType: TextInputType.number,
+                      validator: (value) => value.isEmpty ? 'Enter ID' : null,
+                      onChanged: (value) {
+                        setState(() {
+                          idNumber = value.toString();
+                        });
+                      },
+                      decoration: new InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: -3, bottom: 7, left: 0),
+                        labelText: "ID",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               // name
               SizedBox(height: 10),
               Container(
@@ -636,6 +681,7 @@ class _PurifierFormState extends State<PurifierForm> {
                         if (_formKey.currentState.validate()) {
                           dynamic result = await DatabaseService(uid: user.uid)
                               .createPurifer(
+                                  idNumber,
                                   id,
                                   name,
                                   number,
@@ -661,6 +707,7 @@ class _PurifierFormState extends State<PurifierForm> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => InsFilterForm(
+                                        idNumber: idNumber,
                                         name: name,
                                         number: number,
                                         area: area,
@@ -743,6 +790,8 @@ class _PurifierFormState extends State<PurifierForm> {
       stateTextWithIcon = ButtonState.loading;
       if (_formKey.currentState.validate()) {
         dynamic result = await DatabaseService(uid: user.uid).createPurifer(
+            idNumber,
+            id,
             name,
             number,
             area,
@@ -754,7 +803,6 @@ class _PurifierFormState extends State<PurifierForm> {
             date,
             paid,
             due,
-            id,
             img);
         print(result);
       }
